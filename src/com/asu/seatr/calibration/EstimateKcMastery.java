@@ -7,9 +7,9 @@ import com.asu.seatr.utils.Utilities;
 public class EstimateKcMastery {
 
 	//Datastructure to implement BEST
-	HashMap<Integer, Float> best_innerBestMap = new HashMap<Integer, Float>();
-	HashMap<Integer,HashMap<Integer,Float>> best_innerKcBestMap = new HashMap<Integer,HashMap<Integer,Float>>();
-	HashMap<Integer, HashMap<Integer, HashMap<Integer,Float>>> best_outerStudentKcMap =  new HashMap<Integer, HashMap<Integer, HashMap<Integer,Float>>>();
+	static HashMap<Integer, Float> best_innerBestMap = new HashMap<Integer, Float>();
+	static HashMap<Integer,HashMap<Integer,Float>> best_innerKcBestMap = new HashMap<Integer,HashMap<Integer,Float>>();
+	static HashMap<Integer, HashMap<Integer, HashMap<Integer,Float>>> best_outerStudentKcMap =  new HashMap<Integer, HashMap<Integer, HashMap<Integer,Float>>>();
 	
 	//Datastructure to implement FORWARD
 	HashMap<Integer, Float> forward_innerForwardMap = new HashMap<Integer, Float>();
@@ -22,10 +22,10 @@ public class EstimateKcMastery {
 	HashMap<Integer, HashMap<Integer, HashMap<Integer,Float>>> backward_outerStudentKcMap =  new HashMap<Integer, HashMap<Integer, HashMap<Integer,Float>>>();
 	
 	
-	public void Estimate_KC_mastery_Best(int studentCount ,int kCount){
+	public static void Estimate_KC_mastery_Best(int studentCount ,int kCount){
 		for(int S=1;S<=studentCount;S++){
 			for(int K=1;K<kCount;K++){
-				int lastCount = Utilities.getLast(S);
+				int lastCount = getLast(S);
 				for(int A=1;A<=lastCount;A++){
 
 					float bestValue = forward(S,K,A)*backward(S,K,A);
@@ -68,6 +68,10 @@ public class EstimateKcMastery {
 		HashMap<Integer,Float> bestmap = KcBestmap.get(K);
 		return bestmap.get(A);
 	}
-
+	
+	public static int getLast(int StudentId){
+		int nQuestionsAttempted = 0;
+		return nQuestionsAttempted;
+	}
 
 }
