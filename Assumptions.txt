@@ -1,2 +1,3 @@
 1.absolute difference between the current parameters and the saved parameters is calculted as follows:
-		*Each array elements change value is added/ total number of elemements. 
+		*Each array elements change value is added/ total number of elemements.
+2. return the max change among initalMastery,Learn,Slip,Guess.		
