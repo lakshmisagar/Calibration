@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import com.asu.seatr.utils.GlobalConstants;
+import com.asu.seatr.utils.Utils;
 
 /**
  * @author Lakshmisagar Kusnoor created on May 15, 2017
@@ -44,7 +45,7 @@ public class FillingForward {
 
 					for (int innerK = 1; innerK <= Nk; innerK++) {
 						if (KCs.contains(innerK)) {
-							BigDecimal forwardNumeratorValue = y.multiply(Utils.getForward(S, innerK, A));
+							BigDecimal forwardNumeratorValue = y.multiply(Utils.getForward(S, innerK, A)).add(x);
 							BigDecimal forwardfillingValue = forwardNumeratorValue.divideToIntegralValue(y.add(x));
 							Utils.updateForward(S, innerK, A + 1, forwardfillingValue);
 						} else {

@@ -1,13 +1,11 @@
 /**
  * 
  */
-package com.asu.seatr.calibration;
+package com.asu.seatr.utils;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import com.asu.seatr.utils.GlobalConstants;
 
 /**
  * @author Lakshmisagar Kusnoor created on May 15, 2017
