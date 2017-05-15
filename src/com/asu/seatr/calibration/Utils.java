@@ -71,7 +71,7 @@ public class Utils {
 		forward_outerStudentKcMap.put(S, forward_innerKcBestMap);
 	}
 
-	public void updateBackward(int S, int K, int A, BigDecimal backwardfillingValue) {
+	public static void updateBackward(int S, int K, int A, BigDecimal backwardfillingValue) {
 		// TODO implement backward filling
 		backward_innerBackwardMap.put(A, backwardfillingValue);
 		backward_innerKcBestMap.put(K, backward_innerBackwardMap);
