@@ -15,12 +15,24 @@ import com.asu.seatr.utils.GlobalConstants;
  */
 public class Utils {
 
-	private static BigDecimal[] InitialMastery = new BigDecimal[GlobalConstants.total_KCs];
+	private static BigDecimal[] mInitialMastery = new BigDecimal[GlobalConstants.total_KCs];
+	private static BigDecimal[] mLearn = new BigDecimal[GlobalConstants.total_KCs];
+	private static BigDecimal[] mSlip = new BigDecimal[GlobalConstants.total_Questions];
+	private static BigDecimal[] mGuess = new BigDecimal[GlobalConstants.total_Questions];
+	
+	
+	// Datastructure to implement Question
+	static HashMap<Integer, Integer> question_AQ_Map = new HashMap<Integer, Integer>();
+	static HashMap<Integer, HashMap<Integer, Integer>> question_SA_Map = new HashMap<Integer, HashMap<Integer, Integer>>();
+
+	// Datastructure to implement Answer
+	static HashMap<Integer, Integer> answer_AC_Map = new HashMap<Integer, Integer>();
+	static HashMap<Integer, HashMap<Integer, Integer>> answer_SA_Map = new HashMap<Integer, HashMap<Integer, Integer>>();
 	
 	// Datastructure to implement BEST
-		static HashMap<Integer, BigDecimal> best_innerBestMap = new HashMap<Integer, BigDecimal>();
-		static HashMap<Integer, HashMap<Integer, BigDecimal>> best_innerKcBestMap = new HashMap<Integer, HashMap<Integer, BigDecimal>>();
-		static HashMap<Integer, HashMap<Integer, HashMap<Integer, BigDecimal>>> best_outerStudentKcMap = new HashMap<Integer, HashMap<Integer, HashMap<Integer, BigDecimal>>>();
+	static HashMap<Integer, BigDecimal> best_innerBestMap = new HashMap<Integer, BigDecimal>();
+	static HashMap<Integer, HashMap<Integer, BigDecimal>> best_innerKcBestMap = new HashMap<Integer, HashMap<Integer, BigDecimal>>();
+	static HashMap<Integer, HashMap<Integer, HashMap<Integer, BigDecimal>>> best_outerStudentKcMap = new HashMap<Integer, HashMap<Integer, HashMap<Integer, BigDecimal>>>();
 
 	// Datastructure to implement FORWARD
 	static HashMap<Integer, BigDecimal> forward_innerForwardMap = new HashMap<Integer, BigDecimal>();
@@ -66,7 +78,7 @@ public class Utils {
 		backward_outerStudentKcMap.put(S, backward_innerKcBestMap);
 	}
 
-	public BigDecimal getBackward(int S, int K, int A) {
+	public static BigDecimal getBackward(int S, int K, int A) {
 		HashMap<Integer, HashMap<Integer, BigDecimal>> Kcmap = backward_outerStudentKcMap.get(S);
 		HashMap<Integer, BigDecimal> backwardmap = Kcmap.get(K);
 		return backwardmap.get(A);
@@ -77,26 +89,71 @@ public class Utils {
 		HashMap<Integer, BigDecimal> forwardmap = Kcmap.get(K);
 		return forwardmap.get(A);
 	}
-	
+
 	public static void updateBest(int S, int K, int A, BigDecimal bestValue) {
 		// TODO implement forward filling
 		best_innerBestMap.put(A, bestValue);
 		best_innerKcBestMap.put(K, best_innerBestMap);
 		best_outerStudentKcMap.put(S, best_innerKcBestMap);
 	}
-	
-	public BigDecimal getBest(int S, int K, int A) {
+
+	public static BigDecimal getBest(int S, int K, int A) {
 		HashMap<Integer, HashMap<Integer, BigDecimal>> Kcmap = best_outerStudentKcMap.get(S);
 		HashMap<Integer, BigDecimal> bestmap = Kcmap.get(K);
 		return bestmap.get(A);
 	}
 
-	public void setInitialMastery(int K, BigDecimal value){
-		InitialMastery[K] = value;
+	public void setInitialMastery(int K, BigDecimal value) {
+		mInitialMastery[K] = value;
+	}
+
+	public static BigDecimal getInitialMastery(int K) {
+		return mInitialMastery[K];
+	}
+
+	public static void setSlip(int question, BigDecimal value) {
+		mSlip[question] = value;
+	}
+
+	public static BigDecimal getSlip(int question) {
+		return mSlip[question];
+	}
+
+	public void setGuess(int question, BigDecimal value) {
+		mInitialMastery[question] = value;
+	}
+
+	public static BigDecimal getGuess(int question) {
+		return mInitialMastery[question];
+	}
+
+	public static void setAnswer(int S, int A, int value) {
+		answer_AC_Map.put(A, value);
+		answer_SA_Map.put(S, answer_AC_Map);
+	}
+
+	public static int getAnswer(int S, int A) {
+		HashMap<Integer, Integer> innerAC_map = answer_SA_Map.get(S);
+		return innerAC_map.get(A);
 	}
 	
-	public static BigDecimal getInitialMastery(int K){
-		return InitialMastery[K];
+	public static void setQuestion(int S, int A, int value) {
+		question_AQ_Map.put(A, value);
+		question_SA_Map.put(S, question_AQ_Map);
+	}
+
+	public static int getQuestion(int S, int A) {
+		HashMap<Integer, Integer> innerAQ_map = question_SA_Map.get(S);
+		return innerAQ_map.get(A);
+	}
+
+
+	public void setLearn(int K, BigDecimal value) {
+		mLearn[K] = value;
+	}
+
+	public static BigDecimal getLearn(int K) {
+		return mLearn[K];
 	}
 
 }

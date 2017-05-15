@@ -1,9 +1,6 @@
 package com.asu.seatr.calibration;
 
 import java.math.BigDecimal;
-import java.util.HashMap;
-
-import com.asu.seatr.utils.GlobalConstants;
 /**
  * @author Lakshmisagar Kusnoor created on May 12, 2017
  *
@@ -15,7 +12,7 @@ public class EstimateKcMastery {
 			for (int K = 1; K < kCount; K++) {
 				int lastCount = Utils.getLast(S);
 				for (int A = 1; A <= lastCount; A++) {
-					BigDecimal bestValue = forward(S, K, A) * backward(S, K, A);
+					BigDecimal bestValue = Utils.getForward(S, K, A).multiply(Utils.getBackward(S, K, A));
 
 				}
 			}
@@ -23,8 +20,4 @@ public class EstimateKcMastery {
 	}
 
 	
-
-	
-
-
 }
