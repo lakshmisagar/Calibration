@@ -7,12 +7,16 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.asu.seatr.utils.GlobalConstants;
+
 /**
  * @author Lakshmisagar Kusnoor created on May 15, 2017
  *
  */
 public class Utils {
 
+	private static BigDecimal[] InitialMastery = new BigDecimal[GlobalConstants.total_KCs];
+	
 	// Datastructure to implement BEST
 		static HashMap<Integer, BigDecimal> best_innerBestMap = new HashMap<Integer, BigDecimal>();
 		static HashMap<Integer, HashMap<Integer, BigDecimal>> best_innerKcBestMap = new HashMap<Integer, HashMap<Integer, BigDecimal>>();
@@ -61,7 +65,6 @@ public class Utils {
 		backward_innerKcBestMap.put(K, backward_innerBackwardMap);
 		backward_outerStudentKcMap.put(S, backward_innerKcBestMap);
 	}
-	
 
 	public BigDecimal getBackward(int S, int K, int A) {
 		HashMap<Integer, HashMap<Integer, BigDecimal>> Kcmap = backward_outerStudentKcMap.get(S);
@@ -69,7 +72,7 @@ public class Utils {
 		return backwardmap.get(A);
 	}
 
-	public BigDecimal getForward(int S, int K, int A) {
+	public static BigDecimal getForward(int S, int K, int A) {
 		HashMap<Integer, HashMap<Integer, BigDecimal>> Kcmap = backward_outerStudentKcMap.get(S);
 		HashMap<Integer, BigDecimal> forwardmap = Kcmap.get(K);
 		return forwardmap.get(A);
@@ -87,4 +90,13 @@ public class Utils {
 		HashMap<Integer, BigDecimal> bestmap = Kcmap.get(K);
 		return bestmap.get(A);
 	}
+
+	public void setInitialMastery(int K, BigDecimal value){
+		InitialMastery[K] = value;
+	}
+	
+	public static BigDecimal getInitialMastery(int K){
+		return InitialMastery[K];
+	}
+
 }
