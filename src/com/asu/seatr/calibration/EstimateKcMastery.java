@@ -2,6 +2,11 @@ package com.asu.seatr.calibration;
 
 import java.util.HashMap;
 
+import com.asu.seatr.utils.GlobalConstants;
+/**
+ * @author Lakshmisagar Kusnoor created on May 12, 2017
+ *
+ */
 public class EstimateKcMastery {
 
 	// Datastructure to implement BEST
@@ -22,7 +27,7 @@ public class EstimateKcMastery {
 	public static void Estimate_KC_mastery_Best(int studentCount, int kCount) {
 		for (int S = 1; S <= studentCount; S++) {
 			for (int K = 1; K < kCount; K++) {
-				int lastCount = getLast(S);
+				int lastCount = Utils.getLast(S);
 				for (int A = 1; A <= lastCount; A++) {
 
 					float bestValue = forward(S, K, A) * backward(S, K, A);
@@ -63,11 +68,6 @@ public class EstimateKcMastery {
 		HashMap<Integer, HashMap<Integer, Float>> KcBestmap = backward_outerStudentKcMap.get(S);
 		HashMap<Integer, Float> bestmap = KcBestmap.get(K);
 		return bestmap.get(A);
-	}
-
-	public static int getLast(int StudentId) {
-		int nQuestionsAttempted = 0;
-		return nQuestionsAttempted;
 	}
 
 }

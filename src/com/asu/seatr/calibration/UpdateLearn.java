@@ -2,7 +2,7 @@ package com.asu.seatr.calibration;
 import java.util.*;
 
 public class UpdateLearn {
-	//looing over each of the KC from 1 to Nk
+	//looping over each of the KC from 1 to Nk
 		for(int k = 0; k < Nk -  1; k++){
 			float LearnNumerator = 0;
 			float LearnDenominator = 0;

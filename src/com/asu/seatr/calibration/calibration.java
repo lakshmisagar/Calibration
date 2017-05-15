@@ -7,7 +7,10 @@ import java.util.HashMap;
 import java.util.Random;
 
 import com.asu.seatr.utils.GlobalConstants;
-
+/**
+ * @author Lakshmisagar Kusnoor created on May 11, 2017
+ *
+ */
 public class Calibration {
 
 	static int climb = 0;
