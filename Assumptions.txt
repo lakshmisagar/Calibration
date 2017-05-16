@@ -3,3 +3,4 @@
 2. return the max change among initalMastery,Learn,Slip,Guess.		
 3.KCs are listed as integers.
 4.Filling algo -> For A from 1 to Last[S]-1   is iterated from 1 to Last[S]
+5. Kcs start from 0 to n-1

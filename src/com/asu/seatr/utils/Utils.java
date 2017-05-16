@@ -13,10 +13,10 @@ import java.util.HashMap;
  */
 public class Utils {
 
-	private static BigDecimal[] mInitialMastery = new BigDecimal[GlobalConstants.total_KCs];
-	private static BigDecimal[] mLearn = new BigDecimal[GlobalConstants.total_KCs];
-	private static BigDecimal[] mSlip = new BigDecimal[GlobalConstants.total_Questions];
-	private static BigDecimal[] mGuess = new BigDecimal[GlobalConstants.total_Questions];
+	public static BigDecimal[] mInitialMastery = new BigDecimal[GlobalConstants.total_KCs];
+	public static BigDecimal[] mLearn = new BigDecimal[GlobalConstants.total_KCs];
+	public static BigDecimal[] mSlip = new BigDecimal[GlobalConstants.total_Questions];
+	public static BigDecimal[] mGuess = new BigDecimal[GlobalConstants.total_Questions];
 	
 	
 	// Datastructure to implement Question

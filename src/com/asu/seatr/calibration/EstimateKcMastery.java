@@ -15,7 +15,7 @@ public class EstimateKcMastery {
 				int lastCount = Utils.getLast(S);
 				for (int A = 1; A <= lastCount; A++) {
 					BigDecimal bestValue = Utils.getForward(S, K, A).multiply(Utils.getBackward(S, K, A));
-
+					Utils.updateBest(S, K, A, bestValue);
 				}
 			}
 		}
