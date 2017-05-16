@@ -12,10 +12,10 @@ public class SlipsAndGuesses {
 
 		for (int Q = 0; Q < GlobalConstants.total_Questions - 1; Q++) {
 			BigDecimal SlipNumerator = new BigDecimal(0);
-			BigDecimal SlipDenominator = new BigDecimal(1);
+			BigDecimal SlipDenominator = new BigDecimal(0);
 			BigDecimal GuessNumerator = new BigDecimal(0);
-			BigDecimal GuessDenominator = new BigDecimal(1);
-			BigDecimal OK = new BigDecimal(1);
+			BigDecimal GuessDenominator = new BigDecimal(0);
+			BigDecimal OK = new BigDecimal(1.0);
 			// looping the number of students in the course
 			for (int S = 0; S < GlobalConstants.total_Students - 1; S++) {
 				// looping over each attempt of the student till the latest

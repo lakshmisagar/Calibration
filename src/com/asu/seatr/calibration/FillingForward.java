@@ -46,7 +46,7 @@ public class FillingForward {
 					for (int innerK = 1; innerK <= Nk; innerK++) {
 						if (KCs.contains(innerK)) {
 							BigDecimal forwardNumeratorValue = y.multiply(Utils.getForward(S, innerK, A)).add(x);
-							BigDecimal forwardfillingValue = forwardNumeratorValue.divideToIntegralValue(y.add(x));
+							BigDecimal forwardfillingValue = forwardNumeratorValue.divide(y.add(x));
 							Utils.updateForward(S, innerK, A + 1, forwardfillingValue);
 						} else {
 							Utils.updateForward(S, innerK, A + 1, Utils.getForward(S, innerK, A));
@@ -65,7 +65,7 @@ public class FillingForward {
 						BigDecimal Z = BigDecimal.ONE.subtract(forward.multiply(Utils.getLearn(KCs.get(list_K))));
 						BigDecimal nume = SE.multiply(Z);
 						BigDecimal denom = forward.add(Z);
-						BigDecimal var2 = nume.divideToIntegralValue(denom);
+						BigDecimal var2 = nume.divide(denom);
 						BigDecimal forwardfillingValue = forward.add(var2);
 						Utils.updateForward(S, KCs.get(list_K), A + 1, forwardfillingValue);
 					}
