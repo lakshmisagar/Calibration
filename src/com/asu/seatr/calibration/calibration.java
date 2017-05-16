@@ -12,7 +12,7 @@ import com.asu.seatr.utils.Utils;
  * @author Lakshmisagar Kusnoor created on May 11, 2017
  *
  */
-public class Calibration {
+public class calibration {
 
 	static int climb = 0;
 	static HashMap<Integer, ArrayList<String>> climbMap = new HashMap<Integer, ArrayList<String>>();
