@@ -39,7 +39,7 @@ public class FillingBackward {
 
 						BigDecimal newVar1 = var2.subtract(x);
 						BigDecimal newVar2 = BigDecimal.ONE.subtract(x);
-						BigDecimal backwardfillingValue = newVar1.divideToIntegralValue(newVar2);
+						BigDecimal backwardfillingValue = newVar1.divide(newVar2);
 						Utils.updateBackward(S, localK, A, backwardfillingValue);
 					}
 
@@ -62,10 +62,10 @@ public class FillingBackward {
 					for (int innerK = 1; innerK <= Nk; innerK++) {
 						if (KCs.contains(innerK)) {
 							BigDecimal backwardNumeratorValue = y.multiply(Utils.getBackward(S, innerK, A)).add(x);
-							BigDecimal forwardfillingValue = backwardNumeratorValue.divideToIntegralValue(y.add(x));
-							Utils.updateBackward(S, innerK, A + 1, forwardfillingValue);
+							BigDecimal forwardfillingValue = backwardNumeratorValue.divide(y.add(x));
+							Utils.updateBackward(S, innerK, A, forwardfillingValue);
 						} else {
-							Utils.updateBackward(S, innerK, A + 1, Utils.getForward(S, innerK, A + 1));
+							Utils.updateBackward(S, innerK, A, Utils.getForward(S, innerK, A + 1));
 						}
 					}
 

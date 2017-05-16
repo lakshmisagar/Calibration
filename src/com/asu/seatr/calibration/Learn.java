@@ -14,7 +14,7 @@ public class Learn {
 		for (int K = 0; K < GlobalConstants.total_KCs - 1; K++) {
 			BigDecimal LearnNumerator = new BigDecimal(0);
 			BigDecimal LearnDenominator = new BigDecimal(0);
-			BigDecimal SE = new BigDecimal(1);
+			BigDecimal SE = new BigDecimal(1.0);
 
 			// looping over the set of all students from 1 to total_students
 			for (int S = 0; S < GlobalConstants.total_Students - 1; S++) {
