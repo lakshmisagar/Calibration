@@ -3,6 +3,7 @@ package com.asu.seatr.calibration;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
+import com.asu.seatr.utils.GlobalConstants;
 import com.asu.seatr.utils.Utils;
 
 public class Learn {
@@ -10,13 +11,13 @@ public class Learn {
 	public static void updateLearn() {
 
 		// looping over each of the KC from 1 to total_KCs
-		for (int K = 0; K < Calibration.total_KCs - 1; K++) {
+		for (int K = 0; K < GlobalConstants.total_KCs - 1; K++) {
 			BigDecimal LearnNumerator = new BigDecimal(0);
 			BigDecimal LearnDenominator = new BigDecimal(0);
 			BigDecimal SE = new BigDecimal(1);
 
 			// looping over the set of all students from 1 to total_students
-			for (int S = 0; S < Calibration.total_students - 1; S++) {
+			for (int S = 0; S < GlobalConstants.total_Students - 1; S++) {
 				// looping over all the attempts of student s from 1 to Last[s]
 				for (int A = 0; A < Utils.getLast(S) - 1; A++) {
 					ArrayList<Integer> KCSetforQ = new ArrayList<Integer>();
