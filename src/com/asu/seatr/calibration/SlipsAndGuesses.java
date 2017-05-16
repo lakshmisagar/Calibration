@@ -2,9 +2,13 @@ package com.asu.seatr.calibration;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-
 import com.asu.seatr.utils.GlobalConstants;
 import com.asu.seatr.utils.Utils;
+
+/**
+ * @author Venkata Krishna Bandla created on May 14, 2017
+ *
+ */
 
 public class SlipsAndGuesses {
 	// looping for each question in the course

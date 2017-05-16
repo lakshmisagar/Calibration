@@ -1,9 +1,13 @@
 package com.asu.seatr.calibration;
 
 import java.math.BigDecimal;
-
 import com.asu.seatr.utils.GlobalConstants;
 import com.asu.seatr.utils.Utils;
+
+/**
+ * @author Venkata Krishna Bandla created on May 12, 2017
+ *
+ */
 
 public class InitalMastery {
 
