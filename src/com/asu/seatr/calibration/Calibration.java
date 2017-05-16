@@ -105,6 +105,27 @@ public class Calibration {
 			Utils.mSlip[Q] = BigDecimal.valueOf(r_slip);
 			Utils.mGuess[Q] = BigDecimal.valueOf(r_guess);
 		}
+		
+		printRandomParameters();
+	}
+
+	private static void printRandomParameters() {
+		for (int K = 0; K < total_KCs; K++) {
+			System.out.println("mInitialMastery["+K+"] "+Utils.mInitialMastery[K]);
+		}
+		System.out.println();
+		for (int K = 0; K < total_KCs; K++) {
+			System.out.println("mLearn["+K+"] "+Utils.mLearn[K]);
+		}
+		System.out.println();
+		for (int Q = 0; Q < total_Q; Q++) {
+			System.out.println("mSlip["+Q+"] "+Utils.mSlip[Q]);
+		}
+		System.out.println();
+		for (int Q = 0; Q < total_Q; Q++) {
+			System.out.println("mGuess["+Q+"] "+Utils.mGuess[Q]);
+		}
+		System.out.println();
 	}
 
 	public static void main(String[] args) {
