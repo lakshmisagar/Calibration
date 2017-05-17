@@ -6,7 +6,7 @@ public class GlobalConstants {
 	public static int total_Questions = 50;
 	public static int total_KCs = 1;
 	
-	public static int numberOfQAteempetedByEachStudent = 10;
+	public static int numberOfQAteempetedByEachStudent = 50;
 	public static int questionAtThisAttempt = 2;
 	public static int kcsInQuestionMatrix = 1;
 }

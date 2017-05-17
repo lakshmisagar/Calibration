@@ -22,7 +22,7 @@ public class FillingBackward {
 		int Nk = GlobalConstants.total_KCs;
 		for (int S = 0; S < Ns; S++) {
 			for (int K = 0; K < Nk; K++) {
-				Utils.updateBackward(S, K, 1, BigDecimal.ONE);
+				Utils.updateBackward(S, Utils.getKc(K), 1, BigDecimal.ONE);
 				for (int A = Utils.getLast(S) - 1; A >= 0; A--) {
 					int question = Utils.getQuestionAtThisAttempt(S, A);
 					ArrayList<Integer> KCs = Utils.getQuestionMatrix(question);

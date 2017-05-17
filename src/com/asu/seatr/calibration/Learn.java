@@ -17,6 +17,7 @@ public class Learn {
 
 		// looping over each of the KC from 1 to total_KCs
 		for (int K = 0; K < GlobalConstants.total_KCs ; K++) {
+			int Kc = Utils.getKc(K);
 			BigDecimal LearnNumerator = new BigDecimal(0);
 			BigDecimal LearnDenominator = new BigDecimal(0);
 			BigDecimal SE = new BigDecimal(1.0);
@@ -29,17 +30,17 @@ public class Learn {
 					KCSetforQ.addAll(Utils.getQuestionMatrix(Utils.getQuestionAtThisAttempt(S, A)));
 					for (int j = 0; j < (KCSetforQ.size() - 1); j++) {
 
-						Integer kcK = new Integer(K);
+						Integer kcK = new Integer(Kc);
 						if (KCSetforQ.get(j).equals(kcK))
 							SE = (SE.multiply((Utils.getBest(S, j, A)).add(
 									(((BigDecimal.ONE).subtract(Utils.getBest(S, j, A)).multiply(Utils.mLearn[j]))))));
 					}
-					LearnNumerator = LearnNumerator.add((Utils.getBest(S, K, A + 1).subtract(Utils.getBest(S, K, A))));
+					LearnNumerator = LearnNumerator.add((Utils.getBest(S, Kc, A + 1).subtract(Utils.getBest(S, Kc, A))));
 					LearnDenominator = LearnDenominator
-							.add(((BigDecimal.ONE.subtract(Utils.getBest(S, K, A))).multiply(SE)));
+							.add(((BigDecimal.ONE.subtract(Utils.getBest(S, Kc, A))).multiply(SE)));
 				}
 			}
-			Utils.mLearn[K] = (BigDecimal.ONE.max((BigDecimal.ZERO).min(LearnNumerator.divide(LearnDenominator))));
+			Utils.mLearn[Kc] = (BigDecimal.ONE.max((BigDecimal.ZERO).min(LearnNumerator.divide(LearnDenominator))));
 		}
 	}
 }

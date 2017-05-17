@@ -13,16 +13,15 @@ public class InitalMastery {
 
 	public static void updateIntialMastery() {
 
-		for (int K = 0; K < GlobalConstants.total_KCs ; K++) {
+		for (int K = 0; K < GlobalConstants.total_KCs; K++) {
 			BigDecimal Sum = new BigDecimal(0);
 			int Count = 0;
-			for (int S = 0; S < GlobalConstants.total_Students ; S++) {
-
-				Sum = Sum.add(Utils.getBest(S, K, 1));
+			for (int S = 0; S < GlobalConstants.total_Students; S++) {
+				Sum = Sum.add(Utils.getBest(S, Utils.getKc(K), 1));
 				Count = Count + 1;
 			}
 			BigDecimal bigDecimalCount = new BigDecimal(Count);
-			Utils.mInitialMastery[K] = Sum.divide(bigDecimalCount);
+			Utils.mInitialMastery[Utils.getKc(K)] = Sum.divide(bigDecimalCount);
 		}
 	}
 }

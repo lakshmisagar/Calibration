@@ -14,9 +14,8 @@ public class EstimateKcMastery {
 			for (int K = 0; K < kCount; K++) {
 				int lastCount = Utils.getLast(S);
 				for (int A = 0; A < lastCount; A++) {
-					System.out.println("S: "+S+" K: "+K+" A:"+A);
-					BigDecimal bestValue = Utils.getForward(S, K, A).multiply(Utils.getBackward(S, K, A));
-					Utils.updateBest(S, K, A, bestValue);
+					BigDecimal bestValue = Utils.getForward(S, Utils.getKc(K), A).multiply(Utils.getBackward(S, Utils.getKc(K), A));
+					Utils.updateBest(S, Utils.getKc(K), A, bestValue);
 				}
 			}
 		}

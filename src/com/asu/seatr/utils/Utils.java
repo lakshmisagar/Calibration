@@ -13,6 +13,7 @@ import java.util.HashMap;
  */
 public class Utils {
 
+	public static int[] mKC = new int[GlobalConstants.total_KCs];
 	public static BigDecimal[] mInitialMastery = new BigDecimal[GlobalConstants.total_KCs];
 	public static BigDecimal[] mLearn = new BigDecimal[GlobalConstants.total_KCs];
 	public static BigDecimal[] mSlip = new BigDecimal[GlobalConstants.total_Questions];
@@ -50,7 +51,9 @@ public class Utils {
 
 	public static int getQuestionAtThisAttempt(int mStudentId, int mAttempt) {
 		// TODO find the attemptedQuestion
-		int attemptedQuestion = GlobalConstants.questionAtThisAttempt;
+		//Making question attempted as the attempt number itself
+		int attemptedQuestion = mAttempt;;
+		//int attemptedQuestion = GlobalConstants.questionAtThisAttempt;
 		return attemptedQuestion;
 	}
 
@@ -152,6 +155,13 @@ public class Utils {
 
 	public static BigDecimal getLearn(int K) {
 		return mLearn[K];
+	}
+	public static void setKc(int K, int value) {
+		mKC[K] = value;
+	}
+	
+	public static int getKc(int k) {
+		return mKC[k];
 	}
 
 }

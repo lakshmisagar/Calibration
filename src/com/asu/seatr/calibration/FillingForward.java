@@ -22,8 +22,8 @@ public class FillingForward {
 		int Nk = GlobalConstants.total_KCs;
 		for (int S = 0; S < Ns; S++) {
 			for (int K = 0; K < Nk; K++) {
-				BigDecimal value = Utils.getInitialMastery(K);
-				Utils.updateForward(S, K, 1, value);
+				BigDecimal value = Utils.getInitialMastery(Utils.getKc(K));
+				Utils.updateForward(S, Utils.getKc(K), 1, value);
 				for (int A = 0; A < Utils.getLast(S)-1; A++) {
 					int question = Utils.getQuestionAtThisAttempt(S, A);
 					ArrayList<Integer> KCs = Utils.getQuestionMatrix(question);
