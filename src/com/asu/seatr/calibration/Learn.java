@@ -11,15 +11,15 @@ public class Learn {
 	public static void updateLearn() {
 
 		// looping over each of the KC from 1 to total_KCs
-		for (int K = 0; K < GlobalConstants.total_KCs - 1; K++) {
+		for (int K = 0; K < GlobalConstants.total_KCs ; K++) {
 			BigDecimal LearnNumerator = new BigDecimal(0);
 			BigDecimal LearnDenominator = new BigDecimal(0);
 			BigDecimal SE = new BigDecimal(1.0);
 
 			// looping over the set of all students from 1 to total_students
-			for (int S = 0; S < GlobalConstants.total_Students - 1; S++) {
+			for (int S = 0; S < GlobalConstants.total_Students ; S++) {
 				// looping over all the attempts of student s from 1 to Last[s]
-				for (int A = 0; A < Utils.getLast(S) - 1; A++) {
+				for (int A = 0; A < Utils.getLast(S); A++) {
 					ArrayList<Integer> KCSetforQ = new ArrayList<Integer>();
 					KCSetforQ.addAll(Utils.getQuestionMatrix(Utils.getQuestionAtThisAttempt(S, A)));
 					for (int j = 0; j < (KCSetforQ.size() - 1); j++) {

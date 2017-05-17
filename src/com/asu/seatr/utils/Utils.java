@@ -44,20 +44,20 @@ public class Utils {
 
 	public static int getLast(int mStudentId) {
 		// TODO find the nQuestionsAttempted
-		int nQuestionsAttempted = 0;
+		int nQuestionsAttempted = GlobalConstants.numberOfQAteempetedByEachStudent;
 		return nQuestionsAttempted;
 	}
 
 	public static int getQuestionAtThisAttempt(int mStudentId, int mAttempt) {
 		// TODO find the attemptedQuestion
-		int attemptedQuestion = 1;
+		int attemptedQuestion = GlobalConstants.questionAtThisAttempt;
 		return attemptedQuestion;
 	}
 
 	public static ArrayList<Integer> getQuestionMatrix(int mQuestion) {
 		// TODO find the list values
 		ArrayList<Integer> list = new ArrayList<Integer>();
-		list.add(1);
+		list.add(GlobalConstants.kcsInQuestionMatrix);
 		return list;
 	}
 

@@ -10,23 +10,23 @@ public class SlipsAndGuesses {
 	// looping for each question in the course
 	public static void updateSlipnGuesses() {
 
-		for (int Q = 0; Q < GlobalConstants.total_Questions - 1; Q++) {
+		for (int Q = 0; Q < GlobalConstants.total_Questions ; Q++) {
 			BigDecimal SlipNumerator = new BigDecimal(0);
 			BigDecimal SlipDenominator = new BigDecimal(0);
 			BigDecimal GuessNumerator = new BigDecimal(0);
 			BigDecimal GuessDenominator = new BigDecimal(0);
 			BigDecimal OK = new BigDecimal(1.0);
 			// looping the number of students in the course
-			for (int S = 0; S < GlobalConstants.total_Students - 1; S++) {
+			for (int S = 0; S < GlobalConstants.total_Students ; S++) {
 				// looping over each attempt of the student till the latest
 				// attempt
-				for (int A = 0; A < (Utils.getLast(S) - 1); A++) {
+				for (int A = 0; A < Utils.getLast(S); A++) {
 					Integer qObj = new Integer(Q);
 					if (qObj.equals(Utils.getQuestion(S, A))) {
 
 						ArrayList<Integer> KCofQ = new ArrayList<Integer>();
 						KCofQ.addAll(Utils.getQuestionMatrix(Q));
-						for (int m = 0; m < (KCofQ.size() - 1); m++) {
+						for (int m = 0; m < KCofQ.size(); m++) {
 							OK = OK.multiply(new BigDecimal(KCofQ.get(m)));
 						}
 						SlipDenominator = SlipDenominator.add(OK);

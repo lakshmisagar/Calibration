@@ -27,6 +27,8 @@ public class Calibration {
 
 	private static BigDecimal climbOnce() {
 		saveParameters();
+		FillingForward.fillingForward();
+		FillingBackward.fillingBackward();
 		EstimateKcMastery.Estimate_KC_mastery_Best(total_students, total_KCs);
 		calculateNewParameters();// update initalMaster,Learn,slip,guess
 		BigDecimal change = changeInParameter();

@@ -15,16 +15,16 @@ import com.asu.seatr.utils.Utils;
  */
 public class FillingForward {
 
-	BigDecimal initial_OK = new BigDecimal(1.0);
+	static BigDecimal initial_OK = new BigDecimal(1.0);
 
-	public void fillingForward() {
+	public static void fillingForward() {
 		int Ns = GlobalConstants.total_Students;
 		int Nk = GlobalConstants.total_KCs;
-		for (int S = 1; S <= Ns; S++) {
-			for (int K = 1; K <= Nk; K++) {
+		for (int S = 0; S < Ns; S++) {
+			for (int K = 0; K < Nk; K++) {
 				BigDecimal value = Utils.getInitialMastery(K);
 				Utils.updateForward(S, K, 1, value);
-				for (int A = 1; A <= Utils.getLast(S)-1; A++) {
+				for (int A = 0; A < Utils.getLast(S)-1; A++) {
 					int question = Utils.getQuestionAtThisAttempt(S, A);
 					ArrayList<Integer> KCs = Utils.getQuestionMatrix(question);
 					BigDecimal OK = initial_OK;
@@ -43,7 +43,7 @@ public class FillingForward {
 						x = x.negate();
 					}
 
-					for (int innerK = 1; innerK <= Nk; innerK++) {
+					for (int innerK = 0; innerK < Nk; innerK++) {
 						if (KCs.contains(innerK)) {
 							BigDecimal forwardNumeratorValue = y.multiply(Utils.getForward(S, innerK, A)).add(x);
 							BigDecimal forwardfillingValue = forwardNumeratorValue.divide(y.add(x));
