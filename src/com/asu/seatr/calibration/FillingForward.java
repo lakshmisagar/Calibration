@@ -4,6 +4,8 @@
 package com.asu.seatr.calibration;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 
 import com.asu.seatr.utils.GlobalConstants;
@@ -23,9 +25,9 @@ public class FillingForward {
 		for (int S = 0; S < Ns; S++) {
 			for (int K = 0; K < Nk; K++) {
 				BigDecimal value = Utils.getInitialMastery(Utils.getKc(K));
-				Utils.updateForward(S, Utils.getKc(K), 1, value);
+				Utils.updateForward(S, Utils.getKc(K), 0, value);
 				for (int A = 0; A < Utils.getLast(S)-1; A++) {
-					int question = Utils.getQuestionAtThisAttempt(S, A);
+					int question = Utils.getQuestion(S, A);
 					ArrayList<Integer> KCs = Utils.getQuestionMatrix(question);
 					BigDecimal OK = initial_OK;
 					for (int list_K = 0; list_K < KCs.size(); list_K++) {
@@ -44,12 +46,12 @@ public class FillingForward {
 					}
 
 					for (int innerK = 0; innerK < Nk; innerK++) {
-						if (KCs.contains(innerK)) {
-							BigDecimal forwardNumeratorValue = y.multiply(Utils.getForward(S, innerK, A)).add(x);
-							BigDecimal forwardfillingValue = forwardNumeratorValue.divide(y.add(x));
-							Utils.updateForward(S, innerK, A + 1, forwardfillingValue);
+						if (KCs.contains(Utils.getKc(innerK))) {
+							BigDecimal forwardNumeratorValue = y.multiply(Utils.getForward(S, Utils.getKc(innerK), A)).add(x);
+							BigDecimal forwardfillingValue = forwardNumeratorValue.divide(y.add(x),  20, RoundingMode.HALF_UP);
+							Utils.updateForward(S, Utils.getKc(innerK), A + 1, forwardfillingValue);
 						} else {
-							Utils.updateForward(S, innerK, A + 1, Utils.getForward(S, innerK, A));
+							Utils.updateForward(S, Utils.getKc(innerK), A + 1, Utils.getForward(S, Utils.getKc(innerK), A));
 						}
 					}
 					BigDecimal SE = initial_OK;
@@ -65,7 +67,7 @@ public class FillingForward {
 						BigDecimal Z = BigDecimal.ONE.subtract(forward.multiply(Utils.getLearn(KCs.get(list_K))));
 						BigDecimal nume = SE.multiply(Z);
 						BigDecimal denom = forward.add(Z);
-						BigDecimal var2 = nume.divide(denom);
+						BigDecimal var2 = nume.divide(denom,20,RoundingMode.HALF_UP);
 						BigDecimal forwardfillingValue = forward.add(var2);
 						Utils.updateForward(S, KCs.get(list_K), A + 1, forwardfillingValue);
 					}

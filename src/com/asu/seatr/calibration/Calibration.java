@@ -137,26 +137,42 @@ public class Calibration {
 	
 	private static void setDatabase() {
 		setKcs();
-		setAnswer();
+		setAnswerValues();
+		setQuestionValues();
 		
 	}
-
-	private static void setAnswer() {
-		double rand = Math.random() * 1;
-		for( int S=0;S<total_students;S++){
-				for(int A=0;A<Utils.getLast(S);A++){
-					int value =(Math.random()<0.5)?0:1;
-					Utils.setAnswer(S, A, value);
-			}
-		}
-	}
-
 	private static void setKcs() {
 		for(int i=0;i<total_KCs;i++){
 			Utils.setKc(i, i+1);
 		}
 	}
+	
+	private static void setAnswerValues() {
+		for( int S=0;S<total_students;S++){
+			HashMap<Integer,Integer> answer_AC_Map= new HashMap<Integer,Integer>();
+				for(int A=0;A<Utils.getLast(S);A++){
+					int value =(Math.random()<0.5)?0:1;
+					answer_AC_Map.put(A, value);
+			}
+				Utils.setAnswer(S, answer_AC_Map);
+		}
+	}
 
+	private static void setQuestionValues() {
+		for( int S=0;S<total_students;S++){
+			HashMap<Integer,Integer> question_AQ_Map= new HashMap<Integer,Integer>();
+			int Q = 0;
+				for(int A=0;A<Utils.getLast(S);A++){
+					int value =(Math.random()<0.5)?0:1;
+					question_AQ_Map.put(A, Q);
+					Q++;
+			}
+				Utils.setQuestion(S, question_AQ_Map);
+		}
+	}
+
+	
+	
 	public static void main(String[] args) {
 		// TODO get data from DB
 		total_students = GlobalConstants.total_Students;
@@ -164,10 +180,10 @@ public class Calibration {
 		total_Q = GlobalConstants.total_Questions;
 		
 		//instantiation of old values
-		old_initalMastery = new BigDecimal[GlobalConstants.total_KCs];
-		old_Learn = new BigDecimal[GlobalConstants.total_KCs];
-		old_slip = new BigDecimal[GlobalConstants.total_Questions];
-		old_guess = new BigDecimal[GlobalConstants.total_Questions];
+		old_initalMastery = new BigDecimal[GlobalConstants.total_KCs+1];
+		old_Learn = new BigDecimal[GlobalConstants.total_KCs+1];
+		old_slip = new BigDecimal[GlobalConstants.total_Questions+1];
+		old_guess = new BigDecimal[GlobalConstants.total_Questions+1];
 		
 		
 		//SetDB

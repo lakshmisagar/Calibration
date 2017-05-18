@@ -22,9 +22,9 @@ public class FillingBackward {
 		int Nk = GlobalConstants.total_KCs;
 		for (int S = 0; S < Ns; S++) {
 			for (int K = 0; K < Nk; K++) {
-				Utils.updateBackward(S, Utils.getKc(K), 1, BigDecimal.ONE);
+				Utils.updateBackward(S, Utils.getKc(K), Utils.getLast(S), BigDecimal.ONE);
 				for (int A = Utils.getLast(S) - 1; A >= 0; A--) {
-					int question = Utils.getQuestionAtThisAttempt(S, A);
+					int question = Utils.getQuestion(S, A);
 					ArrayList<Integer> KCs = Utils.getQuestionMatrix(question);
 					BigDecimal SE = BigDecimal.ONE;
 					for (int list_K = 0; list_K < KCs.size(); list_K++) {
@@ -60,12 +60,13 @@ public class FillingBackward {
 					}
 
 					for (int innerK = 0; innerK < Nk; innerK++) {
-						if (KCs.contains(innerK)) {
-							BigDecimal backwardNumeratorValue = y.multiply(Utils.getBackward(S, innerK, A)).add(x);
+						int innerKc = Utils.getKc(innerK);
+						if (KCs.contains(innerKc)) {
+							BigDecimal backwardNumeratorValue = y.multiply(Utils.getBackward(S, innerKc, A)).add(x);
 							BigDecimal forwardfillingValue = backwardNumeratorValue.divide(y.add(x));
-							Utils.updateBackward(S, innerK, A, forwardfillingValue);
+							Utils.updateBackward(S, innerKc, A, forwardfillingValue);
 						} else {
-							Utils.updateBackward(S, innerK, A, Utils.getForward(S, innerK, A + 1));
+							Utils.updateBackward(S, innerKc, A, Utils.getBackward(S, innerKc, A + 1));
 						}
 					}
 

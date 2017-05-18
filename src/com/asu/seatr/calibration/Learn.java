@@ -27,7 +27,7 @@ public class Learn {
 				// looping over all the attempts of student s from 1 to Last[s]
 				for (int A = 0; A < Utils.getLast(S); A++) {
 					ArrayList<Integer> KCSetforQ = new ArrayList<Integer>();
-					KCSetforQ.addAll(Utils.getQuestionMatrix(Utils.getQuestionAtThisAttempt(S, A)));
+					KCSetforQ.addAll(Utils.getQuestionMatrix(Utils.getQuestion(S, A)));
 					for (int j = 0; j < (KCSetforQ.size() - 1); j++) {
 
 						Integer kcK = new Integer(Kc);

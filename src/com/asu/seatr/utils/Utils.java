@@ -13,11 +13,11 @@ import java.util.HashMap;
  */
 public class Utils {
 
-	public static int[] mKC = new int[GlobalConstants.total_KCs];
-	public static BigDecimal[] mInitialMastery = new BigDecimal[GlobalConstants.total_KCs];
-	public static BigDecimal[] mLearn = new BigDecimal[GlobalConstants.total_KCs];
-	public static BigDecimal[] mSlip = new BigDecimal[GlobalConstants.total_Questions];
-	public static BigDecimal[] mGuess = new BigDecimal[GlobalConstants.total_Questions];
+	public static int[] mKC = new int[GlobalConstants.total_KCs+1];
+	public static BigDecimal[] mInitialMastery = new BigDecimal[GlobalConstants.total_KCs+1];
+	public static BigDecimal[] mLearn = new BigDecimal[GlobalConstants.total_KCs+1];
+	public static BigDecimal[] mSlip = new BigDecimal[GlobalConstants.total_Questions+1];
+	public static BigDecimal[] mGuess = new BigDecimal[GlobalConstants.total_Questions+1];
 	
 	
 	// Datastructure to implement Question
@@ -25,7 +25,6 @@ public class Utils {
 	static HashMap<Integer, HashMap<Integer, Integer>> question_SA_Map = new HashMap<Integer, HashMap<Integer, Integer>>();
 
 	// Datastructure to implement Answer
-	static HashMap<Integer, Integer> answer_AC_Map = new HashMap<Integer, Integer>();
 	static HashMap<Integer, HashMap<Integer, Integer>> answer_SA_Map = new HashMap<Integer, HashMap<Integer, Integer>>();
 	
 	// Datastructure to implement BEST
@@ -49,14 +48,6 @@ public class Utils {
 		return nQuestionsAttempted;
 	}
 
-	public static int getQuestionAtThisAttempt(int mStudentId, int mAttempt) {
-		// TODO find the attemptedQuestion
-		//Making question attempted as the attempt number itself
-		int attemptedQuestion = mAttempt;;
-		//int attemptedQuestion = GlobalConstants.questionAtThisAttempt;
-		return attemptedQuestion;
-	}
-
 	public static ArrayList<Integer> getQuestionMatrix(int mQuestion) {
 		// TODO find the list values
 		ArrayList<Integer> list = new ArrayList<Integer>();
@@ -71,6 +62,12 @@ public class Utils {
 		forward_innerKcBestMap.put(K, forward_innerForwardMap);
 		forward_outerStudentKcMap.put(S, forward_innerKcBestMap);
 	}
+	
+	public static BigDecimal getForward(int S, int K, int A) {
+		HashMap<Integer, HashMap<Integer, BigDecimal>> Kcmap = forward_outerStudentKcMap.get(S);
+		HashMap<Integer, BigDecimal> forwardmap = Kcmap.get(K);
+		return forwardmap.get(A);
+	}
 
 	public static void updateBackward(int S, int K, int A, BigDecimal backwardfillingValue) {
 		// TODO implement backward filling
@@ -83,12 +80,6 @@ public class Utils {
 		HashMap<Integer, HashMap<Integer, BigDecimal>> Kcmap = backward_outerStudentKcMap.get(S);
 		HashMap<Integer, BigDecimal> backwardmap = Kcmap.get(K);
 		return backwardmap.get(A);
-	}
-
-	public static BigDecimal getForward(int S, int K, int A) {
-		HashMap<Integer, HashMap<Integer, BigDecimal>> Kcmap = backward_outerStudentKcMap.get(S);
-		HashMap<Integer, BigDecimal> forwardmap = Kcmap.get(K);
-		return forwardmap.get(A);
 	}
 
 	public static void updateBest(int S, int K, int A, BigDecimal bestValue) {
@@ -125,12 +116,14 @@ public class Utils {
 	}
 
 	public static BigDecimal getGuess(int question) {
-		return mInitialMastery[question];
+		return mGuess[question];
 	}
 
-	public static void setAnswer(int S, int A, int value) {
-		answer_AC_Map.put(A, value);
-		answer_SA_Map.put(S, answer_AC_Map);
+	/*
+	 * Answer
+	 */
+	public static void setAnswer(int s, HashMap<Integer, Integer> answer_AC_Map) {
+		answer_SA_Map.put(s, answer_AC_Map);
 	}
 
 	public static int getAnswer(int S, int A) {
@@ -138,14 +131,23 @@ public class Utils {
 		return innerAC_map.get(A);
 	}
 	
-	public static void setQuestion(int S, int A, int value) {
-		question_AQ_Map.put(A, value);
-		question_SA_Map.put(S, question_AQ_Map);
+	/*
+	 * Question
+	 */
+	public static void setQuestion(int s, HashMap<Integer, Integer> question_AQ_Map) {
+		question_SA_Map.put(s, question_AQ_Map);
 	}
 
 	public static int getQuestion(int S, int A) {
 		HashMap<Integer, Integer> innerAQ_map = question_SA_Map.get(S);
 		return innerAQ_map.get(A);
+		/*//HashMap<Integer, Integer> innerAQ_map = question_SA_Map.get(S);
+		//TODO return innerAQ_map.get(A);
+		
+		//Making question attempted as the attempt number itself
+		int attemptedQuestion = A;;
+		//int attemptedQuestion = GlobalConstants.questionAtThisAttempt;
+		return attemptedQuestion;*/
 	}
 
 
@@ -163,5 +165,7 @@ public class Utils {
 	public static int getKc(int k) {
 		return mKC[k];
 	}
+
+
 
 }
