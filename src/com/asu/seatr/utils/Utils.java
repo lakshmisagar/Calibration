@@ -26,6 +26,7 @@ public class Utils {
 	// Datastructure to implement Answer
 	static HashMap<Integer, HashMap<Integer, Integer>> answer_SA_Map = new HashMap<Integer, HashMap<Integer, Integer>>();
 	
+	//TODO change the logic from 3 maps to 1 map here in utils like Questionand Answer
 	// Datastructure to implement BEST
 	static HashMap<Integer, BigDecimal> best_innerBestMap = new HashMap<Integer, BigDecimal>();
 	static HashMap<Integer, HashMap<Integer, BigDecimal>> best_innerKcBestMap = new HashMap<Integer, HashMap<Integer, BigDecimal>>();
@@ -56,7 +57,7 @@ public class Utils {
 
 	public static void updateForward(int S, int K, int A, BigDecimal forwardfillingValue) {
 		// TODO implement forward filling
-
+		//System.out.println("set Forward - S:"+S+" K:"+K+" A:"+A+" ="+forwardfillingValue);
 		forward_innerForwardMap.put(A, forwardfillingValue);
 		forward_innerKcBestMap.put(K, forward_innerForwardMap);
 		forward_outerStudentKcMap.put(S, forward_innerKcBestMap);
@@ -65,6 +66,7 @@ public class Utils {
 	public static BigDecimal getForward(int S, int K, int A) {
 		HashMap<Integer, HashMap<Integer, BigDecimal>> Kcmap = forward_outerStudentKcMap.get(S);
 		HashMap<Integer, BigDecimal> forwardmap = Kcmap.get(K);
+		//System.out.println("get Forward - S:"+S+" K:"+K+" A:"+A+" ="+forwardmap.get(A));
 		return forwardmap.get(A);
 	}
 

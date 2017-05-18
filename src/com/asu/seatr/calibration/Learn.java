@@ -1,6 +1,7 @@
 package com.asu.seatr.calibration;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 
 import com.asu.seatr.utils.GlobalConstants;
@@ -14,33 +15,30 @@ import com.asu.seatr.utils.Utils;
 public class Learn {
 
 	public static void updateLearn() {
-
-		// looping over each of the KC from 1 to total_KCs
 		for (int K = 0; K < GlobalConstants.total_KCs ; K++) {
 			int Kc = Utils.getKc(K);
 			BigDecimal LearnNumerator = new BigDecimal(0);
 			BigDecimal LearnDenominator = new BigDecimal(0);
 			BigDecimal SE = new BigDecimal(1.0);
-
-			// looping over the set of all students from 1 to total_students
 			for (int S = 0; S < GlobalConstants.total_Students ; S++) {
-				// looping over all the attempts of student s from 1 to Last[s]
-				for (int A = 0; A < Utils.getLast(S); A++) {
-					ArrayList<Integer> KCSetforQ = new ArrayList<Integer>();
-					KCSetforQ.addAll(Utils.getQuestionMatrix(Utils.getQuestion(S, A)));
-					for (int j = 0; j < (KCSetforQ.size() - 1); j++) {
-
-						Integer kcK = new Integer(Kc);
-						if (KCSetforQ.get(j).equals(kcK))
-							SE = (SE.multiply((Utils.getBest(S, j, A)).add(
-									(((BigDecimal.ONE).subtract(Utils.getBest(S, j, A)).multiply(Utils.mLearn[j]))))));
-					}
+				for (int A = 0; A < Utils.getLast(S)-1; A++) {
+					ArrayList<Integer> KCs = Utils.getQuestionMatrix(Utils.getQuestion(S, A));
+					for (int list_K = 0; list_K < KCs.size(); list_K++) {
+						if(KCs.get(list_K) == Kc){
+							int j = KCs.get(list_K);
+							BigDecimal var1 = BigDecimal.ONE.subtract(Utils.getBest(S, j, A));
+							BigDecimal var2 = var1.multiply(Utils.mLearn[j]);
+							BigDecimal var3 = Utils.getBest(S, j, A).add(var2);
+							SE = SE.multiply(var3);
+						}
 					LearnNumerator = LearnNumerator.add((Utils.getBest(S, Kc, A + 1).subtract(Utils.getBest(S, Kc, A))));
-					LearnDenominator = LearnDenominator
-							.add(((BigDecimal.ONE.subtract(Utils.getBest(S, Kc, A))).multiply(SE)));
+					LearnDenominator = LearnDenominator.add(((BigDecimal.ONE.subtract(Utils.getBest(S, Kc, A))).multiply(SE)));
+					}
 				}
 			}
-			Utils.mLearn[Kc] = (BigDecimal.ONE.max((BigDecimal.ZERO).min(LearnNumerator.divide(LearnDenominator))));
+			BigDecimal LnByLd =  LearnNumerator.divide(LearnDenominator ,20, RoundingMode.HALF_UP);
+			BigDecimal min = BigDecimal.ZERO.min(LnByLd);
+			Utils.mLearn[Kc] = BigDecimal.ONE.max(min);
 		}
 	}
 }

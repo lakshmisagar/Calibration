@@ -35,9 +35,6 @@ public class Calibration {
 		return change;
 	}
 
-	/**
-	 * 
-	 */
 	private static void calculateNewParameters() {
 		SlipsAndGuesses.updateSlipnGuesses();
 		Learn.updateLearn();
