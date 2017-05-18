@@ -21,7 +21,6 @@ public class Utils {
 	
 	
 	// Datastructure to implement Question
-	static HashMap<Integer, Integer> question_AQ_Map = new HashMap<Integer, Integer>();
 	static HashMap<Integer, HashMap<Integer, Integer>> question_SA_Map = new HashMap<Integer, HashMap<Integer, Integer>>();
 
 	// Datastructure to implement Answer
@@ -141,13 +140,6 @@ public class Utils {
 	public static int getQuestion(int S, int A) {
 		HashMap<Integer, Integer> innerAQ_map = question_SA_Map.get(S);
 		return innerAQ_map.get(A);
-		/*//HashMap<Integer, Integer> innerAQ_map = question_SA_Map.get(S);
-		//TODO return innerAQ_map.get(A);
-		
-		//Making question attempted as the attempt number itself
-		int attemptedQuestion = A;;
-		//int attemptedQuestion = GlobalConstants.questionAtThisAttempt;
-		return attemptedQuestion;*/
 	}
 
 
