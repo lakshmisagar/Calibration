@@ -20,6 +20,7 @@ public class FillingForward {
 	static BigDecimal initial_OK = new BigDecimal(1.0);
 
 	public static void fillingForward() {
+		System.out.println("FillingForward ................................");
 		int Ns = GlobalConstants.total_Students;
 		int Nk = GlobalConstants.total_KCs;
 		for (int S = 0; S < Ns; S++) {

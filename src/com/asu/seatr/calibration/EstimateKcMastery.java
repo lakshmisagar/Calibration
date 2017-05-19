@@ -10,6 +10,7 @@ import com.asu.seatr.utils.Utils;
 public class EstimateKcMastery {
 
 	public static void Estimate_KC_mastery_Best(int studentCount, int kCount) {
+		System.out.println("EstimateKcMastery.....................");
 		for (int S = 0; S < studentCount; S++) {
 			for (int K = 0; K < kCount; K++) {
 				int lastCount = Utils.getLast(S);

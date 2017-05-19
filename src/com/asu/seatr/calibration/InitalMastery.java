@@ -1,6 +1,8 @@
 package com.asu.seatr.calibration;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 import com.asu.seatr.utils.GlobalConstants;
 import com.asu.seatr.utils.Utils;
 
@@ -12,7 +14,7 @@ import com.asu.seatr.utils.Utils;
 public class InitalMastery {
 
 	public static void updateIntialMastery() {
-
+		System.out.println("updateIntialMastery ................................");
 		for (int K = 0; K < GlobalConstants.total_KCs; K++) {
 			BigDecimal Sum = new BigDecimal(0);
 			int Count = 0;
@@ -21,7 +23,7 @@ public class InitalMastery {
 				Count = Count + 1;
 			}
 			BigDecimal bigDecimalCount = new BigDecimal(Count);
-			Utils.mInitialMastery[Utils.getKc(K)] = Sum.divide(bigDecimalCount);
+			Utils.setInitialMastery(K, Sum.divide(bigDecimalCount,20,RoundingMode.HALF_UP));
 		}
 	}
 }

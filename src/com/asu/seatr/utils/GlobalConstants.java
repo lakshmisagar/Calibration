@@ -13,8 +13,8 @@ public class GlobalConstants {
 	//TESTING 
 	public static int total_Students = 3;
 	public static int total_Questions = 3;
-	public static int total_KCs = 1;
+	public static int total_KCs = 1;// i.e Kc = 0;
 	
-	public static int numberOfQAteempetedByEachStudent = 3;
-	public static int kcsInQuestionMatrix = 1;
+	public static int indexOf_nth_QuestionAttempted = 2; // last question number.
+	public static int kcsInQuestionMatrix = 0; // only 0th Kc present in all QMatrix[Q] = {0}
 }

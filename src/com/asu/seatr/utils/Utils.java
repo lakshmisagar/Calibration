@@ -13,11 +13,11 @@ import java.util.HashMap;
  */
 public class Utils {
 
-	public static int[] mKC = new int[GlobalConstants.total_KCs+1];
-	public static BigDecimal[] mInitialMastery = new BigDecimal[GlobalConstants.total_KCs+1];
-	public static BigDecimal[] mLearn = new BigDecimal[GlobalConstants.total_KCs+1];
-	public static BigDecimal[] mSlip = new BigDecimal[GlobalConstants.total_Questions+1];
-	public static BigDecimal[] mGuess = new BigDecimal[GlobalConstants.total_Questions+1];
+	private static int[] mKC = new int[GlobalConstants.total_KCs];
+	private static BigDecimal[] mInitialMastery = new BigDecimal[GlobalConstants.total_KCs];
+	private static BigDecimal[] mLearn = new BigDecimal[GlobalConstants.total_KCs];
+	private static BigDecimal[] mSlip = new BigDecimal[GlobalConstants.total_Questions];
+	private static BigDecimal[] mGuess = new BigDecimal[GlobalConstants.total_Questions];
 	
 	
 	// Datastructure to implement Question
@@ -41,20 +41,29 @@ public class Utils {
 	static HashMap<Integer, BigDecimal> backward_innerBackwardMap = new HashMap<Integer, BigDecimal>();
 	static HashMap<Integer, HashMap<Integer, BigDecimal>> backward_innerKcBestMap = new HashMap<Integer, HashMap<Integer, BigDecimal>>();
 	static HashMap<Integer, HashMap<Integer, HashMap<Integer, BigDecimal>>> backward_outerStudentKcMap = new HashMap<Integer, HashMap<Integer, HashMap<Integer, BigDecimal>>>();
-
+	
+	
+	/*
+	 * Last
+	 */
 	public static int getLast(int mStudentId) {
 		// TODO find the nQuestionsAttempted
-		int nQuestionsAttempted = GlobalConstants.numberOfQAteempetedByEachStudent;
+		int nQuestionsAttempted = GlobalConstants.indexOf_nth_QuestionAttempted;
 		return nQuestionsAttempted;
 	}
-
+	/*
+	 * QMatrix
+	 */
 	public static ArrayList<Integer> getQuestionMatrix(int mQuestion) {
 		// TODO find the list values
 		ArrayList<Integer> list = new ArrayList<Integer>();
 		list.add(GlobalConstants.kcsInQuestionMatrix);
+		//System.out.println("list.size() :"+list.size());
 		return list;
 	}
-
+	/*
+	 * Forward
+	 */
 	public static void updateForward(int S, int K, int A, BigDecimal forwardfillingValue) {
 		// TODO implement forward filling
 		//System.out.println("set Forward - S:"+S+" K:"+K+" A:"+A+" ="+forwardfillingValue);
@@ -66,11 +75,13 @@ public class Utils {
 	public static BigDecimal getForward(int S, int K, int A) {
 		HashMap<Integer, HashMap<Integer, BigDecimal>> Kcmap = forward_outerStudentKcMap.get(S);
 		HashMap<Integer, BigDecimal> forwardmap = Kcmap.get(K);
-		//System.out.println("get Forward - S:"+S+" K:"+K+" A:"+A+" ="+forwardmap.get(A));
 		return forwardmap.get(A);
 	}
-
+	/*
+	 * Backward
+	 */
 	public static void updateBackward(int S, int K, int A, BigDecimal backwardfillingValue) {
+		//System.out.println("updateBackward S:"+S+" K:"+K+" A:"+A+" - "+backwardfillingValue);
 		// TODO implement backward filling
 		backward_innerBackwardMap.put(A, backwardfillingValue);
 		backward_innerKcBestMap.put(K, backward_innerBackwardMap);
@@ -80,9 +91,12 @@ public class Utils {
 	public static BigDecimal getBackward(int S, int K, int A) {
 		HashMap<Integer, HashMap<Integer, BigDecimal>> Kcmap = backward_outerStudentKcMap.get(S);
 		HashMap<Integer, BigDecimal> backwardmap = Kcmap.get(K);
+		//System.out.println("getBackward S:"+S+" K:"+K+" A:"+A+" - "+backwardmap.get(A));
 		return backwardmap.get(A);
 	}
-
+	/*
+	 * Best
+	 */
 	public static void updateBest(int S, int K, int A, BigDecimal bestValue) {
 		// TODO implement forward filling
 		best_innerBestMap.put(A, bestValue);
@@ -95,15 +109,19 @@ public class Utils {
 		HashMap<Integer, BigDecimal> bestmap = Kcmap.get(K);
 		return bestmap.get(A);
 	}
-
-	public void setInitialMastery(int K, BigDecimal value) {
+	/*
+	 * InitialMastery
+	 */
+	public static void setInitialMastery(int K, BigDecimal value) {
 		mInitialMastery[K] = value;
 	}
 
 	public static BigDecimal getInitialMastery(int K) {
 		return mInitialMastery[K];
 	}
-
+	/*
+	 * Slip
+	 */
 	public static void setSlip(int question, BigDecimal value) {
 		mSlip[question] = value;
 	}
@@ -112,12 +130,40 @@ public class Utils {
 		return mSlip[question];
 	}
 
-	public void setGuess(int question, BigDecimal value) {
-		mInitialMastery[question] = value;
+	/*
+	 * Guess
+	 */
+	public static void setGuess(int question, BigDecimal value) {
+		mGuess[question] = value;
 	}
 
 	public static BigDecimal getGuess(int question) {
 		return mGuess[question];
+	}
+	/*
+	 * Learn
+	 */
+	public static void setLearn(int K, BigDecimal value) {
+		System.out.println("setLearn K: "+K+" "+value);
+		mLearn[K] = value;
+	}
+
+	public static BigDecimal getLearn(int K) {
+		System.out.println("getLearn K: "+K+" "+mLearn[K]);
+		return mLearn[K];
+	}
+	
+	/*
+	 * Kc
+	 */
+	public static void setKc(int K, int value) {
+		//System.out.println("setKc K: "+K+" "+value);
+		mKC[K] = value;
+	}
+	
+	public static int getKc(int k) {
+		//System.out.println("getKc K: "+k+" "+ mKC[k]);
+		return mKC[k];
 	}
 
 	/*
@@ -143,23 +189,5 @@ public class Utils {
 		HashMap<Integer, Integer> innerAQ_map = question_SA_Map.get(S);
 		return innerAQ_map.get(A);
 	}
-
-
-	public void setLearn(int K, BigDecimal value) {
-		mLearn[K] = value;
-	}
-
-	public static BigDecimal getLearn(int K) {
-		return mLearn[K];
-	}
-	public static void setKc(int K, int value) {
-		mKC[K] = value;
-	}
-	
-	public static int getKc(int k) {
-		return mKC[k];
-	}
-
-
 
 }

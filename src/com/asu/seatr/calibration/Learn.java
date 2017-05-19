@@ -15,6 +15,7 @@ import com.asu.seatr.utils.Utils;
 public class Learn {
 
 	public static void updateLearn() {
+		System.out.println("Learn ................................");
 		for (int K = 0; K < GlobalConstants.total_KCs ; K++) {
 			int Kc = Utils.getKc(K);
 			BigDecimal LearnNumerator = new BigDecimal(0);
@@ -27,18 +28,21 @@ public class Learn {
 						if(KCs.get(list_K) == Kc){
 							int j = KCs.get(list_K);
 							BigDecimal var1 = BigDecimal.ONE.subtract(Utils.getBest(S, j, A));
-							BigDecimal var2 = var1.multiply(Utils.mLearn[j]);
+							BigDecimal var2 = var1.multiply(Utils.getLearn(j));
 							BigDecimal var3 = Utils.getBest(S, j, A).add(var2);
 							SE = SE.multiply(var3);
 						}
 					LearnNumerator = LearnNumerator.add((Utils.getBest(S, Kc, A + 1).subtract(Utils.getBest(S, Kc, A))));
-					LearnDenominator = LearnDenominator.add(((BigDecimal.ONE.subtract(Utils.getBest(S, Kc, A))).multiply(SE)));
+					LearnDenominator = LearnDenominator.add(((BigDecimal.ONE.subtract(Utils.getBest(S, Kc, A))).multiply(SE))).setScale(20,RoundingMode.CEILING);;
 					}
 				}
 			}
+			System.out.println("LearnNumerator :"+LearnNumerator);
+			System.out.println("LearnDenominator :"+LearnDenominator);
 			BigDecimal LnByLd =  LearnNumerator.divide(LearnDenominator ,20, RoundingMode.HALF_UP);
-			BigDecimal min = BigDecimal.ZERO.min(LnByLd);
-			Utils.mLearn[Kc] = BigDecimal.ONE.max(min);
+			BigDecimal max = BigDecimal.ZERO.max(LnByLd);
+			System.out.println("max :"+max);
+			Utils.setLearn(Kc, BigDecimal.ONE.min(max));
 		}
 	}
 }
