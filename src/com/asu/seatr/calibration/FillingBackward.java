@@ -26,7 +26,7 @@ public class FillingBackward {
 			for (int K = 0; K < Nk; K++) {
 				Utils.updateBackward(S, Utils.getKc(K), Utils.getLast(S), BigDecimal.ONE);
 			}// is this the end of K loop? is it Utils.getLast(S)+1  or Utils.getLast(S) ?
-				for (int A = Utils.getLast(S) - 1; A >= 0; A--) {
+				for (int A = Utils.getLast(S)-1; A >= 0; A--) {
 					int question = Utils.getQuestion(S, A);
 					ArrayList<Integer> KCs = Utils.getQuestionMatrix(question);
 					BigDecimal SE = BigDecimal.ONE;

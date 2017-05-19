@@ -6,3 +6,4 @@
 5. Kcs start from 0 to n-1
 6. Attempts - first attempt is at 0th index.
 7.Question - 01234567....n-1
+8. Learn -> Learn[K] = min(1, max(0, LearnNumerator / LearnDenominator))  changed to -> Learn[K] = min(0.5, max(0.05, LearnNumerator / LearnDenominator)) to avoid learn changing to 0 or 1

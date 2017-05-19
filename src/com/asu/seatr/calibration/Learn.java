@@ -37,12 +37,12 @@ public class Learn {
 					}
 				}
 			}
-			System.out.println("LearnNumerator :"+LearnNumerator);
-			System.out.println("LearnDenominator :"+LearnDenominator);
+			//System.out.println("LearnNumerator :"+LearnNumerator);
+			//System.out.println("LearnDenominator :"+LearnDenominator);
 			BigDecimal LnByLd =  LearnNumerator.divide(LearnDenominator ,20, RoundingMode.HALF_UP);
-			BigDecimal max = BigDecimal.ZERO.max(LnByLd);
-			System.out.println("max :"+max);
-			Utils.setLearn(Kc, BigDecimal.ONE.min(max));
+			BigDecimal max = BigDecimal.valueOf(0.05).max(LnByLd);
+			//System.out.println("max :"+max);
+			Utils.setLearn(Kc, BigDecimal.valueOf(0.5).min(max));
 		}
 	}
 }

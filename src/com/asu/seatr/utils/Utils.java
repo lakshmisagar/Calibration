@@ -144,12 +144,12 @@ public class Utils {
 	 * Learn
 	 */
 	public static void setLearn(int K, BigDecimal value) {
-		System.out.println("setLearn K: "+K+" "+value);
+		//System.out.println("setLearn K: "+K+" "+value);
 		mLearn[K] = value;
 	}
 
 	public static BigDecimal getLearn(int K) {
-		System.out.println("getLearn K: "+K+" "+mLearn[K]);
+		//System.out.println("getLearn K: "+K+" "+mLearn[K]);
 		return mLearn[K];
 	}
 	

@@ -2,8 +2,10 @@ package com.asu.seatr.calibration;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import com.asu.seatr.utils.GlobalConstants;
@@ -15,7 +17,7 @@ import com.asu.seatr.utils.Utils;
 public class Calibration {
 
 	static int climb = 0;
-	static HashMap<Integer, ArrayList<String>> climbMap = new HashMap<Integer, ArrayList<String>>();
+	static HashMap<Integer, ArrayList<BigDecimal>> climbMap = new HashMap<Integer, ArrayList<BigDecimal>>();
 	static BigDecimal old_initalMastery[];
 	static BigDecimal old_Learn[];
 	static BigDecimal old_slip[];
@@ -24,11 +26,16 @@ public class Calibration {
 	static int total_students;
 	static int total_KCs;
 	static int total_Q;
-
+	
+	static BigDecimal average_IM;
+	static BigDecimal average_L;
+	static BigDecimal average_S;
+	static BigDecimal average_G;
+	
 	private static BigDecimal climbOnce() {
 		saveParameters();
-		//FillingForward.fillingForward();
-		//FillingBackward.fillingBackward();
+		FillingForward.fillingForward();
+		FillingBackward.fillingBackward();
 		EstimateKcMastery.Estimate_KC_mastery_Best(total_students, total_KCs);
 		calculateNewParameters();// update initalMaster,Learn,slip,guess
 		BigDecimal change = changeInParameter();
@@ -47,7 +54,7 @@ public class Calibration {
 		BigDecimal sum_slip = BigDecimal.ZERO;
 		BigDecimal sum_guess = BigDecimal.ZERO;
 
-		BigDecimal maxChange, IMChange, LChange, SChange, GChange;
+		BigDecimal maxChange,IMChange,LChange,SChange,GChange;
 		MathContext mc = new MathContext(6);
 
 		for (int K = 0; K < total_KCs; K++) {
@@ -168,8 +175,44 @@ public class Calibration {
 		}
 	}
 
+
+	/**
+	 * get final parameters
+	 */
+	private static void updateNewPrameters() {
+		BigDecimal sum_IM = BigDecimal.ZERO;
+		BigDecimal sum_L = BigDecimal.ZERO;
+		BigDecimal sum_S = BigDecimal.ZERO;
+		BigDecimal sum_G = BigDecimal.ZERO;
+		for (int K = 0; K < total_KCs; K++) {
+			int Kc = Utils.getKc(K);
+			sum_IM = sum_IM.add(Utils.getInitialMastery(Kc));
+			sum_L = sum_L.add(Utils.getLearn(Kc));
+		}
+		average_IM = sum_IM.divide(BigDecimal.valueOf(total_KCs),20,RoundingMode.HALF_UP);
+		average_L = sum_L.divide(BigDecimal.valueOf(total_KCs),20,RoundingMode.HALF_UP);
+		for (int Q = 0; Q < total_Q; Q++) {
+			sum_S = sum_S.add(Utils.getSlip(Q));
+			sum_G = sum_S.add(Utils.getGuess(Q));
+		}
+		average_S = sum_S.divide(BigDecimal.valueOf(total_Q),20,RoundingMode.HALF_UP);
+		average_G = sum_G.divide(BigDecimal.valueOf(total_Q),20,RoundingMode.HALF_UP);
+	}
 	
-	
+	/**
+	 * FINAL RESULT 
+	 */
+	private static void PrintResult() {
+		for(Map.Entry<Integer, ArrayList<BigDecimal>> entry: climbMap.entrySet()){
+			System.out.println(" CLIMB "+entry.getKey());
+			ArrayList<BigDecimal> list = entry.getValue();
+			System.out.println(" InitialMastery :"+list.get(0));
+			System.out.println(" Learn :"+list.get(0));
+			System.out.println(" Slip :"+list.get(0));
+			System.out.println(" Guess :"+list.get(0));
+		}
+	}
+
 	public static void main(String[] args) {
 		System.out.println("CALIBRATION.....................");
 		// TODO get data from DB
@@ -188,17 +231,28 @@ public class Calibration {
 		setDatabase();
 		
 		while (climb < 10) {
+			
 			fillRandomParameters();
-			while (climbOnce().compareTo(BigDecimal.valueOf(0.1)) == -1) {
-				ArrayList<String> list = new ArrayList<String>();
-				//list.add(String.valueOf(Utils.mInitialMastery));
-				//list.add(String.valueOf(Utils.mLearn));
-				//list.add(String.valueOf(Utils.mSlip));
-				//list.add(String.valueOf(Utils.mGuess));
-				climbMap.put(climb++, list);
+			if (climbOnce().compareTo(BigDecimal.valueOf(0.1)) == -1) {
+				updateNewPrameters();
+				ArrayList<BigDecimal> list = new ArrayList<BigDecimal>();
+				list.add(average_IM);
+				list.add(average_L);
+				list.add(average_S);
+				list.add(average_G);
+				climb++;
+				climbMap.put(climb, list);
+				System.out.println("CLIMB -----> "+climb);
 			}
 		}
+		
+		PrintResult();
+		
 	}
+
+	
+
+	
 
 
 }
