@@ -187,16 +187,24 @@ public class Calibration {
 		for (int K = 0; K < total_KCs; K++) {
 			int Kc = Utils.getKc(K);
 			sum_IM = sum_IM.add(Utils.getInitialMastery(Kc));
+			//System.out.println("sum_IM :"+sum_IM);
 			sum_L = sum_L.add(Utils.getLearn(Kc));
+			//System.out.println("sum_L :"+sum_L);
 		}
 		average_IM = sum_IM.divide(BigDecimal.valueOf(total_KCs),20,RoundingMode.HALF_UP);
 		average_L = sum_L.divide(BigDecimal.valueOf(total_KCs),20,RoundingMode.HALF_UP);
+		//System.out.println("average_IM :"+average_IM);
+		//System.out.println("average_L :"+average_L);
 		for (int Q = 0; Q < total_Q; Q++) {
 			sum_S = sum_S.add(Utils.getSlip(Q));
-			sum_G = sum_S.add(Utils.getGuess(Q));
+			sum_G = sum_G.add(Utils.getGuess(Q));
+			//System.out.println("sum_S :"+sum_S);
+			//System.out.println("sum_G :"+sum_G);
 		}
 		average_S = sum_S.divide(BigDecimal.valueOf(total_Q),20,RoundingMode.HALF_UP);
 		average_G = sum_G.divide(BigDecimal.valueOf(total_Q),20,RoundingMode.HALF_UP);
+		//System.out.println("average_S :"+average_S);
+		//System.out.println("average_G :"+average_G);
 	}
 	
 	/**
@@ -207,9 +215,9 @@ public class Calibration {
 			System.out.println(" CLIMB "+entry.getKey());
 			ArrayList<BigDecimal> list = entry.getValue();
 			System.out.println(" InitialMastery :"+list.get(0));
-			System.out.println(" Learn :"+list.get(0));
-			System.out.println(" Slip :"+list.get(0));
-			System.out.println(" Guess :"+list.get(0));
+			System.out.println(" Learn :"+list.get(1));
+			System.out.println(" Slip :"+list.get(2));
+			System.out.println(" Guess :"+list.get(3));
 		}
 	}
 
