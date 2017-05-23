@@ -27,7 +27,7 @@ public class SessionFactoryUtil {
         	/*cfg= new Configuration().configure("/hibernatetest.cfg.xml");
             sesRegistry = new StandardServiceRegistryBuilder().applySettings(cfg.getProperties()).build();
             sesFactory=cfg.buildSessionFactory(sesRegistry);*/
-        	StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder() .configure("/hibernatetest.cfg.xml").build();
+        	StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder() .configure().build();
             Metadata metadata = new MetadataSources(standardRegistry).getMetadataBuilder().build();
             
             try{
@@ -38,7 +38,7 @@ public class SessionFactoryUtil {
                 return metadata.getSessionFactoryBuilder().build();
             }                   
             catch(Throwable ex){
-                cfg= new Configuration().configure("lib/hibernatetest.cfg.xml"); 
+                cfg= new Configuration().configure(); 
                 sesRegistry = new StandardServiceRegistryBuilder().applySettings(cfg.getProperties()).build();
                 sesFactory=cfg.buildSessionFactory(sesRegistry);
                 System.out.println("Connected to Slave Database Server");

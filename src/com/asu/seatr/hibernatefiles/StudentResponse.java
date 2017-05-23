@@ -13,7 +13,7 @@ public class StudentResponse {
 		String hql="SELECT distinct user_id as sid FROM student_response";
 		SessionFactory sf = SessionFactoryUtil.getSessionFactory();
 		Session session=sf.openSession();
-		Query mQuery=session.createQuery(hql).setParameter("sid", IntegerType.INSTANCE);
+		Query mQuery=session.createQuery(hql);
 		List<Integer> result=mQuery.list();
 		String[] ids=new String[result.size()];
 		int i=0;
