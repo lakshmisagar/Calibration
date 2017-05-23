@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+import com.asu.seatr.connection.MySQLConnection;
+import com.asu.seatr.hibernatefiles.StudentResponse;
 import com.asu.seatr.utils.GlobalConstants;
 import com.asu.seatr.utils.Utils;
 /**
@@ -140,6 +142,7 @@ public class Calibration {
 	}
 	
 	private static void setDatabase() {
+		StudentResponse.setAllStudentsIds();
 		setKcs();
 		setAnswerValues();
 		setQuestionValues();
@@ -222,6 +225,8 @@ public class Calibration {
 	}
 
 	public static void main(String[] args) {
+		
+		//MySQLConnection.SetConnection();
 		System.out.println("CALIBRATION.....................");
 		// TODO get data from DB
 		total_students = GlobalConstants.total_Students;
