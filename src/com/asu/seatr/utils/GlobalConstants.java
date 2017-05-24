@@ -11,7 +11,9 @@ public class GlobalConstants {
 	public static int kcsInQuestionMatrix = 1;*/
 	
 	//TESTING 
-	public static int total_Students = 3;
+	public static String OPE_Class_25 = "/hibernateOpeClass25.cfg.xml";
+	public static String OPE_global = "/hibernateOpeGlobal.cfg.xml";
+	public static int total_Students /*3*/;
 	public static int total_Questions = 3;
 	public static int total_KCs = 1;// i.e Kc = 0;
 	

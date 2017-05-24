@@ -18,8 +18,8 @@ public class Utils {
 	private static BigDecimal[] mLearn = new BigDecimal[GlobalConstants.total_KCs];
 	private static BigDecimal[] mSlip = new BigDecimal[GlobalConstants.total_Questions];
 	private static BigDecimal[] mGuess = new BigDecimal[GlobalConstants.total_Questions];
-	
-	
+	private static int[] studentsList = new int[GlobalConstants.total_Students];
+
 	// Datastructure to implement Question
 	static HashMap<Integer, HashMap<Integer, Integer>> question_SA_Map = new HashMap<Integer, HashMap<Integer, Integer>>();
 
@@ -43,6 +43,26 @@ public class Utils {
 	static HashMap<Integer, HashMap<Integer, HashMap<Integer, BigDecimal>>> backward_outerStudentKcMap = new HashMap<Integer, HashMap<Integer, HashMap<Integer, BigDecimal>>>();
 	
 	
+	/*
+	 * Students List
+	 */
+	
+	public static int[] getStudentsList() {
+		return studentsList;
+	}
+	public static void setStudentsList(int[] studentsList) {
+		Utils.studentsList = studentsList;
+	}
+	/*
+	 * Student
+	 */
+	
+	public static int getStudent(int index) {
+		return studentsList[index];
+	}
+	public static void setStudent(int index,int studentid) {
+		Utils.studentsList[index] = studentid;
+	}
 	/*
 	 * Last
 	 */
@@ -153,6 +173,17 @@ public class Utils {
 		return mLearn[K];
 	}
 	
+	
+	/*
+	 * KCs List
+	 */
+	
+	public static int[] getKCsList() {
+		return mKC;
+	}
+	public static void setKCsList(int[] kcs) {
+		mKC = kcs;
+	}
 	/*
 	 * Kc
 	 */

@@ -8,8 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-import com.asu.seatr.connection.MySQLConnection;
-import com.asu.seatr.hibernatefiles.StudentResponse;
+import com.asu.seatr.database.DatabaseResponse;
 import com.asu.seatr.utils.GlobalConstants;
 import com.asu.seatr.utils.Utils;
 /**
@@ -142,8 +141,10 @@ public class Calibration {
 	}
 	
 	private static void setDatabase() {
-		StudentResponse.setAllStudentsIds();
-		setKcs();
+		System.out.println("setDatabase()");
+		DatabaseResponse.setAllStudentsIds();
+		
+		//DatabaseResponse.setKcs();
 		setAnswerValues();
 		setQuestionValues();
 		
@@ -228,6 +229,10 @@ public class Calibration {
 		
 		//MySQLConnection.SetConnection();
 		System.out.println("CALIBRATION.....................");
+		
+		//SetDB
+		setDatabase();
+		
 		// TODO get data from DB
 		total_students = GlobalConstants.total_Students;
 		total_KCs = GlobalConstants.total_KCs;
@@ -240,8 +245,7 @@ public class Calibration {
 		old_guess = new BigDecimal[GlobalConstants.total_Questions+1];
 		
 		
-		//SetDB
-		setDatabase();
+		
 		
 		while (climb < 10) {
 			

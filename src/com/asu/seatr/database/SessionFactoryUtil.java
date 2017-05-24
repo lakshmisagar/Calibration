@@ -1,4 +1,4 @@
-package com.asu.seatr.hibernatefiles;
+package com.asu.seatr.database;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.Metadata;
@@ -8,37 +8,28 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 
+import com.asu.seatr.utils.GlobalConstants;
+
 /**
  * 
- * @author dikshay_ope
- * Creates SessionFactory for testing.
- * Configuration file for testing is read from src/main/resources/hibernatetest.cfg.xml
+ * @author Lakshmisagar Kusnoor
  *
  */
 public class SessionFactoryUtil {
-    //This class creates a session factory object by looking at the hibernate configuration (hibernate.cfg.xml)
 
     private static SessionFactory sesFactory;
     private static ServiceRegistry sesRegistry;
     static Configuration cfg;
-    public static SessionFactory initSessionFactory(){
+    public static SessionFactory initSessionFactory(String path){
         try{
-
-        	/*cfg= new Configuration().configure("/hibernatetest.cfg.xml");
-            sesRegistry = new StandardServiceRegistryBuilder().applySettings(cfg.getProperties()).build();
-            sesFactory=cfg.buildSessionFactory(sesRegistry);*/
-        	StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder() .configure().build();
+        	StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder() .configure(path).build();
             Metadata metadata = new MetadataSources(standardRegistry).getMetadataBuilder().build();
-            
             try{
-
-                //Session session = getSessionFactory().openSession();
-                //Transaction tx = session.beginTransaction();
                 System.out.println("Connected to Master Database Server");
                 return metadata.getSessionFactoryBuilder().build();
             }                   
             catch(Throwable ex){
-                cfg= new Configuration().configure(); 
+                cfg= new Configuration().configure("lib/"+path); 
                 sesRegistry = new StandardServiceRegistryBuilder().applySettings(cfg.getProperties()).build();
                 sesFactory=cfg.buildSessionFactory(sesRegistry);
                 System.out.println("Connected to Slave Database Server");
@@ -51,11 +42,12 @@ public class SessionFactoryUtil {
             throw new ExceptionInInitializerError(ex);
         }
     }   
-    public  static SessionFactory getSessionFactory() {
+    public  static SessionFactory getSessionFactory(String dbConfigPath) {
     	if(sesFactory == null)
     	{
-    		sesFactory = initSessionFactory();
+    		sesFactory = initSessionFactory(dbConfigPath);
     	}
-            return sesFactory;
+            
+    	return sesFactory;
     }
 }

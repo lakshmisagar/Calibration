@@ -1,4 +1,4 @@
-package com.asu.seatr.opeclass25models;
+package com.asu.seatr.opetest.models;
 
 public class student_response {
 

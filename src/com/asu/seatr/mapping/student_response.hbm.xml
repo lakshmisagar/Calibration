@@ -2,7 +2,7 @@
 <!DOCTYPE hibernate-mapping PUBLIC
         "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<hibernate-mapping package="com.asu.seatr.opeclass25models">
+<hibernate-mapping package="com.asu.seatr.opetest.models">
     <class name="student_response" table="student_response">
         <id name="id" column="id">
             <generator class="increment"/>
