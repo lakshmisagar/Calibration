@@ -1,24 +1,25 @@
 package com.asu.seatr.opetest.models;
 
-public class Knowledge_component {
+public class knowledge_component {
 	
 	private int id;
 	private String name;
+	private byte[] description;
 	private int importance;
-	private String description;
+
 	
-	public Knowledge_component() {
+	public knowledge_component() {
     }
-    public Knowledge_component(int id,String name, int importance, String description) {
+    public knowledge_component(int id,String name,byte[] description , int importance) {
         this.id = id;
         this.name = name;
-        this.importance = importance;
         this.description = description;
+        this.importance = importance;
     }
-    public Knowledge_component(String name, int importance, String description) {
+    public knowledge_component(String name,byte[] description , int importance) {
         this.name = name;
-        this.importance = importance;
         this.description = description;
+        this.importance = importance;
     }
 	public int getId() {
 		return id;
@@ -32,17 +33,17 @@ public class Knowledge_component {
 	public void setName(String name) {
 		this.name = name;
 	}
+	public byte[] getDescription() {
+		return description;
+	}
+	public void setDescription(byte[] description) {
+		this.description = description;
+	}
 	public int getImportance() {
 		return importance;
 	}
 	public void setImportance(int importance) {
 		this.importance = importance;
 	}
-	public String getDescription() {
-		return description;
-	}
-	public void setDescription(String description) {
-		this.description = description;
-	}
-    
+	
 }

@@ -4,26 +4,33 @@
 package com.asu.seatr.utils;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
-
 /**
  * @author Lakshmisagar Kusnoor created on May 15, 2017
  *
  */
 public class Utils {
 
-	private static int[] mKC = new int[GlobalConstants.total_KCs];
-	private static BigDecimal[] mInitialMastery = new BigDecimal[GlobalConstants.total_KCs];
-	private static BigDecimal[] mLearn = new BigDecimal[GlobalConstants.total_KCs];
+	//private static int[] mKC = new int[GlobalConstants.total_KCs];
+	//private static BigDecimal[] mInitialMastery = new BigDecimal[GlobalConstants.total_KCs];
+	//private static BigDecimal[] mLearn = new BigDecimal[GlobalConstants.total_KCs];
 	private static BigDecimal[] mSlip = new BigDecimal[GlobalConstants.total_Questions];
 	private static BigDecimal[] mGuess = new BigDecimal[GlobalConstants.total_Questions];
 	private static int[] studentsList = new int[GlobalConstants.total_Students];
-
-	// Datastructure to implement Question
+	private static int[] questionsList = new int[GlobalConstants.total_Questions];
+	
+	//Datastructure to implement InitialMater and Learn
+	static HashMap<Integer, HashMap<Integer, BigDecimal>> kc_initialMastery_Learn_map = new HashMap<Integer, HashMap<Integer, BigDecimal>>();
+	
+	// Datastructure to implement Question(S,A,Q)
 	static HashMap<Integer, HashMap<Integer, Integer>> question_SA_Map = new HashMap<Integer, HashMap<Integer, Integer>>();
 
-	// Datastructure to implement Answer
+	//Datastructure to implement QuestionMatrix(Q) 
+	static HashMap<Integer, ArrayList<Integer>> qMatrix_map = new HashMap<Integer, ArrayList<Integer>>();
+
+	// Datastructure to implement Answer(S,A,Q)
 	static HashMap<Integer, HashMap<Integer, Integer>> answer_SA_Map = new HashMap<Integer, HashMap<Integer, Integer>>();
 	
 	//TODO change the logic from 3 maps to 1 map here in utils like Questionand Answer
@@ -74,11 +81,18 @@ public class Utils {
 	/*
 	 * QMatrix
 	 */
+	public static void setQuestionMatrix(int mQuestion,int kc) {
+		ArrayList<Integer> list = qMatrix_map.get(mQuestion);
+		if(list == null) {
+			list = new ArrayList<Integer>();
+			list.add(kc);
+			qMatrix_map.put(mQuestion, list);
+	    } else {
+	        if(!list.contains(kc)) list.add(kc);
+	    }
+	}
 	public static ArrayList<Integer> getQuestionMatrix(int mQuestion) {
-		// TODO find the list values
-		ArrayList<Integer> list = new ArrayList<Integer>();
-		list.add(GlobalConstants.kcsInQuestionMatrix);
-		//System.out.println("list.size() :"+list.size());
+		ArrayList<Integer> list = qMatrix_map.get(mQuestion);
 		return list;
 	}
 	/*
@@ -130,22 +144,48 @@ public class Utils {
 		return bestmap.get(A);
 	}
 	/*
-	 * InitialMastery
+	 * Kc
 	 */
-	public static void setInitialMastery(int K, BigDecimal value) {
-		mInitialMastery[K] = value;
+	public static void setKc(int KcIndex, int value) {
+		if(!kc_initialMastery_Learn_map.containsKey(KcIndex)){
+			HashMap<Integer, BigDecimal> map = new HashMap<Integer, BigDecimal>();
+			kc_initialMastery_Learn_map.put(KcIndex, map);
+		}
+		kc_initialMastery_Learn_map.get(KcIndex).put(GlobalConstants.Kc,BigDecimal.valueOf(value));
+	}
+	
+	public static int getKc(int K) {
+		return kc_initialMastery_Learn_map.get(K).get(GlobalConstants.Kc).intValue();
 	}
 
-	public static BigDecimal getInitialMastery(int K) {
-		return mInitialMastery[K];
+	/*
+	 * InitialMastery
+	 */
+	public static void setInitialMastery(int KcIndex, BigDecimal value) {
+		kc_initialMastery_Learn_map.get(KcIndex).put(GlobalConstants.IM,value);
+	}
+
+	public static BigDecimal getInitialMastery(int KcIndex) {
+		return kc_initialMastery_Learn_map.get(KcIndex).get(GlobalConstants.IM);
+	}
+	/*
+	 * Learn
+	 */
+	public static void setLearn(int KcIndex, BigDecimal value) {
+		kc_initialMastery_Learn_map.get(KcIndex).put(GlobalConstants.Learn,value);
+	}
+
+	public static BigDecimal getLearn(int KcIndex) {
+		return kc_initialMastery_Learn_map.get(KcIndex).get(GlobalConstants.Learn);
 	}
 	/*
 	 * Slip
 	 */
 	public static void setSlip(int question, BigDecimal value) {
+		System.out.println("total_q :"+GlobalConstants.total_Questions);
+		System.out.println("mSlip :"+mSlip.length);
 		mSlip[question] = value;
 	}
-
 	public static BigDecimal getSlip(int question) {
 		return mSlip[question];
 	}
@@ -160,42 +200,8 @@ public class Utils {
 	public static BigDecimal getGuess(int question) {
 		return mGuess[question];
 	}
-	/*
-	 * Learn
-	 */
-	public static void setLearn(int K, BigDecimal value) {
-		//System.out.println("setLearn K: "+K+" "+value);
-		mLearn[K] = value;
-	}
 
-	public static BigDecimal getLearn(int K) {
-		//System.out.println("getLearn K: "+K+" "+mLearn[K]);
-		return mLearn[K];
-	}
 	
-	
-	/*
-	 * KCs List
-	 */
-	
-	public static int[] getKCsList() {
-		return mKC;
-	}
-	public static void setKCsList(int[] kcs) {
-		mKC = kcs;
-	}
-	/*
-	 * Kc
-	 */
-	public static void setKc(int K, int value) {
-		//System.out.println("setKc K: "+K+" "+value);
-		mKC[K] = value;
-	}
-	
-	public static int getKc(int k) {
-		//System.out.println("getKc K: "+k+" "+ mKC[k]);
-		return mKC[k];
-	}
 
 	/*
 	 * Answer
@@ -209,6 +215,21 @@ public class Utils {
 		return innerAC_map.get(A);
 	}
 	
+	/*
+	 * Question List
+	 */
+	public static int[] getQuestionsList() {
+		return questionsList;
+	}
+	public static void setQuestionsList(int[] questionList) {
+		Utils.questionsList = questionList;
+	}
+	public static int getQuestion(int index) {
+		return questionsList[index];
+	}
+	public static void setQuestion(int index,int questionid) {
+		Utils.questionsList[index] = questionid;
+	}
 	/*
 	 * Question
 	 */

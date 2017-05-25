@@ -12,6 +12,7 @@
     
     <property name="show_sql">true</property>
     <mapping resource="com/asu/seatr/mapping/student_response.hbm.xml"/>   
+    <mapping resource="com/asu/seatr/mapping/class_question.hbm.xml"/>   
     
   </session-factory>
 </hibernate-configuration>

@@ -12,6 +12,6 @@
     
     <property name="show_sql">true</property>
     <mapping resource="com/asu/seatr/mapping/knowledge_component.hbm.xml"/>   
-    
+    <mapping resource="com/asu/seatr/mapping/question_knowledge_component.hbm.xml"/>   
   </session-factory>
 </hibernate-configuration>

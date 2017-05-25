@@ -1,17 +1,17 @@
 package com.asu.seatr.opetest.models;
 
-public class Question_knowledge_component {
+public class question_knowledge_component {
 	
 	private int question_id;
 	private int knowledge_component_id;
 	
-	public Question_knowledge_component() {
+	public question_knowledge_component() {
     }
-    public Question_knowledge_component(int question_id,int knowledge_component_id) {
+    public question_knowledge_component(int question_id,int knowledge_component_id) {
         this.question_id = question_id;
         this.knowledge_component_id = knowledge_component_id;
     }
-    public Question_knowledge_component(int knowledge_component_id) {
+    public question_knowledge_component(int knowledge_component_id) {
         this.knowledge_component_id = knowledge_component_id;
     }
 	public int getQuestion_id() {

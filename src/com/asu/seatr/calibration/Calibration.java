@@ -89,10 +89,9 @@ public class Calibration {
 	}
 
 	private static void saveParameters() {
-		for (int K = 0; K < total_KCs; K++) {
-			int Kc = Utils.getKc(K);
-			old_initalMastery[Kc] = Utils.getInitialMastery(Kc);
-			old_Learn[Kc] = Utils.getLearn(Kc);
+		for (int KcIndex = 0; KcIndex < total_KCs; KcIndex++) {
+			old_initalMastery[KcIndex] = Utils.getInitialMastery(KcIndex);
+			old_Learn[KcIndex] = Utils.getLearn(KcIndex);
 		}
 		for (int Q = 0; Q < total_Q; Q++) {
 			old_slip[Q] = Utils.getSlip(Q);
@@ -102,12 +101,11 @@ public class Calibration {
 
 	private static void fillRandomParameters() {
 		Random r = new Random();
-		for (int K = 0; K < total_KCs; K++) {
-			int Kc = Utils.getKc(K);
+		for (int KcIndex = 0; KcIndex < total_KCs; KcIndex++) {
 			double r_initalMaster = 0.05 + r.nextDouble() * (0.95 - 0.05);
 			double r_Learn = 0.05 + r.nextDouble() * (0.5 - 0.05);
-			Utils.setInitialMastery(Kc, BigDecimal.valueOf(r_initalMaster));
-			Utils.setLearn(Kc,BigDecimal.valueOf(r_Learn));
+			Utils.setInitialMastery(KcIndex, BigDecimal.valueOf(r_initalMaster));
+			Utils.setLearn(KcIndex,BigDecimal.valueOf(r_Learn));
 		}
 		for (int Q = 0; Q < total_Q; Q++) {
 			double r_slip = 0.05 + r.nextDouble() * (0.45 - 0.05);
@@ -115,7 +113,6 @@ public class Calibration {
 			Utils.setSlip(Q, BigDecimal.valueOf(r_slip));
 			Utils.setGuess(Q, BigDecimal.valueOf(r_guess));
 		}
-		
 		printRandomParameters();
 	}
 
@@ -264,12 +261,6 @@ public class Calibration {
 		}
 		
 		PrintResult();
-		
 	}
-
-	
-
-	
-
 
 }
