@@ -1,6 +1,6 @@
 package com.asu.seatr.opetest.models;
 
-public class question_knowledge_component {
+public class question_knowledge_component implements java.io.Serializable{
 	
 	private int question_id;
 	private int knowledge_component_id;

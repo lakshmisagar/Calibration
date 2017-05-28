@@ -41,7 +41,7 @@ public class FillingBackward {
 						
 						//System.out.println("SE :"+SE);
 						//System.out.println("Utils.getLearn(localK) :"+Utils.getLearn(localK));
-						BigDecimal var1 = Utils.getLearn(localK).multiply(SE);
+						BigDecimal var1 = Utils.getLearnMap(localK).multiply(SE);
 						//System.out.println("var1: "+var1);
 						
 						BigDecimal var2 = Utils.getBackward(S, localK, A + 1);
@@ -65,8 +65,8 @@ public class FillingBackward {
 					for (int list_K = 0; list_K < KCs.size(); list_K++) {
 						OK = OK.multiply(Utils.getBackward(S, KCs.get(list_K), A));
 					}
-					BigDecimal slip = Utils.getSlip(question);
-					BigDecimal guess = Utils.getGuess(question);
+					BigDecimal slip = Utils.getSlipMap(question);
+					BigDecimal guess = Utils.getGuessMap(question);
 					BigDecimal slipPlusGuess = slip.add(guess);
 					BigDecimal oneMinusSlipPlusGuess = BigDecimal.ONE.subtract(slipPlusGuess);
 					x = OK.multiply(oneMinusSlipPlusGuess);

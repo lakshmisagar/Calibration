@@ -60,20 +60,21 @@ public class Calibration {
 
 		for (int K = 0; K < total_KCs; K++) {
 			int Kc = Utils.getKc(K);
-			BigDecimal diff_IM = old_initalMastery[Kc].subtract(Utils.getInitialMastery(Kc), mc);
-			BigDecimal change_IM = diff_IM.abs().divide(old_initalMastery[Kc], mc);
+			BigDecimal diff_IM = old_initalMastery[K].subtract(Utils.getInitialMasteryMap(Kc), mc);
+			BigDecimal change_IM = diff_IM.abs().divide(old_initalMastery[K], mc);
 			sum_initalMaster.add(change_IM);
 
-			BigDecimal diff_L = old_Learn[Kc].subtract(Utils.getLearn(Kc), mc);
-			BigDecimal change_L = diff_L.abs().divide(old_Learn[Kc], mc);
+			BigDecimal diff_L = old_Learn[K].subtract(Utils.getLearnMap(Kc), mc);
+			BigDecimal change_L = diff_L.abs().divide(old_Learn[K], mc);
 			sum_Learn.add(change_L);
 		}
 		for (int Q = 0; Q < total_Q; Q++) {
-			BigDecimal diff_S = old_slip[Q].subtract(Utils.getSlip(Q), mc);
+			int question = Utils.getQuestion(Q);
+			BigDecimal diff_S = old_slip[Q].subtract(Utils.getSlipMap(question), mc);
 			BigDecimal change_S = diff_S.abs().divide(old_slip[Q], mc);
 			sum_slip.add(change_S);
 
-			BigDecimal diff_G = old_guess[Q].subtract(Utils.getGuess(Q), mc);
+			BigDecimal diff_G = old_guess[Q].subtract(Utils.getGuessMap(question), mc);
 			BigDecimal change_G = diff_G.abs().divide(old_guess[Q], mc);
 			sum_guess.add(change_G);
 		}
@@ -90,12 +91,14 @@ public class Calibration {
 
 	private static void saveParameters() {
 		for (int KcIndex = 0; KcIndex < total_KCs; KcIndex++) {
-			old_initalMastery[KcIndex] = Utils.getInitialMastery(KcIndex);
-			old_Learn[KcIndex] = Utils.getLearn(KcIndex);
+			int kc=Utils.getKc(KcIndex);
+			old_initalMastery[KcIndex] = Utils.getInitialMasteryMap(kc);
+			old_Learn[KcIndex] = Utils.getLearnMap(kc);
 		}
 		for (int Q = 0; Q < total_Q; Q++) {
-			old_slip[Q] = Utils.getSlip(Q);
-			old_guess[Q] = Utils.getGuess(Q);
+			int question = Utils.getQuestion(Q);
+			old_slip[Q] = Utils.getSlipMap(question);
+			old_guess[Q] = Utils.getGuessMap(question);
 		}
 	}
 
@@ -104,15 +107,20 @@ public class Calibration {
 		for (int KcIndex = 0; KcIndex < total_KCs; KcIndex++) {
 			double r_initalMaster = 0.05 + r.nextDouble() * (0.95 - 0.05);
 			double r_Learn = 0.05 + r.nextDouble() * (0.5 - 0.05);
-			Utils.setInitialMastery(KcIndex, BigDecimal.valueOf(r_initalMaster));
-			Utils.setLearn(KcIndex,BigDecimal.valueOf(r_Learn));
+			int Kc = Utils.getKc(KcIndex);
+			Utils.setInitialMasteryMap(Kc, BigDecimal.valueOf(r_initalMaster));
+			Utils.setLearnMap(Kc,BigDecimal.valueOf(r_Learn));
+			//System.out.println("Kc :"+Utils.getKc(KcIndex)+" IM: "+Utils.getInitialMasteryMap(Kc)+" L: "+Utils.getLearnMap(Kc));
 		}
+		System.out.println("START");
 		for (int Q = 0; Q < total_Q; Q++) {
 			double r_slip = 0.05 + r.nextDouble() * (0.45 - 0.05);
 			double r_guess = 0.01 + r.nextDouble() * (0.5 - 0.01);
-			Utils.setSlip(Q, BigDecimal.valueOf(r_slip));
-			Utils.setGuess(Q, BigDecimal.valueOf(r_guess));
+			int question = Utils.getQuestion(Q);
+			Utils.setSlipMap(question, BigDecimal.valueOf(r_slip));
+			Utils.setGuessMap(question, BigDecimal.valueOf(r_guess));
 		}
+		System.out.println("STOP");
 		printRandomParameters();
 	}
 
@@ -139,14 +147,10 @@ public class Calibration {
 	
 	private static void setDatabase() {
 		System.out.println("setDatabase()");
-		DatabaseResponse.setAllStudentsIds();
-		
-		//DatabaseResponse.setKcs();
-		setAnswerValues();
-		setQuestionValues();
+		DatabaseResponse.setAllStudentsData();
 		
 	}
-	private static void setKcs() {
+/*	private static void setKcs() {
 		for(int i=0;i<total_KCs;i++){
 			Utils.setKc(i, i);
 		}
@@ -162,19 +166,24 @@ public class Calibration {
 				Utils.setAnswer(S, answer_AC_Map);
 		}
 	}
-
-	private static void setQuestionValues() {
-		for( int S=0;S<total_students;S++){
+*/
+/*	private static void setQuestionValues() {
+		for( int St=0;St<total_students;St++){
+			int S = Utils.getStudent(St);
 			HashMap<Integer,Integer> question_AQ_Map= new HashMap<Integer,Integer>();
-			int Q = 0;
+			int i = 0;
+			int Q = Utils.getQuestion(i);
+			System.out.println(Utils.getLast(S));
 				for(int A=0;A<Utils.getLast(S);A++){
 					int value =(Math.random()<0.5)?0:1;
+					//System.out.println("SQA :"+S+" "+Q+" "+A);
 					question_AQ_Map.put(A, Q);
-					Q++;
+					i++;
+					Q=Utils.getQuestion(i);
 			}
 				Utils.setQuestion(S, question_AQ_Map);
 		}
-	}
+	}*/
 
 
 	/**
@@ -187,9 +196,9 @@ public class Calibration {
 		BigDecimal sum_G = BigDecimal.ZERO;
 		for (int K = 0; K < total_KCs; K++) {
 			int Kc = Utils.getKc(K);
-			sum_IM = sum_IM.add(Utils.getInitialMastery(Kc));
+			sum_IM = sum_IM.add(Utils.getInitialMasteryMap(Kc));
 			//System.out.println("sum_IM :"+sum_IM);
-			sum_L = sum_L.add(Utils.getLearn(Kc));
+			sum_L = sum_L.add(Utils.getLearnMap(Kc));
 			//System.out.println("sum_L :"+sum_L);
 		}
 		average_IM = sum_IM.divide(BigDecimal.valueOf(total_KCs),20,RoundingMode.HALF_UP);
@@ -197,8 +206,8 @@ public class Calibration {
 		//System.out.println("average_IM :"+average_IM);
 		//System.out.println("average_L :"+average_L);
 		for (int Q = 0; Q < total_Q; Q++) {
-			sum_S = sum_S.add(Utils.getSlip(Q));
-			sum_G = sum_G.add(Utils.getGuess(Q));
+			sum_S = sum_S.add(Utils.getSlipMap(Q));
+			sum_G = sum_G.add(Utils.getGuessMap(Q));
 			//System.out.println("sum_S :"+sum_S);
 			//System.out.println("sum_G :"+sum_G);
 		}
@@ -235,14 +244,15 @@ public class Calibration {
 		total_KCs = GlobalConstants.total_KCs;
 		total_Q = GlobalConstants.total_Questions;
 		
+		
 		//instantiation of old values
 		old_initalMastery = new BigDecimal[GlobalConstants.total_KCs+1];
 		old_Learn = new BigDecimal[GlobalConstants.total_KCs+1];
 		old_slip = new BigDecimal[GlobalConstants.total_Questions+1];
 		old_guess = new BigDecimal[GlobalConstants.total_Questions+1];
-		
-		
-		
+		//DatabaseResponse.setKcs();
+				//setAnswerValues();
+				//setQuestionValues();
 		
 		while (climb < 10) {
 			

@@ -23,7 +23,7 @@ public class InitalMastery {
 				Count = Count + 1;
 			}
 			BigDecimal bigDecimalCount = new BigDecimal(Count);
-			Utils.setInitialMastery(K, Sum.divide(bigDecimalCount,20,RoundingMode.HALF_UP));
+			Utils.setInitialMasteryMap(Utils.getKc(K), Sum.divide(bigDecimalCount,20,RoundingMode.HALF_UP));
 		}
 	}
 }

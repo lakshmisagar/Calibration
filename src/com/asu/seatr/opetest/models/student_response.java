@@ -1,24 +1,42 @@
 package com.asu.seatr.opetest.models;
 
-public class student_response {
+import java.io.Serializable;
+import java.sql.Blob;
+import java.sql.Date;
 
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+import org.hibernate.annotations.ManyToAny;
+
+
+public class student_response implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8970977115131474109L;
 	private int id;
+	@ManyToOne
 	private int user_id;
 	private int correct;
+	@ManyToOne
 	private int class_question_id;
 	private int  duration;
 	private int  explanation_duration;
-	private String  date;
+	@ManyToOne
+	private Date  date;
 	private String question_type;
 	private String response_type;
+	@ManyToOne
 	private String source;
-	private int[] data;
+	private Blob[] data;
 	
 	public student_response() {
     }
     public student_response(int id,int user_id,int correct, int class_question_id, int  duration,
-    		int  explanation_duration,String  date,String question_type,String response_type,
-    		String source,int[] data ) {
+    		int  explanation_duration,Date  date,String question_type,String response_type,
+    		String source,Blob[] data ) {
         this.id = id;
         this.user_id = user_id;
         this.correct = correct;
@@ -32,8 +50,8 @@ public class student_response {
         this.data = data;
     }
     public student_response(int user_id,int correct, int class_question_id, int  duration,
-    		int  explanation_duration,String  date,String question_type,String response_type,
-    		String source,int[] data ) {
+    		int  explanation_duration,Date  date,String question_type,String response_type,
+    		String source,Blob[] data ) {
     	this.user_id = user_id;
         this.correct = correct;
         this.class_question_id = class_question_id;
@@ -53,6 +71,7 @@ public class student_response {
 	public void setId(int id) {
 		this.id = id;
 	}
+	
 	public int getUser_id() {
 		return user_id;
 	}
@@ -83,10 +102,10 @@ public class student_response {
 	public void setExplanation_duration(int explanation_duration) {
 		this.explanation_duration = explanation_duration;
 	}
-	public String getDate() {
+	public Date getDate() {
 		return date;
 	}
-	public void setDate(String date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 	public String getQuestion_type() {
@@ -107,10 +126,10 @@ public class student_response {
 	public void setSource(String source) {
 		this.source = source;
 	}
-	public int[] getData() {
+	public Blob[] getData() {
 		return data;
 	}
-	public void setData(int[] data) {
+	public void setData(Blob[] data) {
 		this.data = data;
 	}
 }

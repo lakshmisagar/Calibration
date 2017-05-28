@@ -4,9 +4,13 @@
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="com.asu.seatr.opetest.models">
     <class name="question_knowledge_component" table="question_knowledge_component">
-        <id name="question_id" column="question_id">
+<!--         <id name="question_id" column="question_id">
         </id>
-        <property name="knowledge_component_id"/>
+        <property name="knowledge_component_id"/>  -->
+	<composite-id>
+		<key-property name="question_id" column="question_id" />
+		<key-property name="knowledge_component_id" column="knowledge_component_id" />
+	</composite-id> 
          
     </class>
 </hibernate-mapping>

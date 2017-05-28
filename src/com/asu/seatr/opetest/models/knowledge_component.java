@@ -1,6 +1,6 @@
 package com.asu.seatr.opetest.models;
 
-public class knowledge_component {
+public class knowledge_component implements java.io.Serializable{
 	
 	private int id;
 	private String name;

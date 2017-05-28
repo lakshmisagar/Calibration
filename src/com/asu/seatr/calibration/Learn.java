@@ -28,7 +28,7 @@ public class Learn {
 						if(KCs.get(list_K) == Kc){
 							int j = KCs.get(list_K);
 							BigDecimal var1 = BigDecimal.ONE.subtract(Utils.getBest(S, j, A));
-							BigDecimal var2 = var1.multiply(Utils.getLearn(j));
+							BigDecimal var2 = var1.multiply(Utils.getLearnMap(j));
 							BigDecimal var3 = Utils.getBest(S, j, A).add(var2);
 							SE = SE.multiply(var3);
 						}
@@ -42,7 +42,7 @@ public class Learn {
 			BigDecimal LnByLd =  LearnNumerator.divide(LearnDenominator ,20, RoundingMode.HALF_UP);
 			BigDecimal max = BigDecimal.valueOf(0.05).max(LnByLd);
 			//System.out.println("max :"+max);
-			Utils.setLearn(Kc, BigDecimal.valueOf(0.5).min(max));
+			Utils.setLearnMap(Kc, BigDecimal.valueOf(0.5).min(max));
 		}
 	}
 }

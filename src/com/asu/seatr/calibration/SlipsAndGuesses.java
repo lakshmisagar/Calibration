@@ -47,9 +47,9 @@ public class SlipsAndGuesses {
 							//System.out.println("SlipNumerator "+SlipNumerator);
 						}
 						
-						Utils.setSlip(Q, SlipNumerator.divide(SlipDenominator,20,RoundingMode.HALF_UP));
+						Utils.setSlipMap(Q, SlipNumerator.divide(SlipDenominator,20,RoundingMode.HALF_UP));
 						//System.out.println("Utils.mSlip[Q]"+Utils.getSlip(Q));
-						Utils.setGuess(Q, GuessNumerator.divide(GuessDenominator,20,RoundingMode.HALF_UP));
+						Utils.setGuessMap(Q, GuessNumerator.divide(GuessDenominator,20,RoundingMode.HALF_UP));
 						//System.out.println("Utils.mGuess[Q]"+Utils.getGuess(Q));
 					}
 				}

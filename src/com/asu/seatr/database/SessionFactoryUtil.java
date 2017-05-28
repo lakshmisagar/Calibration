@@ -29,7 +29,7 @@ public class SessionFactoryUtil {
                 return metadata.getSessionFactoryBuilder().build();
             }                   
             catch(Throwable ex){
-                cfg= new Configuration().configure("lib/"+path); 
+                cfg= new Configuration().configure("src"+path); 
                 sesRegistry = new StandardServiceRegistryBuilder().applySettings(cfg.getProperties()).build();
                 sesFactory=cfg.buildSessionFactory(sesRegistry);
                 System.out.println("Connected to Slave Database Server");
@@ -43,11 +43,7 @@ public class SessionFactoryUtil {
         }
     }   
     public  static SessionFactory getSessionFactory(String dbConfigPath) {
-    	if(sesFactory == null)
-    	{
-    		sesFactory = initSessionFactory(dbConfigPath);
-    	}
-            
-    	return sesFactory;
+      sesFactory = initSessionFactory(dbConfigPath);
+	  return sesFactory;
     }
 }

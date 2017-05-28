@@ -1,6 +1,6 @@
 package com.asu.seatr.opetest.models;
 
-public class class_question {
+public class class_question implements java.io.Serializable{
 
 	private int id;
 	private int question_id;

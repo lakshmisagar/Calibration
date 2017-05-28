@@ -23,23 +23,26 @@ public class FillingForward {
 		System.out.println("FillingForward ................................");
 		int Ns = GlobalConstants.total_Students;
 		int Nk = GlobalConstants.total_KCs;
-		for (int S = 0; S < Ns; S++) {
-			//System.out.println("START .............................."+S);
+		for (int St = 0; St < Ns; St++) {
+			int S = Utils.getStudent(St);
+			System.out.println("START St.............................."+S);
 			for (int K = 0; K < Nk; K++) {
-				BigDecimal value = Utils.getInitialMastery(Utils.getKc(K));
-				//System.out.println("updateForward("+S+", "+Utils.getKc(K)+","+ 0+") :"+ value);
-				Utils.updateForward(S, Utils.getKc(K), 0, value);
+				BigDecimal value = Utils.getInitialMasteryMap(Utils.getKc(K));
+				System.out.println("updateForward("+S+", "+Utils.getKc(K)+","+ 0+") :"+ value);
+				Utils.updateForward(S, Utils.getKc(K), 1, value);
 			}
-			//System.out.println("..............................");
-			for (int A = 0; A < Utils.getLast(S) - 1; A++) {
+			System.out.println("..............................");
+			for (int A = 1; A < Utils.getLast(S) - 1; A++) {
+				System.out.println("START A.............................."+A);
 				int question = Utils.getQuestion(S, A);
 				ArrayList<Integer> KCs = Utils.getQuestionMatrix(question);
 				BigDecimal OK = initial_OK;
 				for (int list_K = 0; list_K < KCs.size(); list_K++) {
 					OK = OK.multiply(Utils.getForward(S, KCs.get(list_K), A));
 				}
-				BigDecimal slip = Utils.getSlip(question);
-				BigDecimal guess = Utils.getGuess(question);
+				System.out.println();
+				BigDecimal slip = Utils.getSlipMap(question);
+				BigDecimal guess = Utils.getGuessMap(question);
 				BigDecimal slipPlusGuess = slip.add(guess);
 				BigDecimal oneMinusSlipPlusGuess = BigDecimal.ONE.subtract(slipPlusGuess);
 				BigDecimal x = OK.multiply(oneMinusSlipPlusGuess);
@@ -49,17 +52,17 @@ public class FillingForward {
 					y = BigDecimal.ONE.subtract(y);
 					x = x.negate();
 				}
-
+				
 				for (int innerK = 0; innerK < Nk; innerK++) {
+					System.out.println("START innerK.............................."+innerK);
 					if (KCs.contains(Utils.getKc(innerK))) {
 						BigDecimal forwardNumeratorValue = y.multiply(Utils.getForward(S, Utils.getKc(innerK), A))
 								.add(x);
-						BigDecimal forwardfillingValue = forwardNumeratorValue.divide(y.add(x), 20,
-								RoundingMode.HALF_UP);
-						//System.out.println("updateForward("+S+", "+Utils.getKc(innerK)+","+ (A+1)+") :"+ forwardfillingValue);
+						BigDecimal forwardfillingValue = forwardNumeratorValue.divide(y.add(x), 20,RoundingMode.HALF_UP);
+						System.out.println("updateForward("+S+", "+Utils.getKc(innerK)+","+ (A+1)+") :"+ forwardfillingValue);
 						Utils.updateForward(S, Utils.getKc(innerK), A + 1, forwardfillingValue);
 					} else {
-						//System.out.println("updateForward("+S+", "+Utils.getKc(innerK)+","+ (A+1)+") :  Utils.getForward(S, Utils.getKc(innerK), A)"+ Utils.getForward(S, Utils.getKc(innerK), A));
+						System.out.println("updateForward("+S+", "+Utils.getKc(innerK)+","+ (A+1)+") :  Utils.getForward(S, Utils.getKc(innerK), A)"+ Utils.getForward(S, Utils.getKc(innerK), A));
 						Utils.updateForward(S, Utils.getKc(innerK), A + 1, Utils.getForward(S, Utils.getKc(innerK), A));
 					}
 				}
@@ -67,22 +70,21 @@ public class FillingForward {
 				for (int list_K = 0; list_K < KCs.size(); list_K++) {
 					BigDecimal forward = Utils.getForward(S, KCs.get(list_K), A);
 					BigDecimal var1 = BigDecimal.ONE.subtract(forward);
-					BigDecimal var2 = var1.multiply(Utils.getLearn(KCs.get(list_K)));
+					BigDecimal var2 = var1.multiply(Utils.getLearnMap(KCs.get(list_K)));
 					BigDecimal var3 = forward.add(var2);
 					SE = SE.multiply(var3);
 				}
 				for (int list_K = 0; list_K < KCs.size(); list_K++) {
 					BigDecimal forward = Utils.getForward(S, KCs.get(list_K), A);
-					BigDecimal Z = BigDecimal.ONE.subtract(forward.multiply(Utils.getLearn(KCs.get(list_K))));
+					BigDecimal Z = BigDecimal.ONE.subtract(forward.multiply(Utils.getLearnMap(KCs.get(list_K))));
 					BigDecimal nume = SE.multiply(Z);
 					BigDecimal denom = forward.add(Z);
 					BigDecimal var2 = nume.divide(denom, 20, RoundingMode.HALF_UP);
 					BigDecimal forwardfillingValue = forward.add(var2);
-					//System.out.println("updateForward("+S+", "+list_K+","+ (A+1)+") :"+ forwardfillingValue);
+					System.out.println("updateForward("+S+", "+list_K+","+ (A+1)+") :"+ forwardfillingValue);
 					Utils.updateForward(S, KCs.get(list_K), A + 1, forwardfillingValue);
 				}
 			}
 		}
 	}
-
 }
