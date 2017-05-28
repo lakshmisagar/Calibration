@@ -37,15 +37,6 @@ public class DatabaseResponse {
 		Query last_hql = session25.createQuery("SELECT user_id as sid, correct as c, class_question_id as cqid FROM student_response");
 		List<Object[]> lastResult = (List<Object[]>) last_hql.list();
 
-		/*
-		 * String stuResp_hql = "FROM student_response where user_id =1"; Query
-		 * stuRespQuery = session25.createQuery(stuResp_hql);
-		 * System.out.println(
-		 * "PRINTING--------------------------------------------------------------"
-		 * ); //System.out.println(stuRespQuery.list()); System.out.println(
-		 * "PRINTING--------------------------------------------------------------"
-		 * ); List<student_response> stuRespResult = stuRespQuery.list();
-		 */
 		session25.disconnect();
 		session25.close();
 
@@ -70,12 +61,7 @@ public class DatabaseResponse {
 			ids[i++] = id;
 		}
 		Utils.setStudentsList(ids);
-		System.out.println(
-				"total Student-------------------------------------------- :" + GlobalConstants.total_Students);
-		/*
-		 * for (int j = 0; j < Utils.getStudentsList().length; j++) {
-		 * System.out.println(Utils.getStudent(j)); }
-		 */
+		System.out.println("total Student-------------------------------------------- :" + GlobalConstants.total_Students);
 
 		// Questions
 		int qResultCount=0;
@@ -90,9 +76,9 @@ public class DatabaseResponse {
 		
 		System.out.println(
 				"total Questions--------------------------------------------:" + GlobalConstants.total_Questions);
-		for (int j = 0; j < GlobalConstants.total_Questions; j++) {
+	/*	for (int j = 0; j < GlobalConstants.total_Questions; j++) {
 			System.out.println(Utils.getQuestion(j));
-		}
+		}*/
 
 		// Kc
 		for (i = 0; i < kcResult.size(); i++) {
@@ -101,16 +87,15 @@ public class DatabaseResponse {
 			Utils.setKcMap(kcResult.get(i));
 		}
 		System.out.println("total Kcs-----------------------------" + GlobalConstants.total_KCs);
-		for (int j = 0; j < GlobalConstants.total_KCs; j++) {
-			// System.out.println(Utils.getKc(j));
-		}
+		/*for (int j = 0; j < GlobalConstants.total_KCs; j++) {
+			 System.out.println(Utils.getKc(j));
+		}*/
 
 		// QMatrix
 		for (i = 0; i < qMResult.size(); i++) {
 			int q = qMResult.get(i).getQuestion_id();
 			int kc = qMResult.get(i).getKnowledge_component_id();
-			// System.out.println("question_knowledge_component " + q + " " +
-			// kc);
+			// System.out.println("question_knowledge_component " + q + " " + kc);
 			Utils.setQuestionMatrix(q, kc);
 		}
 		System.out.println(GlobalConstants.total_Questions + " count " + i);
@@ -120,6 +105,7 @@ public class DatabaseResponse {
 			Utils.setQMatrixMap(q, Utils.getQuestionMatrix(q));
 			// System.out.println(q +" { "+ Utils.getQMatrixMap(q)+" }");
 		}
+		
 		// LAST
 		HashMap<Integer, Integer> question_AQ_Map = new HashMap<Integer, Integer>();
 		HashMap<Integer, Integer> answer_AC_Map = new HashMap<Integer, Integer>();
@@ -146,12 +132,10 @@ public class DatabaseResponse {
 			Utils.setQuestion(id, question_AQ_Map);
 		}
 		
-		System.out.println(" L A S T -------------------------------------------------");
-		for (i = 0; i < GlobalConstants.total_Students; i++) {
-			// System.out.println(Utils.getStudent(i)+"
-			// "+Utils.getLast(Utils.getStudent(i)));
+/*		for (i = 0; i < GlobalConstants.total_Students; i++) {
+			 System.out.println(Utils.getStudent(i)+" "+Utils.getLast(Utils.getStudent(i)));
 		}
-
+*/
 	}
 
 }

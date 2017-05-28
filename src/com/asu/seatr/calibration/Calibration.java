@@ -206,8 +206,9 @@ public class Calibration {
 		//System.out.println("average_IM :"+average_IM);
 		//System.out.println("average_L :"+average_L);
 		for (int Q = 0; Q < total_Q; Q++) {
-			sum_S = sum_S.add(Utils.getSlipMap(Q));
-			sum_G = sum_G.add(Utils.getGuessMap(Q));
+			int question = Utils.getQuestion(Q);
+			sum_S = sum_S.add(Utils.getSlipMap(question));
+			sum_G = sum_G.add(Utils.getGuessMap(question));
 			//System.out.println("sum_S :"+sum_S);
 			//System.out.println("sum_G :"+sum_G);
 		}
