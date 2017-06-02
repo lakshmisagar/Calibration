@@ -23,11 +23,18 @@ public class DatabaseResponse {
 		SessionFactory sf_OPE_Class_25 = SessionFactoryUtil.getSessionFactory(GlobalConstants.OPE_Class_25);
 		Session session25 = sf_OPE_Class_25.openSession();
 
+//********************************************CORRECTION**************************************************************
+		/*String studentsId_hql = "FROM student_response";
+		Query srQuery = session25.createQuery(studentsId_hql);
+		List<student_response> srResult = srQuery.list();*/
+		
 		// Students ID
 		String studentsId_hql = "SELECT distinct user_id as sid FROM student_response";
 		Query sidQuery = session25.createQuery(studentsId_hql);
 		List<Integer> sResult = sidQuery.list();
 		GlobalConstants.total_Students = sResult.size();
+//********************************************CORRECTION**************************************************************
+		
 		// Questions
 		String question_hql = "SELECT id as ids ,question_id as qid FROM class_question";
 		Query qidQuery = session25.createQuery(question_hql);
@@ -53,7 +60,7 @@ public class DatabaseResponse {
 		List<question_knowledge_component> qMResult = qMQuery.list();
 		sessionG.disconnect();
 		sessionG.close();
-
+//********************************************CORRECTION**************************************************************
 		// Students ID
 		int[] ids = new int[sResult.size()];
 		int i = 0;
@@ -61,8 +68,14 @@ public class DatabaseResponse {
 			ids[i++] = id;
 		}
 		Utils.setStudentsList(ids);
+		
+		
+		//int i=0;
+		
 		System.out.println("total Student-------------------------------------------- :" + GlobalConstants.total_Students);
 
+		
+//********************************************CORRECTION**************************************************************		
 		// Questions
 		int qResultCount=0;
 		for (Object[] result : qResult) {

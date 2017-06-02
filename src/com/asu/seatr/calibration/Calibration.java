@@ -62,21 +62,21 @@ public class Calibration {
 			int Kc = Utils.getKc(K);
 			BigDecimal diff_IM = old_initalMastery[K].subtract(Utils.getInitialMasteryMap(Kc), mc);
 			BigDecimal change_IM = diff_IM.abs().divide(old_initalMastery[K], mc);
-			sum_initalMaster.add(change_IM);
+			sum_initalMaster = sum_initalMaster.add(change_IM);
 
 			BigDecimal diff_L = old_Learn[K].subtract(Utils.getLearnMap(Kc), mc);
 			BigDecimal change_L = diff_L.abs().divide(old_Learn[K], mc);
-			sum_Learn.add(change_L);
+			sum_Learn = sum_Learn.add(change_L);
 		}
 		for (int Q = 0; Q < total_Q; Q++) {
 			int question = Utils.getQuestion(Q);
 			BigDecimal diff_S = old_slip[Q].subtract(Utils.getSlipMap(question), mc);
 			BigDecimal change_S = diff_S.abs().divide(old_slip[Q], mc);
-			sum_slip.add(change_S);
+			sum_slip = sum_slip.add(change_S);
 
 			BigDecimal diff_G = old_guess[Q].subtract(Utils.getGuessMap(question), mc);
 			BigDecimal change_G = diff_G.abs().divide(old_guess[Q], mc);
-			sum_guess.add(change_G);
+			sum_guess = sum_guess.add(change_G);
 		}
 		IMChange = sum_initalMaster.divide(BigDecimal.valueOf(total_KCs));
 		LChange = sum_Learn.divide(BigDecimal.valueOf(total_KCs));
@@ -267,7 +267,7 @@ public class Calibration {
 				list.add(average_G);
 				climb++;
 				climbMap.put(climb, list);
-				System.out.println("CLIMB -----> "+climb);
+				System.out.println("CLIMB -----------------------------------------> "+climb);
 			}
 		}
 		
