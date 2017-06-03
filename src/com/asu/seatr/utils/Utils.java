@@ -12,22 +12,16 @@ import java.util.HashMap;
  */
 public class Utils {
 
-	 private static int[] mKC = new int[GlobalConstants.total_KCs];
-	// private static Double[] mInitialMastery = new
-	// Double[GlobalConstants.total_KCs];
-	// private static Double[] mLearn = new
-	// Double[GlobalConstants.total_KCs];
-	//private static Double[] mSlip = new Double[GlobalConstants.total_Questions];
-	//private static Double[] mGuess = new Double[GlobalConstants.total_Questions];
+	private static int[] mKC = new int[GlobalConstants.total_KCs];
 	private static int[] studentsList = new int[GlobalConstants.total_Students];
 	private static int[] questionsList = new int[GlobalConstants.total_Questions];
 
 	// Datastructure to implement question id question
-	static HashMap<Integer, Integer> id_question_map = new HashMap<Integer,Integer>();
-		
+	static HashMap<Integer, Integer> id_question_map = new HashMap<Integer, Integer>();
+
 	// Datastructure to implement Last[Student]
-	static HashMap<Integer, Integer> last_map = new HashMap<Integer,Integer>();
-	
+	static HashMap<Integer, Integer> last_map = new HashMap<Integer, Integer>();
+
 	// Datastructure to implement Kc InitialMater and Learn
 	static HashMap<Integer, HashMap<Integer, Double>> kc_initialMastery_Learn_map = new HashMap<Integer, HashMap<Integer, Double>>();
 
@@ -51,13 +45,9 @@ public class Utils {
 	static HashMap<Integer, HashMap<Integer, HashMap<Integer, Double>>> best_outerStudentKcMap = new HashMap<Integer, HashMap<Integer, HashMap<Integer, Double>>>();
 
 	// Datastructure to implement FORWARD
-	static HashMap<Integer, Double> forward_innerForwardMap = new HashMap<Integer, Double>();
-	static HashMap<Integer, HashMap<Integer, Double>> forward_innerKcBestMap = new HashMap<Integer, HashMap<Integer, Double>>();
 	static HashMap<Integer, HashMap<Integer, HashMap<Integer, Double>>> forward_outerStudentKcMap = new HashMap<Integer, HashMap<Integer, HashMap<Integer, Double>>>();
 
 	// Datastructure to implement BACKWARD
-	static HashMap<Integer, Double> backward_innerBackwardMap = new HashMap<Integer, Double>();
-	static HashMap<Integer, HashMap<Integer, Double>> backward_innerKcBestMap = new HashMap<Integer, HashMap<Integer, Double>>();
 	static HashMap<Integer, HashMap<Integer, HashMap<Integer, Double>>> backward_outerStudentKcMap = new HashMap<Integer, HashMap<Integer, HashMap<Integer, Double>>>();
 
 	/*
@@ -83,75 +73,36 @@ public class Utils {
 		Utils.studentsList[index] = studentid;
 	}
 
-
 	/*
 	 * QMatrix
 	 */
 	public static void setQuestionMatrix(int mQuestion, int kc) {
 		ArrayList<Integer> list = qMatrix_map.get(mQuestion);
-		//System.out.println();
-		//System.out.println("setQuestionMatrix :"+mQuestion+" : "+kc+" : "+list);
+		// System.out.println();
+		// System.out.println("setQuestionMatrix :"+mQuestion+" : "+kc+" :
+		// "+list);
 		if (list == null) {
 			list = new ArrayList<Integer>();
 			list.add(kc);
 		} else {
-				list.add(kc);
+			list.add(kc);
 		}
 		qMatrix_map.put(mQuestion, list);
-		//System.out.println("count :"+qMatrix_map.size());
+		// System.out.println("count :"+qMatrix_map.size());
 	}
 
 	public static ArrayList<Integer> getQuestionMatrix(int mQuestion) {
 		ArrayList<Integer> list = qMatrix_map.get(mQuestion);
-		//TODO remove below condition once you match with correct kc from table
-		if(list==null) {
-			list = new ArrayList<Integer> ();
+		// TODO remove below condition once you match with correct kc from table
+		if (list == null) {
+			list = new ArrayList<Integer>();
 			list.add(getKc(0));
 		}
 		return list;
 	}
 
-	/*
-	 * Forward
-	 */
-	public static void updateForward(int S, int K, int A, Double forwardfillingValue) {
-		// TODO implement forward filling
-		 //System.out.println("set Forward - S:"+S+" K:"+K+" A:"+A+"  ="+forwardfillingValue);
-		forward_innerForwardMap.put(A, forwardfillingValue);
-		forward_innerKcBestMap.put(K, forward_innerForwardMap);
-		forward_outerStudentKcMap.put(S, forward_innerKcBestMap);
-		
-		HashMap<Integer, HashMap<Integer, Double>> Kcmap = forward_outerStudentKcMap.get(S);
-		HashMap<Integer, Double> forwardmap = Kcmap.get(K);
-		System.out.println("GET updateF - S:"+S+" K:"+K+" A:"+A+"  ="+forwardmap.get(A));
-	}
 
-	public static Double getForward(int S, int K, int A) {
-		HashMap<Integer, HashMap<Integer, Double>> Kcmap = forward_outerStudentKcMap.get(S);
-		HashMap<Integer, Double> forwardmap = Kcmap.get(K);
-		//System.out.println("GET Forward - S:"+S+" K:"+K+" A:"+A+"  ="+forwardmap.get(A));
-		return forwardmap.get(A);
-	}
-
-	/*
-	 * Backward
-	 */
-	public static void updateBackward(int S, int K, int A, Double backwardfillingValue) {
-		// System.out.println("updateBackward S:"+S+" K:"+K+" A:"+A+" -
-		// "+backwardfillingValue);
-		// TODO implement backward filling
-		backward_innerBackwardMap.put(A, backwardfillingValue);
-		backward_innerKcBestMap.put(K, backward_innerBackwardMap);
-		backward_outerStudentKcMap.put(S, backward_innerKcBestMap);
-	}
-
-	public static Double getBackward(int S, int K, int A) {
-		HashMap<Integer, HashMap<Integer, Double>> Kcmap = backward_outerStudentKcMap.get(S);
-		HashMap<Integer, Double> backwardmap = Kcmap.get(K);
-		// System.out.println("getBackward S:"+S+" K:"+K+" A:"+A+" -
-		// "+backwardmap.get(A));
-		return backwardmap.get(A);
-	}
+	
 
 	/*
 	 * Best
@@ -187,14 +138,13 @@ public class Utils {
 	public static void setQuestion(int s, HashMap<Integer, Integer> question_AQ_Map) {
 		question_SA_Map.put(s, question_AQ_Map);
 	}
+
 	public static int getQuestion(int S, int A) {
 		HashMap<Integer, Integer> innerAQ_map = question_SA_Map.get(S);
-		//System.out.println("get SQA :"+S+" "+innerAQ_map.get(A)+" "+A);
+		// System.out.println("get SQA :"+S+" "+innerAQ_map.get(A)+" "+A);
 		return innerAQ_map.get(A);
 	}
 
-	
-	
 	/*
 	 * KCs List
 	 */
@@ -213,10 +163,11 @@ public class Utils {
 	public static void setKc(int index, int questionid) {
 		mKC[index] = questionid;
 	}
-	//*************MAP  - Kc IM L *********************************  
+
+	// *************MAP - Kc IM L *********************************
 	public static void setKcMap(int Kc) {
-			HashMap<Integer, Double> map = new HashMap<Integer, Double>();
-			kc_initialMastery_Learn_map.put(Kc, map);
+		HashMap<Integer, Double> map = new HashMap<Integer, Double>();
+		kc_initialMastery_Learn_map.put(Kc, map);
 	}
 
 	public static void setInitialMasteryMap(int Kc, Double value) {
@@ -247,7 +198,7 @@ public class Utils {
 	}
 
 	public static int getQuestion(int index) {
-		//System.out.println("getQuestion :"+index+"  ");
+		// System.out.println("getQuestion :"+index+" ");
 		return questionsList[index];
 	}
 
@@ -255,10 +206,9 @@ public class Utils {
 		Utils.questionsList[index] = questionid;
 	}
 
-	
-	//*************MAP **/*******************************  
+	// *************MAP **/*******************************
 
-	//**************class question and its id*****************
+	// **************class question and its id*****************
 	public static void setClassIdQuestion(int index, int questionid) {
 		id_question_map.put(index, questionid);
 	}
@@ -267,15 +217,14 @@ public class Utils {
 		return id_question_map.get(index);
 	}
 
-	//************* Q S G QM **/*******************************  
+	// ************* Q S G QM **/*******************************
 	public static void setQuestionMap(int question) {
-			HashMap<Integer, String> map = new HashMap<Integer, String>();
-			Q_QM_Slip_Guess_map.put(question, map);
+		HashMap<Integer, String> map = new HashMap<Integer, String>();
+		Q_QM_Slip_Guess_map.put(question, map);
 	}
-	
-	
+
 	public static void setSlipMap(int question, Double value) {
-		System.out.println("setSlipMap :"+question+"  "+value);
+		System.out.println("setSlipMap :" + question + "  " + value);
 		Q_QM_Slip_Guess_map.get(question).put(GlobalConstants.Slip, value.toString());
 	}
 
@@ -291,38 +240,75 @@ public class Utils {
 		return new Double(Q_QM_Slip_Guess_map.get(question).get(GlobalConstants.Guess));
 	}
 
-	public static void setQMatrixMap(int question , ArrayList<Integer> list) {
-		//System.out.println("setQMatrixMap :"+question+" "+list);
+	public static void setQMatrixMap(int question, ArrayList<Integer> list) {
+		// System.out.println("setQMatrixMap :"+question+" "+list);
 		String listString = "";
-		for (Integer kc : list){
-		    listString += kc + "\t";
+		for (Integer kc : list) {
+			listString += kc + "\t";
 		}
 		Q_QM_Slip_Guess_map.get(question).put(GlobalConstants.QMatrix, listString);
 	}
-	
+
 	public static ArrayList<Integer> getQMatrixMap(int question) {
 		ArrayList<Integer> list = new ArrayList<Integer>();
 		String s = Q_QM_Slip_Guess_map.get(question).get(GlobalConstants.QMatrix);
-		String[] arr= s.split("\t");
-		for(int i=0;i<arr.length;i++){
+		String[] arr = s.split("\t");
+		for (int i = 0; i < arr.length; i++) {
 			list.add(Integer.parseInt(arr[i]));
 		}
 		return list;
 	}
-	
+
 	/*
 	 * Last
 	 */
 	public static int getLast(int mStudentId) {
-		if(!last_map.containsKey(mStudentId)){
+		if (!last_map.containsKey(mStudentId)) {
 			return 0;
 		}
 		return last_map.get(mStudentId);
 	}
-	
+
 	public static void setLast(int mStudentId, int questionsCount) {
 		last_map.put(mStudentId, questionsCount);
 	}
-
 	
+
+	/*
+	 * Forward Backward
+	 */
+	public static void initalizeForwardBackwardMap(int S, HashMap<Integer, HashMap<Integer, Double>> inner_KcA_Map) {
+		forward_outerStudentKcMap.put(S, inner_KcA_Map);
+		backward_outerStudentKcMap.put(S, inner_KcA_Map);
+	}
+	/*
+	 * Forward
+	 */
+	public static void updateForward(int S, int K, int A, Double forwardfillingValue) {
+		// System.out.println("set Forward - S:"+S+" K:"+K+" A:"+A+"
+		// ="+forwardfillingValue);
+		forward_outerStudentKcMap.get(S).get(K).put(A, forwardfillingValue);
+		
+	}
+	public static Double getForward(int S, int K, int A) {
+		// System.out.println("GET Forward - S:"+S+" K:"+K+" A:"+A+"
+		// ="+forwardmap.get(A));
+		return forward_outerStudentKcMap.get(S).get(K).get(A);
+	}
+	/*
+	 * Backward
+	 */
+	public static void updateBackward(int S, int K, int A, Double backwardfillingValue) {
+		// System.out.println("updateBackward S:"+S+" K:"+K+" A:"+A+" -
+		// "+backwardfillingValue);
+		backward_outerStudentKcMap.get(S).get(K).put(A, backwardfillingValue);
+	}
+
+	public static Double getBackward(int S, int K, int A) {
+		// System.out.println("getBackward S:"+S+" K:"+K+" A:"+A+" -
+		// "+backwardmap.get(A));
+		return backward_outerStudentKcMap.get(S).get(K).get(A);
+	}
+	
+
 }

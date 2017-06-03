@@ -139,11 +139,20 @@ public class DatabaseResponse {
 			question_AQ_Map.put(A, Q);
 			Utils.setQuestion(id, question_AQ_Map);
 		}
+
+		//************** MAP - S K A ***************************
 		
-/*		for (i = 0; i < GlobalConstants.total_Students; i++) {
-			 System.out.println(Utils.getStudent(i)+" "+Utils.getLast(Utils.getStudent(i)));
+		for (int St = 0; St < GlobalConstants.total_Students; St++) {
+			System.out.println(St+" / "+GlobalConstants.total_Students);
+			int S = Utils.getStudent(St);
+			HashMap<Integer, HashMap<Integer, Double>> inner_KcA_Map = new HashMap<Integer, HashMap<Integer, Double>>();
+			for (int K = 0; K < GlobalConstants.total_KCs; K++) {
+				int Kc = Utils.getKc(K);
+				HashMap<Integer, Double> inner_AV_Map = new HashMap<Integer, Double>();
+				inner_KcA_Map.put(Kc, inner_AV_Map);
+			}
+			Utils.initalizeForwardBackwardMap(S,inner_KcA_Map);
 		}
-*/
 	}
 
 }
