@@ -1,18 +1,13 @@
 package com.asu.seatr.database;
 
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
-import org.hibernate.type.IntegerType;
 
 import com.asu.seatr.opetest.models.question_knowledge_component;
-import com.asu.seatr.opetest.models.student_response;
 import com.asu.seatr.utils.GlobalConstants;
 import com.asu.seatr.utils.Utils;
 

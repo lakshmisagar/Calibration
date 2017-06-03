@@ -1,10 +1,9 @@
 package com.asu.seatr.calibration;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.ArrayList;
 
 import com.asu.seatr.utils.GlobalConstants;
+import com.asu.seatr.utils.Operations;
 import com.asu.seatr.utils.Utils;
 
 /**
@@ -18,31 +17,32 @@ public class Learn {
 		System.out.println("Learn ................................");
 		for (int K = 0; K < GlobalConstants.total_KCs ; K++) {
 			int Kc = Utils.getKc(K);
-			BigDecimal LearnNumerator = new BigDecimal(0);
-			BigDecimal LearnDenominator = new BigDecimal(0);
-			BigDecimal SE = new BigDecimal(1.0);
-			for (int S = 0; S < GlobalConstants.total_Students ; S++) {
-				for (int A = 0; A < Utils.getLast(S)-1; A++) {
+			Double LearnNumerator = new Double(0);
+			Double LearnDenominator = new Double(0);
+			Double SE = new Double(1.0);
+			for (int St = 0; St < GlobalConstants.total_Students ; St++) {
+				int S = Utils.getStudent(St);
+				for (int A = 1; A < Utils.getLast(S); A++) {
 					ArrayList<Integer> KCs = Utils.getQuestionMatrix(Utils.getQuestion(S, A));
 					for (int list_K = 0; list_K < KCs.size(); list_K++) {
 						if(KCs.get(list_K) == Kc){
 							int j = KCs.get(list_K);
-							BigDecimal var1 = BigDecimal.ONE.subtract(Utils.getBest(S, j, A));
-							BigDecimal var2 = var1.multiply(Utils.getLearnMap(j));
-							BigDecimal var3 = Utils.getBest(S, j, A).add(var2);
-							SE = SE.multiply(var3);
+							Double var1 = Operations.substractDouble((double)1,Utils.getBest(S, j, A));
+							Double var2 = Operations.multiplyDouble(var1,Utils.getLearnMap(j));
+							Double var3 =  Operations.addDouble(Utils.getBest(S, j, A),var2);
+							SE =  Operations.multiplyDouble(SE,var3);
 						}
-					LearnNumerator = LearnNumerator.add((Utils.getBest(S, Kc, A + 1).subtract(Utils.getBest(S, Kc, A))));
-					LearnDenominator = LearnDenominator.add(((BigDecimal.ONE.subtract(Utils.getBest(S, Kc, A))).multiply(SE))).setScale(20,RoundingMode.CEILING);;
+					LearnNumerator =  Operations.addDouble(LearnNumerator, Operations.substractDouble(Utils.getBest(S, Kc, A + 1),Utils.getBest(S, Kc, A)));
+					LearnDenominator = Operations.addDouble(LearnDenominator,Operations.multiplyDouble(Operations.substractDouble((double)1,Utils.getBest(S, Kc, A)),SE));
 					}
 				}
 			}
 			//System.out.println("LearnNumerator :"+LearnNumerator);
 			//System.out.println("LearnDenominator :"+LearnDenominator);
-			BigDecimal LnByLd =  LearnNumerator.divide(LearnDenominator ,20, RoundingMode.HALF_UP);
-			BigDecimal max = BigDecimal.valueOf(0.05).max(LnByLd);
+			Double LnByLd =  Operations.divideDouble(LearnNumerator,LearnDenominator);
+			Double max = Math.max(Double.valueOf(0.05),LnByLd);
 			//System.out.println("max :"+max);
-			Utils.setLearnMap(Kc, BigDecimal.valueOf(0.5).min(max));
+			Utils.setLearnMap(Kc, Math.min(Double.valueOf(0.5),max));
 		}
 	}
 }

@@ -3,11 +3,11 @@
  */
 package com.asu.seatr.calibration;
 
-import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 
 import com.asu.seatr.utils.GlobalConstants;
+import com.asu.seatr.utils.Operations;
 import com.asu.seatr.utils.Utils;
 
 /**
@@ -16,72 +16,76 @@ import com.asu.seatr.utils.Utils;
  */
 public class FillingBackward {
 
-	static BigDecimal initial_OK = new BigDecimal(1.0);
+	static Double initial_OK = new Double(1.0);
 
 	public static void fillingBackward() {
 		System.out.println("FillingBackward ................................");
 		int Ns = GlobalConstants.total_Students;
 		int Nk = GlobalConstants.total_KCs;
-		for (int S = 0; S < Ns; S++) {
+		for (int St = 0; St < Ns; St++) {
+			int S = Utils.getStudent(St);
+			//System.out.println("Student ------------"+S);
 			for (int K = 0; K < Nk; K++) {
-				Utils.updateBackward(S, Utils.getKc(K), Utils.getLast(S), BigDecimal.ONE);
+				Utils.updateBackward(S, Utils.getKc(K), Utils.getLast(S),(double)1);
 			}// is this the end of K loop? is it Utils.getLast(S)+1  or Utils.getLast(S) ?
-				for (int A = Utils.getLast(S)-1; A >= 0; A--) {
+			//System.out.println("Attempts total-"+Utils.getLast(S));
+				for (int A = Utils.getLast(S)-1; A >= 1; A--) {
+					//System.out.println("Attempt ---"+A);
 					int question = Utils.getQuestion(S, A);
 					ArrayList<Integer> KCs = Utils.getQuestionMatrix(question);
-					BigDecimal SE = BigDecimal.ONE;
+					Double SE = (double)1;
 					for (int list_K = 0; list_K < KCs.size(); list_K++) {
-						SE = SE.multiply(Utils.getBackward(S, KCs.get(list_K), A + 1));
+						SE = Operations.multiplyDouble(SE,Utils.getBackward(S, KCs.get(list_K), A + 1));
 						//System.out.println("SE :"+SE+" * Utils.getBackward("+S+", "+KCs.get(list_K)+","+( A + 1)+") :"+Utils.getBackward(S, KCs.get(list_K), A + 1));
 					}
-					BigDecimal x;
+					Double x;
 					for (int list_K = 0; list_K < KCs.size(); list_K++) {
 						int localK = KCs.get(list_K);
 						//System.out.println("localK :"+localK);
 						
 						//System.out.println("SE :"+SE);
 						//System.out.println("Utils.getLearn(localK) :"+Utils.getLearn(localK));
-						BigDecimal var1 = Utils.getLearnMap(localK).multiply(SE);
+						Double var1 = Operations.multiplyDouble(Utils.getLearnMap(localK),SE);
 						//System.out.println("var1: "+var1);
 						
-						BigDecimal var2 = Utils.getBackward(S, localK, A + 1);
+						Double var2 = Utils.getBackward(S, localK, A + 1);
 						//System.out.println("Utils.getBackward("+S+","+ localK+","+ (A + 1)+"): "+var2);
 						
-						x = var1.divide(var2,20,RoundingMode.HALF_UP);
+						x = Operations.divideDouble(var1,var2);
 						//System.out.println("  X :"+x);
 						
-						BigDecimal newVar1 = var2.subtract(x);
+						Double newVar1 = Operations.substractDouble(var2,x);
 						//System.out.println("  var2-x :"+newVar1);
 						
-						BigDecimal newVar2 = BigDecimal.ONE.subtract(x);
+						Double newVar2 = Operations.substractDouble((double)1,x);
 						//System.out.println(" 1-x :"+newVar2);
 						
-						BigDecimal backwardfillingValue = newVar1.divide(newVar2,20,RoundingMode.HALF_UP);
+						Double backwardfillingValue = Operations.divideDouble(newVar1,newVar2);
 						//System.out.println(" result :"+backwardfillingValue);
 						Utils.updateBackward(S, localK, A, backwardfillingValue);
 					}
 
-					BigDecimal OK = initial_OK;
+					Double OK = initial_OK;
 					for (int list_K = 0; list_K < KCs.size(); list_K++) {
-						OK = OK.multiply(Utils.getBackward(S, KCs.get(list_K), A));
+						OK = Operations.multiplyDouble(OK,Utils.getBackward(S, KCs.get(list_K), A));
 					}
-					BigDecimal slip = Utils.getSlipMap(question);
-					BigDecimal guess = Utils.getGuessMap(question);
-					BigDecimal slipPlusGuess = slip.add(guess);
-					BigDecimal oneMinusSlipPlusGuess = BigDecimal.ONE.subtract(slipPlusGuess);
-					x = OK.multiply(oneMinusSlipPlusGuess);
-					BigDecimal y = guess;
+					Double slip = Utils.getSlipMap(question);
+					Double guess = Utils.getGuessMap(question);
+					Double slipPlusGuess = Operations.addDouble(slip,guess);
+					Double oneMinusSlipPlusGuess = Operations.substractDouble((double)1,slipPlusGuess);
+					x = Operations.multiplyDouble(OK,oneMinusSlipPlusGuess);
+					Double y = guess;
 
 					if (Utils.getAnswer(S, A) == 0) {
-						y = BigDecimal.ONE.subtract(y);
-						x = x.negate();
+						y = Operations.substractDouble((double)1,y);
+						x = -x;
 					}
 
 					for (int innerK = 0; innerK < Nk; innerK++) {
 						int innerKc = Utils.getKc(innerK);
 						if (KCs.contains(innerKc)) {
-							BigDecimal backwardNumeratorValue = y.multiply(Utils.getBackward(S, innerKc, A)).add(x);
-							BigDecimal forwardfillingValue = backwardNumeratorValue.divide(y.add(x));
+							Double backwardNumeratorValue = Operations.addDouble(Operations.multiplyDouble(y,Utils.getBackward(S, innerKc, A)),x);
+							Double forwardfillingValue = Operations.divideDouble(backwardNumeratorValue,Operations.addDouble(y,x));
 							Utils.updateBackward(S, innerKc, A, forwardfillingValue);
 						} else {
 							Utils.updateBackward(S, innerKc, A, Utils.getBackward(S, innerKc, A + 1));
