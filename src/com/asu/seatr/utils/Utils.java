@@ -104,21 +104,6 @@ public class Utils {
 
 	
 
-	/*
-	 * Best
-	 */
-	public static void updateBest(int S, int K, int A, Double bestValue) {
-		// TODO implement forward filling
-		best_innerBestMap.put(A, bestValue);
-		best_innerKcBestMap.put(K, best_innerBestMap);
-		best_outerStudentKcMap.put(S, best_innerKcBestMap);
-	}
-
-	public static Double getBest(int S, int K, int A) {
-		HashMap<Integer, HashMap<Integer, Double>> Kcmap = best_outerStudentKcMap.get(S);
-		HashMap<Integer, Double> bestmap = Kcmap.get(K);
-		return bestmap.get(A);
-	}
 
 	/*
 	 * Answer
@@ -275,11 +260,12 @@ public class Utils {
 	
 
 	/*
-	 * Forward Backward
+	 * Forward Backward Best
 	 */
-	public static void initalizeForwardBackwardMap(int S, HashMap<Integer, HashMap<Integer, Double>> inner_KcA_Map) {
+	public static void initalizeForwardBackwardBestMap(int S, HashMap<Integer, HashMap<Integer, Double>> inner_KcA_Map) {
 		forward_outerStudentKcMap.put(S, inner_KcA_Map);
 		backward_outerStudentKcMap.put(S, inner_KcA_Map);
+		best_outerStudentKcMap.put(S, inner_KcA_Map);
 	}
 	/*
 	 * Forward
@@ -309,6 +295,18 @@ public class Utils {
 		// "+backwardmap.get(A));
 		return backward_outerStudentKcMap.get(S).get(K).get(A);
 	}
+	/*
+	 * Best
+	 */
+	public static void updateBest(int S, int K, int A, Double bestValue) {
+		// TODO implement forward filling
+		best_outerStudentKcMap.get(S).get(K).put(A, bestValue);
+	}
+
+	public static Double getBest(int S, int K, int A) {
+		return best_outerStudentKcMap.get(S).get(K).get(A);
+	}
+
 	
 
 }

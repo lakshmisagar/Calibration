@@ -151,7 +151,7 @@ public class DatabaseResponse {
 				HashMap<Integer, Double> inner_AV_Map = new HashMap<Integer, Double>();
 				inner_KcA_Map.put(Kc, inner_AV_Map);
 			}
-			Utils.initalizeForwardBackwardMap(S,inner_KcA_Map);
+			Utils.initalizeForwardBackwardBestMap(S,inner_KcA_Map);
 		}
 	}
 
