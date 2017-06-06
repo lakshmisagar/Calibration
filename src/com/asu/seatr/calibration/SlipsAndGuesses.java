@@ -30,15 +30,15 @@ public class SlipsAndGuesses {
 					//System.out.println("S "+S+" Utils.getQuestion("+S+", "+A+" ):"+Utils.getQuestion(S, A));
 					if (Q == Utils.getQuestion(S, A)) {
 						Double OK = new Double(1.0);
-						System.out.println("O   K   "+OK);
+						//System.out.println("O   K   "+OK);
 						//System.out.println("Matched "+Q);
 						ArrayList<Integer> KCs = Utils.getQuestionMatrix(Q);
 						for (int list_K = 0; list_K < KCs.size(); list_K++) {
-							System.out.println("getBest  "+Utils.getBest(S, KCs.get(list_K), A));
+							//System.out.println("getBest  "+Utils.getBest(S, KCs.get(list_K), A));
 							OK = Operations.multiplyDouble(OK,Utils.getBest(S, KCs.get(list_K), A));
-							System.out.println("OK "+OK);
+							//System.out.println("OK "+OK);
 						}
-						System.out.println("OK "+OK);
+						//System.out.println("OK "+OK);
 						SlipDenominator = Operations.addDouble(SlipDenominator,OK);
 						//System.out.println("SlipDenominator "+SlipDenominator);
 						GuessDenominator = Operations.addDouble(GuessDenominator,Operations.substractDouble((double)1,OK));

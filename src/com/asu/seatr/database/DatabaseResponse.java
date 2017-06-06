@@ -141,9 +141,14 @@ public class DatabaseResponse {
 		}
 
 		//************** MAP - S K A ***************************
-		
+		System.out.println("current size of heap in bytes  :"+Runtime.getRuntime().totalMemory());
+		System.out.println("maximum size of heap in bytes  :"+Runtime.getRuntime().maxMemory());
+		System.out.println("amount of free memory within the heap in bytes  :"+Runtime.getRuntime().freeMemory());
 		for (int St = 0; St < GlobalConstants.total_Students; St++) {
-			System.out.println(St+" / "+GlobalConstants.total_Students);
+			//System.out.println(St+" / "+GlobalConstants.total_Students);
+			System.out.println("current size of heap in bytes  :"+Runtime.getRuntime().totalMemory());
+			System.out.println("maximum size of heap in bytes  :"+Runtime.getRuntime().maxMemory());
+			System.out.println("amount of free memory within the heap in bytes  :"+Runtime.getRuntime().freeMemory());
 			int S = Utils.getStudent(St);
 			HashMap<Integer, HashMap<Integer, Double>> inner_KcA_Map = new HashMap<Integer, HashMap<Integer, Double>>();
 			for (int K = 0; K < GlobalConstants.total_KCs; K++) {
@@ -154,5 +159,4 @@ public class DatabaseResponse {
 			Utils.initalizeForwardBackwardBestMap(S,inner_KcA_Map);
 		}
 	}
-
 }

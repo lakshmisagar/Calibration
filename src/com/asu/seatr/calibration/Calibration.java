@@ -1,6 +1,8 @@
 package com.asu.seatr.calibration;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -33,6 +35,7 @@ public class Calibration {
 	static Double average_G;
 	
 	private static Double climbOnce() {
+		System.out.println("STARTING CLIMBONCE() --------------------------------------------------------------------");
 		saveParameters();
 		try {
 			FillingForward.fillingForward();
@@ -44,6 +47,7 @@ public class Calibration {
 		EstimateKcMastery.Estimate_KC_mastery_Best(total_students, total_KCs);
 		calculateNewParameters();// update initalMaster,Learn,slip,guess
 		Double change = changeInParameter();
+		System.out.println("TOPPING CLIBONCE()    ----------- CHANGE IS :    "+change);
 		return change;
 	}
 
@@ -115,7 +119,7 @@ public class Calibration {
 			Utils.setLearnMap(Kc,Double.valueOf(r_Learn));
 			//System.out.println("Kc :"+Utils.getKc(KcIndex)+" IM: "+Utils.getInitialMasteryMap(Kc)+" L: "+Utils.getLearnMap(Kc));
 		}
-		System.out.println("START");
+		//System.out.println("START");
 		for (int Q = 0; Q < total_Q; Q++) {
 			double r_slip = 0.05 + r.nextDouble() * (0.45 - 0.05);
 			double r_guess = 0.01 + r.nextDouble() * (0.5 - 0.01);
@@ -123,7 +127,7 @@ public class Calibration {
 			Utils.setSlipMap(question, Double.valueOf(r_slip));
 			Utils.setGuessMap(question, Double.valueOf(r_guess));
 		}
-		System.out.println("STOP");
+		//System.out.println("STOP");
 		//printRandomParameters();
 	}
 
@@ -235,7 +239,10 @@ public class Calibration {
 		}
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws FileNotFoundException {
+		
+		PrintStream o = new PrintStream(new File("F:/RA/CALIB.txt"));
+		System.setOut(o);
 		
 		//MySQLConnection.SetConnection();
 		System.out.println("CALIBRATION.....................");

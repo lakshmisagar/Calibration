@@ -15,9 +15,9 @@ public class EstimateKcMastery {
 			for (int K = 0; K < kCount; K++) {
 				int lastCount = Utils.getLast(S);
 				for (int A = 1; A <= lastCount; A++) {
-					System.out.println("getForward  "+Utils.getForward(S, Utils.getKc(K), A)+"     getBackward   "+Utils.getBackward(S, Utils.getKc(K), A));
+					//System.out.println("getForward  "+Utils.getForward(S, Utils.getKc(K), A)+"     getBackward   "+Utils.getBackward(S, Utils.getKc(K), A));
 					Double bestValue = Operations.multiplyDouble(Utils.getForward(S, Utils.getKc(K), A),Utils.getBackward(S, Utils.getKc(K), A));
-					System.out.println("bestValue   "+bestValue);
+					//System.out.println("bestValue   "+bestValue);
 					Utils.updateBest(S, Utils.getKc(K), A, bestValue);
 				}
 			}

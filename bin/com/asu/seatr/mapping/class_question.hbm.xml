@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.asu.seatr.opetest.models">
+    <class name="class_question" table="class_question">
+        <id name="id" column="id">
+            <generator class="increment"/>
+        </id>
+        <property name="question_id"/>
+        <property name="category_id"/>
+        <property name="order"/>
+        <property name="for_credit"/>
+        <property name="mc_enabled"/>
+        <property name="input_enabled"/>
+        <property name="guided_enabled"/>
+        <property name="user_id"/>
+       
+  </class>         
+</hibernate-mapping>

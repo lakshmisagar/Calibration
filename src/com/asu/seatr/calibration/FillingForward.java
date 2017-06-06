@@ -22,8 +22,7 @@ public class FillingForward {
 
 	public static void fillingForward() throws FileNotFoundException {
 		System.out.println("FillingForward ...here.............................");
-		PrintStream o = new PrintStream(new File("FillingForward_OP.txt"));
-		System.setOut(o);
+		
 		int Ns = GlobalConstants.total_Students;
 		int Nk = GlobalConstants.total_KCs;
 		System.out.println("Ns :" + Ns + "   Nk  :" + Nk);
@@ -40,6 +39,9 @@ public class FillingForward {
 				 System.out.println("Attempt....."+A);
 				int question = Utils.getQuestion(S, A);
 				ArrayList<Integer> KCs = Utils.getQuestionMatrix(question);
+				for (int K = 0; K < Nk; K++) {
+					Utils.updateForward(S, Utils.getKc(K), A + 1, Utils.getForward(S, Utils.getKc(K), A));
+				}
 				Double OK = initial_OK;
 				for (int list_K = 0; list_K < KCs.size(); list_K++) {
 					System.out.println("KCs involved....."+KCs.get(list_K));
@@ -59,35 +61,27 @@ public class FillingForward {
 				}
 				// System.out.println("Kcs at Attempt "+A+" :"+
 				// Utils.getLast(S));
-				for (int innerK = 0; innerK < Nk; innerK++) {
-					// System.out.println("innerK..."+innerK);
-					if (KCs.contains(Utils.getKc(innerK))) {
+				for (int list_K = 0; list_K < KCs.size(); list_K++) {
 						Double forwardNumeratorValue = Operations.addDouble(
-								Operations.multiplyDouble(y, Utils.getForward(S, Utils.getKc(innerK), A)), x);
+								Operations.multiplyDouble(y, Utils.getForward(S, Utils.getKc(list_K), A)), x);
 						Double forwardfillingValue = Operations.divideDouble(forwardNumeratorValue,
 								Operations.addDouble(y, x));
 						System.out.println("x   "+x+"  y  "+y);
 						System.out.println("forwardNumeratorValue  "+forwardNumeratorValue+"  x+y  "+Operations.addDouble(y, x));
-						System.out.println("updateForward 2  (" + S + ", " + Utils.getKc(innerK) + "," + (A + 1) + ") :"
+						System.out.println("updateForward 2  (" + S + ", " + Utils.getKc(list_K) + "," + (A + 1) + ") :"
 								+ forwardfillingValue);
-						Utils.updateForward(S, Utils.getKc(innerK), A + 1, forwardfillingValue);
-					} else {
-						System.out.println("updateForward 3  (" + S + ", " + Utils.getKc(innerK) + ", " + (A + 1)
-								+ ") :  Utils.getForward("+S+", "+Utils.getKc(innerK)+", "+A+")"
-								+ Utils.getForward(S, Utils.getKc(innerK), A));
-						Utils.updateForward(S, Utils.getKc(innerK), A + 1, Utils.getForward(S, Utils.getKc(innerK), A));
-					}
-				}
+						Utils.updateForward(S, Utils.getKc(list_K), A + 1, forwardfillingValue);
+					} 
 				Double SE = initial_OK;
 				for (int list_K = 0; list_K < KCs.size(); list_K++) {
-					Double forward = Utils.getForward(S, KCs.get(list_K), A);
+					Double forward = Utils.getForward(S, KCs.get(list_K), A+1);
 					Double var1 = Operations.substractDouble((double) 1, forward);
 					Double var2 = Operations.multiplyDouble(var1, Utils.getLearnMap(KCs.get(list_K)));
 					Double var3 = Operations.addDouble(forward, var2);
 					SE = Operations.multiplyDouble(SE, var3);
 				}
 				for (int list_K = 0; list_K < KCs.size(); list_K++) {
-					Double forward = Utils.getForward(S, KCs.get(list_K), A);
+					Double forward = Utils.getForward(S, KCs.get(list_K), A+1);
 					Double Z = Operations.substractDouble((double) 1,
 							Operations.multiplyDouble(forward, Utils.getLearnMap(KCs.get(list_K))));
 					Double nume = Operations.multiplyDouble(SE, Z);

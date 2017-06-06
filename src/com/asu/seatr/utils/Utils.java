@@ -15,7 +15,8 @@ public class Utils {
 	private static int[] mKC = new int[GlobalConstants.total_KCs];
 	private static int[] studentsList = new int[GlobalConstants.total_Students];
 	private static int[] questionsList = new int[GlobalConstants.total_Questions];
-
+	private static ArrayList<Integer> list = new ArrayList<Integer>();
+	
 	// Datastructure to implement question id question
 	static HashMap<Integer, Integer> id_question_map = new HashMap<Integer, Integer>();
 
@@ -209,7 +210,7 @@ public class Utils {
 	}
 
 	public static void setSlipMap(int question, Double value) {
-		System.out.println("setSlipMap :" + question + "  " + value);
+		//System.out.println("setSlipMap :" + question + "  " + value);
 		Q_QM_Slip_Guess_map.get(question).put(GlobalConstants.Slip, value.toString());
 	}
 
@@ -235,7 +236,7 @@ public class Utils {
 	}
 
 	public static ArrayList<Integer> getQMatrixMap(int question) {
-		ArrayList<Integer> list = new ArrayList<Integer>();
+		list.clear();
 		String s = Q_QM_Slip_Guess_map.get(question).get(GlobalConstants.QMatrix);
 		String[] arr = s.split("\t");
 		for (int i = 0; i < arr.length; i++) {
