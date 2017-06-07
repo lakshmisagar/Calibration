@@ -25,18 +25,18 @@ public class FillingForward {
 		
 		int Ns = GlobalConstants.total_Students;
 		int Nk = GlobalConstants.total_KCs;
-		System.out.println("Ns :" + Ns + "   Nk  :" + Nk);
+		//System.out.println("Ns :" + Ns + "   Nk  :" + Nk);
 		for (int St = 0; St < Ns; St++) {
 			int S = Utils.getStudent(St);
-			 System.out.println("Student ...."+S);
+			/// System.out.println("Student ...."+S);
 			for (int K = 0; K < Nk; K++) {
 				Double value = Utils.getInitialMasteryMap(Utils.getKc(K));
 				//System.out.println("updateForward  1 (" + S + ", " + Utils.getKc(K) + "," + 1 + ") :" + value);
 				Utils.updateForward(S, Utils.getKc(K), 1, value);
 			}
-			 System.out.println("Attempts......"+ Utils.getLast(S));
+			 //System.out.println("Attempts......"+ Utils.getLast(S));
 			for (int A = 1; A < Utils.getLast(S); A++) {
-				 System.out.println("Attempt....."+A);
+				// System.out.println("Attempt....."+A);
 				int question = Utils.getQuestion(S, A);
 				ArrayList<Integer> KCs = Utils.getQuestionMatrix(question);
 				for (int K = 0; K < Nk; K++) {
@@ -44,7 +44,7 @@ public class FillingForward {
 				}
 				Double OK = initial_OK;
 				for (int list_K = 0; list_K < KCs.size(); list_K++) {
-					System.out.println("KCs involved....."+KCs.get(list_K));
+					//System.out.println("KCs involved....."+KCs.get(list_K));
 					OK = Operations.multiplyDouble(OK, Utils.getForward(S, KCs.get(list_K), A));
 				}
 				// System.out.println();
@@ -66,10 +66,10 @@ public class FillingForward {
 								Operations.multiplyDouble(y, Utils.getForward(S, Utils.getKc(list_K), A)), x);
 						Double forwardfillingValue = Operations.divideDouble(forwardNumeratorValue,
 								Operations.addDouble(y, x));
-						System.out.println("x   "+x+"  y  "+y);
-						System.out.println("forwardNumeratorValue  "+forwardNumeratorValue+"  x+y  "+Operations.addDouble(y, x));
-						System.out.println("updateForward 2  (" + S + ", " + Utils.getKc(list_K) + "," + (A + 1) + ") :"
-								+ forwardfillingValue);
+						//System.out.println("x   "+x+"  y  "+y);
+						//System.out.println("forwardNumeratorValue  "+forwardNumeratorValue+"  x+y  "+Operations.addDouble(y, x));
+						//System.out.println("updateForward 2  (" + S + ", " + Utils.getKc(list_K) + "," + (A + 1) + ") :"
+						//		+ forwardfillingValue);
 						Utils.updateForward(S, Utils.getKc(list_K), A + 1, forwardfillingValue);
 					} 
 				Double SE = initial_OK;
@@ -82,8 +82,7 @@ public class FillingForward {
 				}
 				for (int list_K = 0; list_K < KCs.size(); list_K++) {
 					Double forward = Utils.getForward(S, KCs.get(list_K), A+1);
-					Double Z = Operations.substractDouble((double) 1,
-							Operations.multiplyDouble(forward, Utils.getLearnMap(KCs.get(list_K))));
+					Double Z = Operations.multiplyDouble(Operations.substractDouble((double) 1,forward), Utils.getLearnMap(KCs.get(list_K)));
 					Double nume = Operations.multiplyDouble(SE, Z);
 					Double denom = Operations.addDouble(forward, Z);
 					Double var2 = Operations.divideDouble(nume, denom);

@@ -25,7 +25,7 @@ public class DatabaseResponse {
 		
 		// Students ID
 		String studentsId_hql = "SELECT distinct user_id as sid FROM student_response";
-		Query sidQuery = session25.createQuery(studentsId_hql);
+		Query sidQuery = session25.createQuery(studentsId_hql).setMaxResults(2);
 		List<Integer> sResult = sidQuery.list();
 		GlobalConstants.total_Students = sResult.size();
 //********************************************CORRECTION**************************************************************

@@ -21,6 +21,7 @@ public class InitalMastery {
 				Sum = Operations.addDouble(Sum,Utils.getBest(S, Utils.getKc(K), 1));
 				Count = Count + 1;
 			}
+			//System.out.println("IntialMastery  "+Utils.getKc(K)+" "+Operations.divideDouble(Sum,(double)Count));
 			Utils.setInitialMasteryMap(Utils.getKc(K), Operations.divideDouble(Sum,(double)Count));
 		}
 	}

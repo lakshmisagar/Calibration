@@ -35,7 +35,7 @@ public class Calibration {
 	static Double average_G;
 	
 	private static Double climbOnce() {
-		System.out.println("STARTING CLIMBONCE() --------------------------------------------------------------------");
+		System.out.println("CLIMBONCE******************************   ");
 		saveParameters();
 		try {
 			FillingForward.fillingForward();
@@ -47,7 +47,7 @@ public class Calibration {
 		EstimateKcMastery.Estimate_KC_mastery_Best(total_students, total_KCs);
 		calculateNewParameters();// update initalMaster,Learn,slip,guess
 		Double change = changeInParameter();
-		System.out.println("TOPPING CLIBONCE()    ----------- CHANGE IS :    "+change);
+		System.out.println("CHANGE******************************   "+change);
 		return change;
 	}
 
@@ -58,22 +58,32 @@ public class Calibration {
 	}
 
 	private static Double changeInParameter() {
+		System.out.println("changeInParameter()");
 		Double sum_initalMaster = (double) 0;
 		Double sum_Learn = (double) 0;	
 		Double sum_slip = (double) 0;
 		Double sum_guess = (double) 0;
-
+		
 		Double maxChange,IMChange,LChange,SChange,GChange;
 
 		for (int K = 0; K < total_KCs; K++) {
+			System.out.println(K);
+			System.out.println("sum_Learn :"+sum_Learn);
 			int Kc = Utils.getKc(K);
 			Double diff_IM = Operations.substractDouble(old_initalMastery[K],Utils.getInitialMasteryMap(Kc));
+			System.out.println("diff_IM :"+diff_IM+" = "+old_initalMastery[K]+" - "+Utils.getInitialMasteryMap(Kc));
 			Double change_IM = Operations.divideDouble(diff_IM,old_initalMastery[K]);
+			System.out.println("change_IM :"+change_IM);
 			sum_initalMaster = Operations.addDouble(sum_initalMaster,change_IM);
+			System.out.println("sum_initalMaster :"+sum_initalMaster);
 
 			Double diff_L = Operations.substractDouble(old_Learn[K],Utils.getLearnMap(Kc));
+			System.out.println("diff_L :"+diff_L+"  =  "+old_Learn[K]+" - "+Utils.getLearnMap(Kc));
 			Double change_L = Operations.divideDouble(diff_L,old_Learn[K]);
+			System.out.println("change_L :"+change_L);
 			sum_Learn = Operations.addDouble(sum_Learn,change_L);
+			System.out.println("sum_Learn  =   sum_Learn+change_L   "+sum_Learn);
+			
 		}
 		for (int Q = 0; Q < total_Q; Q++) {
 			int question = Utils.getQuestion(Q);
@@ -84,12 +94,15 @@ public class Calibration {
 			Double diff_G = Operations.substractDouble(old_guess[Q],Utils.getGuessMap(question));
 			Double change_G = Operations.divideDouble(diff_G,old_guess[Q]);
 			sum_guess = Operations.addDouble(sum_guess,change_G);
+			System.out.println("sum_guess       "+sum_guess+" = "+sum_guess+" + "+change_G);
 		}
+		System.out.println("LChange   = "+sum_Learn+   " / "+Double.valueOf(total_KCs));
+		System.out.println("GChange   = "+sum_guess+   " / "+Double.valueOf(total_Q));
 		IMChange = Operations.divideDouble(sum_initalMaster,Double.valueOf(total_KCs));
 		LChange = Operations.divideDouble(sum_Learn,Double.valueOf(total_KCs));
 		SChange = Operations.divideDouble(sum_slip,Double.valueOf(total_Q));
 		GChange = Operations.divideDouble(sum_guess,Double.valueOf(total_Q));
-
+		System.out.println("IMChange   "+IMChange+   "   LChange:  "+LChange+"  SChange: "+SChange+"    GChange:  "+GChange);
 		maxChange = Math.max(IMChange,LChange);
 		maxChange = Math.max(maxChange,SChange);
 		maxChange = Math.max(maxChange,GChange);
@@ -119,7 +132,7 @@ public class Calibration {
 			Utils.setLearnMap(Kc,Double.valueOf(r_Learn));
 			//System.out.println("Kc :"+Utils.getKc(KcIndex)+" IM: "+Utils.getInitialMasteryMap(Kc)+" L: "+Utils.getLearnMap(Kc));
 		}
-		//System.out.println("START");
+		System.out.println("START");
 		for (int Q = 0; Q < total_Q; Q++) {
 			double r_slip = 0.05 + r.nextDouble() * (0.45 - 0.05);
 			double r_guess = 0.01 + r.nextDouble() * (0.5 - 0.01);
@@ -127,7 +140,7 @@ public class Calibration {
 			Utils.setSlipMap(question, Double.valueOf(r_slip));
 			Utils.setGuessMap(question, Double.valueOf(r_guess));
 		}
-		//System.out.println("STOP");
+		System.out.println("STOP");
 		//printRandomParameters();
 	}
 
@@ -241,12 +254,10 @@ public class Calibration {
 
 	public static void main(String[] args) throws FileNotFoundException {
 		
-		PrintStream o = new PrintStream(new File("F:/RA/CALIB.txt"));
-		System.setOut(o);
-		
 		//MySQLConnection.SetConnection();
 		System.out.println("CALIBRATION.....................");
-		
+		PrintStream o = new PrintStream(new File("F:/RA/CALIB.txt"));
+		System.setOut(o);
 		//SetDB
 		setDatabase();
 		

@@ -278,22 +278,19 @@ public class Utils {
 		
 	}
 	public static Double getForward(int S, int K, int A) {
-		// System.out.println("GET Forward - S:"+S+" K:"+K+" A:"+A+"
-		// ="+forwardmap.get(A));
+		 //System.out.println("GET Forward - S:"+S+" K:"+K+" A:"+A+" ="+forward_outerStudentKcMap.get(S).get(K).get(A));
 		return forward_outerStudentKcMap.get(S).get(K).get(A);
 	}
 	/*
 	 * Backward
 	 */
 	public static void updateBackward(int S, int K, int A, Double backwardfillingValue) {
-		// System.out.println("updateBackward S:"+S+" K:"+K+" A:"+A+" -
-		// "+backwardfillingValue);
+		 //System.out.println("updateBackward S:"+S+" K:"+K+" A:"+A+" - "+backwardfillingValue);
 		backward_outerStudentKcMap.get(S).get(K).put(A, backwardfillingValue);
 	}
 
 	public static Double getBackward(int S, int K, int A) {
-		// System.out.println("getBackward S:"+S+" K:"+K+" A:"+A+" -
-		// "+backwardmap.get(A));
+		// System.out.println("getBackward S:"+S+" K:"+K+" A:"+A+" - "+ backward_outerStudentKcMap.get(S).get(K).get(A));
 		return backward_outerStudentKcMap.get(S).get(K).get(A);
 	}
 	/*
