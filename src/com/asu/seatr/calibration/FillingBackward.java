@@ -5,6 +5,7 @@ package com.asu.seatr.calibration;
 
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.Random;
 
 import com.asu.seatr.utils.GlobalConstants;
 import com.asu.seatr.utils.Operations;
@@ -16,6 +17,8 @@ import com.asu.seatr.utils.Utils;
  */
 public class FillingBackward {
 
+	static Random r = new Random();
+	
 	static Double initial_OK = new Double(1.0);
 
 	public static void fillingBackward() {

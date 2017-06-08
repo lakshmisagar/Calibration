@@ -63,14 +63,14 @@ public class FillingForward {
 				// Utils.getLast(S));
 				for (int list_K = 0; list_K < KCs.size(); list_K++) {
 						Double forwardNumeratorValue = Operations.addDouble(
-								Operations.multiplyDouble(y, Utils.getForward(S, Utils.getKc(list_K), A)), x);
+								Operations.multiplyDouble(y, Utils.getForward(S, KCs.get(list_K), A)), x);
 						Double forwardfillingValue = Operations.divideDouble(forwardNumeratorValue,
 								Operations.addDouble(y, x));
 						//System.out.println("x   "+x+"  y  "+y);
 						//System.out.println("forwardNumeratorValue  "+forwardNumeratorValue+"  x+y  "+Operations.addDouble(y, x));
 						//System.out.println("updateForward 2  (" + S + ", " + Utils.getKc(list_K) + "," + (A + 1) + ") :"
 						//		+ forwardfillingValue);
-						Utils.updateForward(S, Utils.getKc(list_K), A + 1, forwardfillingValue);
+						Utils.updateForward(S, KCs.get(list_K), A + 1, forwardfillingValue);
 					} 
 				Double SE = initial_OK;
 				for (int list_K = 0; list_K < KCs.size(); list_K++) {

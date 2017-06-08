@@ -132,7 +132,7 @@ public class Calibration {
 			Utils.setLearnMap(Kc,Double.valueOf(r_Learn));
 			//System.out.println("Kc :"+Utils.getKc(KcIndex)+" IM: "+Utils.getInitialMasteryMap(Kc)+" L: "+Utils.getLearnMap(Kc));
 		}
-		System.out.println("START");
+		//System.out.println("START");
 		for (int Q = 0; Q < total_Q; Q++) {
 			double r_slip = 0.05 + r.nextDouble() * (0.45 - 0.05);
 			double r_guess = 0.01 + r.nextDouble() * (0.5 - 0.01);
@@ -140,7 +140,7 @@ public class Calibration {
 			Utils.setSlipMap(question, Double.valueOf(r_slip));
 			Utils.setGuessMap(question, Double.valueOf(r_guess));
 		}
-		System.out.println("STOP");
+		//System.out.println("STOP");
 		//printRandomParameters();
 	}
 

@@ -263,17 +263,16 @@ public class Utils {
 	/*
 	 * Forward Backward Best
 	 */
-	public static void initalizeForwardBackwardBestMap(int S, HashMap<Integer, HashMap<Integer, Double>> inner_KcA_Map) {
-		forward_outerStudentKcMap.put(S, inner_KcA_Map);
-		backward_outerStudentKcMap.put(S, inner_KcA_Map);
-		best_outerStudentKcMap.put(S, inner_KcA_Map);
+	public static void initalizeForwardBackwardBestMap(int S, HashMap<Integer, HashMap<Integer, Double>> inner_KcA_Forward_Map, HashMap<Integer, HashMap<Integer, Double>> inner_KcA_Backward_Map, HashMap<Integer, HashMap<Integer, Double>> inner_KcA_Best_Map) {
+		forward_outerStudentKcMap.put(S, inner_KcA_Forward_Map);
+		backward_outerStudentKcMap.put(S, inner_KcA_Backward_Map);
+		best_outerStudentKcMap.put(S, inner_KcA_Best_Map);
 	}
 	/*
 	 * Forward
 	 */
 	public static void updateForward(int S, int K, int A, Double forwardfillingValue) {
-		// System.out.println("set Forward - S:"+S+" K:"+K+" A:"+A+"
-		// ="+forwardfillingValue);
+		 //System.out.println("set Forward - S:"+S+" K:"+K+" A:"+A+" ="+forwardfillingValue);
 		forward_outerStudentKcMap.get(S).get(K).put(A, forwardfillingValue);
 		
 	}
@@ -285,7 +284,7 @@ public class Utils {
 	 * Backward
 	 */
 	public static void updateBackward(int S, int K, int A, Double backwardfillingValue) {
-		 //System.out.println("updateBackward S:"+S+" K:"+K+" A:"+A+" - "+backwardfillingValue);
+		// System.out.println("updateBackward S:"+S+" K:"+K+" A:"+A+" - "+backwardfillingValue);
 		backward_outerStudentKcMap.get(S).get(K).put(A, backwardfillingValue);
 	}
 

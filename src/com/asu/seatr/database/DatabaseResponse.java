@@ -150,13 +150,19 @@ public class DatabaseResponse {
 			System.out.println("maximum size of heap in bytes  :"+Runtime.getRuntime().maxMemory());
 			System.out.println("amount of free memory within the heap in bytes  :"+Runtime.getRuntime().freeMemory());
 			int S = Utils.getStudent(St);
-			HashMap<Integer, HashMap<Integer, Double>> inner_KcA_Map = new HashMap<Integer, HashMap<Integer, Double>>();
+			HashMap<Integer, HashMap<Integer, Double>> inner_KcA_Forward_Map = new HashMap<Integer, HashMap<Integer, Double>>();
+			HashMap<Integer, HashMap<Integer, Double>> inner_KcA_Backward_Map = new HashMap<Integer, HashMap<Integer, Double>>();
+			HashMap<Integer, HashMap<Integer, Double>> inner_KcA_Best_Map = new HashMap<Integer, HashMap<Integer, Double>>();
 			for (int K = 0; K < GlobalConstants.total_KCs; K++) {
 				int Kc = Utils.getKc(K);
-				HashMap<Integer, Double> inner_AV_Map = new HashMap<Integer, Double>();
-				inner_KcA_Map.put(Kc, inner_AV_Map);
+				HashMap<Integer, Double> inner_AV_Forward_Map = new HashMap<Integer, Double>();
+				HashMap<Integer, Double> inner_AV_Backward_Map = new HashMap<Integer, Double>();
+				HashMap<Integer, Double> inner_AV_Best_Map = new HashMap<Integer, Double>();
+				inner_KcA_Forward_Map.put(Kc, inner_AV_Forward_Map);
+				inner_KcA_Backward_Map.put(Kc, inner_AV_Backward_Map);
+				inner_KcA_Best_Map.put(Kc, inner_AV_Best_Map);
 			}
-			Utils.initalizeForwardBackwardBestMap(S,inner_KcA_Map);
+			Utils.initalizeForwardBackwardBestMap(S,inner_KcA_Forward_Map,inner_KcA_Backward_Map,inner_KcA_Best_Map);
 		}
 	}
 }
