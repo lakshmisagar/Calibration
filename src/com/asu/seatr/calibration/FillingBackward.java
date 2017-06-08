@@ -93,6 +93,10 @@ public class FillingBackward {
 						} else {
 							Utils.updateBackward(S, innerKc, A, Utils.getBackward(S, innerKc, A + 1));
 						}
+						//double randomUB = 0.05 + r.nextDouble() * (0.95 - 0.05);
+						//System.out.println("1  GET Forward - S:"+S+" K:"+innerKc+" A:"+A+" ="+Utils.getForward(S, innerKc, A));
+						//Utils.updateBackward(S, innerKc, A,randomUB);
+						//System.out.println("2  GET Forward - S:"+S+" K:"+innerKc+" A:"+A+" ="+Utils.getForward(S, innerKc, A));
 					}
 
 				}

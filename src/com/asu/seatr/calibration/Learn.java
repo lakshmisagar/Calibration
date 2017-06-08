@@ -26,6 +26,7 @@ public class Learn {
 					ArrayList<Integer> KCs = Utils.getQuestionMatrix(Utils.getQuestion(S, A));
 					// for (int list_K = 0; list_K < KCs.size(); list_K++) {
 					// if (KCs.get(list_K) == Kc) {
+					//System.out.println(" Kc:"+Kc+"  and Qmatrix:"+KCs);
 					if (KCs.contains(Kc)) {
 						Double SE = new Double(1.0);
 						for (int list_K = 0; list_K < KCs.size(); list_K++) {
@@ -37,26 +38,27 @@ public class Learn {
 								SE = Operations.multiplyDouble(SE, var3);
 							}
 						}
-						// System.out.println((A+1)+" "+Utils.getBest(S, Kc,
-						// A +
-						// 1)+" , "+A+" "+Utils.getBest(S, Kc, A));
+						// System.out.println((A+1)+" "+Utils.getBest(S, Kc, A + 1)+" , "+A+" "+Utils.getBest(S, Kc, A));
 						LearnNumerator = Operations.addDouble(LearnNumerator,Operations.substractDouble(Utils.getBest(S, Kc, A + 1), Utils.getBest(S, Kc, A)));
 						LearnDenominator = Operations.addDouble(LearnDenominator, Operations.multiplyDouble(Operations.substractDouble((double) 1, Utils.getBest(S, Kc, A)), SE));
 						// System.out.println(St+" "+A+" "+list_K);
-						//System.out.println("LearnNumerator	 :" + LearnNumerator + " = " + LearnNumerator + "+"
-							//	+ Operations.substractDouble(Utils.getBest(S, Kc, A + 1), Utils.getBest(S, Kc, A)));
-						//System.out.println("LearnDenominator :" + LearnDenominator + " = " + LearnDenominator + "+"
-							//	+ Operations.multiplyDouble(
-								//		Operations.substractDouble((double) 1, Utils.getBest(S, Kc, A)), SE));
+						//System.out.println("LearnNumerator	 :" + LearnNumerator + " = " + LearnNumerator + "+"	+ Operations.substractDouble(Utils.getBest(S, Kc, A + 1), Utils.getBest(S, Kc, A)));
+					   // System.out.println("LearnDenominator :" + LearnDenominator + " = " + LearnDenominator + "+"	+ Operations.multiplyDouble(Operations.substractDouble((double) 1, Utils.getBest(S, Kc, A)), SE));
 					}
 				}
+				//System.out.println("LearnNumerator	 :" + LearnNumerator );
+			   // System.out.println("LearnDenominator :" + LearnDenominator );
+
 			}
-			Double LnByLd = Operations.divideDouble(LearnNumerator, LearnDenominator);
-			// System.out.println("LnByLd :" + LnByLd);
+			Double LnByLd;
+			if(LearnDenominator==0){
+				LnByLd = (double)0;
+			}else{
+				LnByLd = Operations.divideDouble(LearnNumerator, LearnDenominator);
+			}
+			//System.out.println("LnByLd :" + LnByLd);
 			Double max = Math.max(Double.valueOf(0.05), LnByLd);
-			// System.out.println(
-			// "setLearnMap :" + Math.min(Double.valueOf(0.5), max) + " " +
-			// Double.valueOf(0.5) + " " + max);
+			// System.out.println("setLearnMap :" + Math.min(Double.valueOf(0.5), max) + " " + Double.valueOf(0.5) + " " + max);
 			Utils.setLearnMap(Kc, Math.min(Double.valueOf(0.5), max));
 		}
 
