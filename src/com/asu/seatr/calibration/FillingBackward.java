@@ -29,7 +29,7 @@ public class FillingBackward {
 			int S = Utils.getStudent(St);
 			//System.out.println("Student ------------"+S);
 			for (int K = 0; K < Nk; K++) {
-				Utils.updateBackward(S, Utils.getKc(K), Utils.getLast(S),(double)1);
+				Utils.updateBackward(S, Utils.getKc(K), Utils.getLast(S),Utils.getForward(S, Utils.getKc(K), Utils.getLast(S)-1));
 			}// is this the end of K loop? is it Utils.getLast(S)+1  or Utils.getLast(S) ?
 			//System.out.println("Attempts total-"+Utils.getLast(S));
 				for (int A = Utils.getLast(S)-1; A >= 1; A--) {
