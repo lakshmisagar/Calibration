@@ -23,11 +23,6 @@ public class InitalMastery {
 				Count = Count + 1;
 			}
 			
-			System.out.println("Sum :"+Sum+"  Count :"+Count);
-			System.out.println(" old value :"+Utils.getKc(K)+"  "+Utils.getInitialMasteryMap(Utils.getKc(K)));
-			System.out.println("IntialMastery  "+Utils.getKc(K)+" "+Operations.divideDouble(Sum,(double)Count));
-			System.out.println();
-			System.out.println();
 			Utils.setInitialMasteryMap(Utils.getKc(K), Operations.divideDouble(Sum,(double)Count));
 		}
 	}
