@@ -18,11 +18,7 @@ public class EstimateKcMastery {
 					//System.out.println("getForward  "+Utils.getForward(S, Utils.getKc(K), A)+"     getBackward   "+Utils.getBackward(S, Utils.getKc(K), A));
 					//System.out.println("EstimateKcMastery::::");
 					Double bestValue = Operations.multiplyDouble(Utils.getForward(S, Utils.getKc(K), A),Utils.getBackward(S, Utils.getKc(K), A));
-					if(A==1 && K==0){
-						System.out.println();
-						System.out.println("getForward  "+Utils.getForward(S, Utils.getKc(K), A)+"     getBackward   "+Utils.getBackward(S, Utils.getKc(K), A));
-						System.out.println("bestValue   "+bestValue);
-					}
+					//System.out.println("bestValue   "+bestValue);
 					Utils.updateBest(S, Utils.getKc(K), A, bestValue);
 				}
 			}
