@@ -55,10 +55,18 @@ public class FillingForward {
 				Double x = Operations.multiplyDouble(OK, oneMinusSlipPlusGuess);
 				Double y = guess;
 				
-				if (Utils.getAnswer(S, A) == 0) {
+				/*if (Utils.getAnswer(S, A) == 0) {
+					y = Operations.substractDouble((double) 1, y);
+					x = -x;
+				}*/
+				//SIMULATION
+				if (Utils.simulategetSetAnswer(S, Utils.getQuestion(S, A))== 0) {
 					y = Operations.substractDouble((double) 1, y);
 					x = -x;
 				}
+				
+				
+				
 				// System.out.println("Kcs at Attempt "+A+" :"+
 				// Utils.getLast(S));
 				for (int list_K = 0; list_K < KCs.size(); list_K++) {

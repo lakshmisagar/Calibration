@@ -79,7 +79,12 @@ public class FillingBackward {
 					x = Operations.multiplyDouble(OK,oneMinusSlipPlusGuess);
 					Double y = guess;
 
-					if (Utils.getAnswer(S, A) == 0) {
+					/*if (Utils.getAnswer(S, A) == 0) {
+						y = Operations.substractDouble((double)1,y);
+						x = -x;
+					}*/
+					//SIMULATION
+					if (Utils.simulategetSetAnswer(S,Utils.getQuestion(S, A)) == 0) {
 						y = Operations.substractDouble((double)1,y);
 						x = -x;
 					}

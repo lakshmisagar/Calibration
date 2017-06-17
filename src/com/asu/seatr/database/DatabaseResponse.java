@@ -82,8 +82,7 @@ public class DatabaseResponse {
 			qResultCount++;
 		}
 		
-		System.out.println(
-				"total Questions--------------------------------------------:" + GlobalConstants.total_Questions);
+		System.out.println("total Questions--------------------------------------------:" + GlobalConstants.total_Questions);
 	/*	for (int j = 0; j < GlobalConstants.total_Questions; j++) {
 			System.out.println(Utils.getQuestion(j));
 		}*/

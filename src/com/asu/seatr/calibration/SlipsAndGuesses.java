@@ -44,7 +44,10 @@ public class SlipsAndGuesses {
 						GuessDenominator = Operations.addDouble(GuessDenominator,Operations.substractDouble((double)1,OK));
 						//System.out.println("GuessDenominator "+GuessDenominator);
 						//System.out.println("Utils.getAnswer("+S+","+ A+")"+Utils.getAnswer(S, A));
-						if (Utils.getAnswer(S, A) == 1){
+						
+						/*if (Utils.getAnswer(S, A) == 1){*/
+						//SIMULATE
+						if (Utils.simulategetSetAnswer(S, Utils.getQuestion(S, A)) == 1){
 							GuessNumerator =  Operations.addDouble(GuessNumerator,Operations.substractDouble((double)1,OK));
 							//System.out.println("GuessNumerator "+GuessNumerator);
 						}else{

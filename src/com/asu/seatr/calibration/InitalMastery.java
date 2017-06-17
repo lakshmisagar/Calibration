@@ -18,11 +18,15 @@ public class InitalMastery {
 			int Count = 0;
 			for (int St = 0; St < GlobalConstants.total_Students; St++) {
 				int S = Utils.getStudent(St);
-				System.out.println("Sum :"+Operations.addDouble(Sum,Utils.getBest(S, Utils.getKc(K), 1))+" =  "+Sum+" + "+Utils.getBest(S, Utils.getKc(K), 1));
+				//System.out.println("Sum :"+Operations.addDouble(Sum,Utils.getBest(S, Utils.getKc(K), 1))+" =  "+Sum+" + "+Utils.getBest(S, Utils.getKc(K), 1));
 				Sum = Operations.addDouble(Sum,Utils.getBest(S, Utils.getKc(K), 1));
 				Count = Count + 1;
 			}
-			
+			/*System.out.println("Sum :"+Sum+"  Count :"+Count);
+			System.out.println(" old value :"+Utils.getKc(K)+"  "+Utils.getInitialMasteryMap(Utils.getKc(K)));
+			System.out.println("IntialMastery  "+Utils.getKc(K)+" "+Operations.divideDouble(Sum,(double)Count));
+			System.out.println();
+			System.out.println();*/
 			Utils.setInitialMasteryMap(Utils.getKc(K), Operations.divideDouble(Sum,(double)Count));
 		}
 	}

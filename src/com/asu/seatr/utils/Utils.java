@@ -16,7 +16,7 @@ public class Utils {
 	private static int[] studentsList = new int[GlobalConstants.total_Students];
 	private static int[] questionsList = new int[GlobalConstants.total_Questions];
 	private static ArrayList<Integer> list = new ArrayList<Integer>();
-	
+
 	// Datastructure to implement question id question
 	static HashMap<Integer, Integer> id_question_map = new HashMap<Integer, Integer>();
 
@@ -101,10 +101,6 @@ public class Utils {
 		}
 		return list;
 	}
-
-
-	
-
 
 	/*
 	 * Answer
@@ -210,7 +206,7 @@ public class Utils {
 	}
 
 	public static void setSlipMap(int question, Double value) {
-		//System.out.println("setSlipMap :" + question + "  " + value);
+		// System.out.println("setSlipMap :" + question + " " + value);
 		Q_QM_Slip_Guess_map.get(question).put(GlobalConstants.Slip, value.toString());
 	}
 
@@ -258,40 +254,50 @@ public class Utils {
 	public static void setLast(int mStudentId, int questionsCount) {
 		last_map.put(mStudentId, questionsCount);
 	}
-	
 
 	/*
 	 * Forward Backward Best
 	 */
-	public static void initalizeForwardBackwardBestMap(int S, HashMap<Integer, HashMap<Integer, Double>> inner_KcA_Forward_Map, HashMap<Integer, HashMap<Integer, Double>> inner_KcA_Backward_Map, HashMap<Integer, HashMap<Integer, Double>> inner_KcA_Best_Map) {
+	public static void initalizeForwardBackwardBestMap(int S,
+			HashMap<Integer, HashMap<Integer, Double>> inner_KcA_Forward_Map,
+			HashMap<Integer, HashMap<Integer, Double>> inner_KcA_Backward_Map,
+			HashMap<Integer, HashMap<Integer, Double>> inner_KcA_Best_Map) {
 		forward_outerStudentKcMap.put(S, inner_KcA_Forward_Map);
 		backward_outerStudentKcMap.put(S, inner_KcA_Backward_Map);
 		best_outerStudentKcMap.put(S, inner_KcA_Best_Map);
 	}
+
 	/*
 	 * Forward
 	 */
 	public static void updateForward(int S, int K, int A, Double forwardfillingValue) {
-		 //System.out.println("set Forward - S:"+S+" K:"+K+" A:"+A+" ="+forwardfillingValue);
+		// System.out.println("set Forward - S:"+S+" K:"+K+" A:"+A+"
+		// ="+forwardfillingValue);
 		forward_outerStudentKcMap.get(S).get(K).put(A, forwardfillingValue);
-		
+
 	}
+
 	public static Double getForward(int S, int K, int A) {
-		 //System.out.println("GET Forward - S:"+S+" K:"+K+" A:"+A+" ="+forward_outerStudentKcMap.get(S).get(K).get(A));
+		// System.out.println("GET Forward - S:"+S+" K:"+K+" A:"+A+"
+		// ="+forward_outerStudentKcMap.get(S).get(K).get(A));
 		return forward_outerStudentKcMap.get(S).get(K).get(A);
 	}
+
 	/*
 	 * Backward
 	 */
 	public static void updateBackward(int S, int K, int A, Double backwardfillingValue) {
-		// System.out.println("updateBackward S:"+S+" K:"+K+" A:"+A+" - "+backwardfillingValue);
+		// System.out.println("updateBackward S:"+S+" K:"+K+" A:"+A+" -
+		// "+backwardfillingValue);
 		backward_outerStudentKcMap.get(S).get(K).put(A, backwardfillingValue);
 	}
 
 	public static Double getBackward(int S, int K, int A) {
-		// System.out.println("getBackward S:"+S+" K:"+K+" A:"+A+" - "+ backward_outerStudentKcMap.get(S).get(K).get(A));
+		// System.out.println("getBackward S:"+S+" K:"+K+" A:"+A+" - "+
+		// backward_outerStudentKcMap.get(S).get(K).get(A));
 		return backward_outerStudentKcMap.get(S).get(K).get(A);
 	}
+
 	/*
 	 * Best
 	 */
@@ -304,6 +310,35 @@ public class Utils {
 		return best_outerStudentKcMap.get(S).get(K).get(A);
 	}
 
+	//****************************************** SIMULATION**************************************************
+	// Datastructure to implement Competence
+	static HashMap<Integer, HashMap<Integer, Double>> competence_Map = new HashMap<Integer, HashMap<Integer, Double>>();
+	// Competence
+	public static void initalizeCompetence(int S, HashMap<Integer, Double> inner_KcV_Map) {
+		competence_Map.put(S, inner_KcV_Map);
+	}
+
+	public static void setCompetence(int s, int kc, Double initialMastery) {
+		competence_Map.get(s).put(kc, initialMastery);
+	}
+
+	public static Double getCompetence(int s, int kC) {
+		return competence_Map.get(s).get(kC);
+	}
 	
+	// Datastructure to implement SetAnswer
+		static HashMap<Integer, HashMap<Integer, Integer>> setAnswer_Map = new HashMap<Integer, HashMap<Integer, Integer>>();
+		// Competence
+		public static void simulateInitalizeSetAnswer(int S, HashMap<Integer, Integer> inner_SetAnswer_Map) {
+			setAnswer_Map.put(S, inner_SetAnswer_Map);
+		}
+
+		public static void simulateSetAnswer(int s, int q, int i) {
+			setAnswer_Map.get(s).put(q, i);
+		}
+
+		public static Integer simulategetSetAnswer(int s, int q) {
+			return setAnswer_Map.get(s).get(q);
+		}
 
 }
