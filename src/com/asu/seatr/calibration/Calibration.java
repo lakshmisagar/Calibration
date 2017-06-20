@@ -35,6 +35,11 @@ public class Calibration {
 	static Double average_L;
 	static Double average_S;
 	static Double average_G;
+	
+	static Double Random_IM;
+	static Double Random_L;
+	static Double Random_S;
+	static Double Random_G;
 
 	private static Double climbOnce() {
 		// System.out.println("CLIMBONCE****************************** ");
@@ -148,8 +153,7 @@ public class Calibration {
 			int Kc = Utils.getKc(KcIndex);
 			Utils.setInitialMasteryMap(Kc, Double.valueOf(r_initalMaster));
 			Utils.setLearnMap(Kc, Double.valueOf(r_Learn));
-			// System.out.println("Kc :"+Utils.getKc(KcIndex)+" IM:
-			// "+Utils.getInitialMasteryMap(Kc)+" L: "+Utils.getLearnMap(Kc));
+			System.out.println("Kc :"+Utils.getKc(KcIndex)+" IM: "+Utils.getInitialMasteryMap(Kc)+" L: "+Utils.getLearnMap(Kc));
 		}
 		// System.out.println("START");
 		for (int Q = 0; Q < total_Q; Q++) {
@@ -165,9 +169,10 @@ public class Calibration {
 			int question = Utils.getQuestion(Q);
 			Utils.setSlipMap(question, Double.valueOf(r_slip));
 			Utils.setGuessMap(question, Double.valueOf(r_guess));
+			System.out.println("Q :"+question+" S: "+Utils.getSlipMap(question)+" G: "+Utils.getGuessMap(question));
 		}
 		// System.out.println("STOP");
-		// printRandomParameters();
+		 printRandomParameters();
 		
 		//SIMULATION
 		SimulateDataBase.setInitialCompetence();
@@ -175,19 +180,43 @@ public class Calibration {
 
 	
 
-	/*
-	 * private static void printRandomParameters() { for (int K = 0; K <
-	 * total_KCs; K++) { int Kc = Utils.getKc(K);
-	 * //System.out.println("mInitialMastery["+Kc+"] "+Utils.getInitialMastery(
-	 * Kc)); } System.out.println(); for (int K = 0; K < total_KCs; K++) { int
-	 * Kc = Utils.getKc(K);
-	 * //System.out.println("mLearn["+Kc+"] "+Utils.getLearn(Kc)); }
-	 * System.out.println(); for (int Q = 0; Q < total_Q; Q++) {
-	 * //System.out.println("mSlip["+Q+"] "+Utils.getSlip(Q)); }
-	 * System.out.println(); for (int Q = 0; Q < total_Q; Q++) {
-	 * //System.out.println("mGuess["+Q+"] "+Utils.getGuess(Q)); }
-	 * System.out.println(); }
-	 */
+	
+	private static void printRandomParameters() {
+		
+		Double sum_initalMaster = (double) 0;
+		Double sum_Learn = (double) 0;
+		Double sum_slip = (double) 0;
+		Double sum_guess = (double) 0;
+		
+		System.out.println("SAGAR");
+		for (int K = 0; K < total_KCs; K++) {
+			// System.out.println(K);
+			// System.out.println("sum_Learn :"+sum_Learn);
+			int Kc = Utils.getKc(K);
+			System.out.println(" SAGAR R_IM :"+K+"  "+ Utils.getInitialMasteryMap(Kc));
+			sum_initalMaster = Operations.addDouble(sum_initalMaster, Utils.getInitialMasteryMap(Kc));
+			// System.out.println("sum_initalMaster :"+sum_initalMaster);
+			System.out.println(" SAGAR R_L :"+K+"  "+ Utils.getLearnMap(Kc));
+			sum_Learn = Operations.addDouble(sum_Learn, Utils.getLearnMap(Kc));
+			// System.out.println("sum_Learn = sum_Learn+change_L "+sum_Learn);
+
+		}
+		for (int Q = 0; Q < total_Q; Q++) {
+			int question = Utils.getQuestion(Q);
+			sum_slip = Operations.addDouble(sum_slip, Utils.getSlipMap(question));
+
+			sum_guess = Operations.addDouble(sum_guess, Utils.getGuessMap(question));
+			// System.out.println("sum_guess "+sum_guess+" = "+sum_guess+" + "+change_G);
+			System.out.println(" SAGAR R_S :"+Q+"  "+ Utils.getSlipMap(question));
+			System.out.println(" SAGAR R_G :"+Q+"  "+ Utils.getGuessMap(question));
+		}
+		Random_IM = Operations.divideDouble(sum_initalMaster, Double.valueOf(total_KCs));
+		Random_L = Operations.divideDouble(sum_Learn, Double.valueOf(total_KCs));
+		Random_S = Operations.divideDouble(sum_slip, Double.valueOf(total_Q));
+		Random_G = Operations.divideDouble(sum_guess, Double.valueOf(total_Q));
+		//System.out.println("Random_IM   " + Random_IM + "   Random_L:  " + Random_L + "  Random_S: " + Random_S	+ "    Random_G:  " + Random_G);
+	}
+	 
 
 	private static void setDatabase() {
 		System.out.println("setDatabase()");
@@ -234,6 +263,8 @@ public class Calibration {
 			// System.out.println("sum_IM :"+sum_IM);
 			sum_L = Operations.addDouble(sum_L, Utils.getLearnMap(Kc));
 			// System.out.println("sum_L :"+sum_L);
+			System.out.println(" SAGAR C_IM :"+K+"  "+ Utils.getInitialMasteryMap(Kc));
+			System.out.println(" SAGAR C_L :"+K+"  "+ Utils.getLearnMap(Kc));
 		}
 		average_IM = Operations.divideDouble(sum_IM, Double.valueOf(total_KCs));
 		average_L = Operations.divideDouble(sum_L, Double.valueOf(total_KCs));
@@ -245,6 +276,8 @@ public class Calibration {
 			sum_G = Operations.addDouble(sum_G, Utils.getGuessMap(question));
 			// System.out.println("sum_S :"+sum_S);
 			// System.out.println("sum_G :"+sum_G);
+			System.out.println(" SAGAR C_S :"+Q+"  "+ Utils.getSlipMap(question));
+			System.out.println(" SAGAR C_G :"+Q+"  "+ Utils.getGuessMap(question));
 		}
 		average_S = Operations.divideDouble(sum_S, Double.valueOf(total_Q));
 		average_G = Operations.divideDouble(sum_G, Double.valueOf(total_Q));
@@ -257,11 +290,16 @@ public class Calibration {
 	 */
 	private static void PrintResult() {
 		for (Map.Entry<Integer, ArrayList<Double>> entry : climbMap.entrySet()) {
+			System.out.println();
 			System.out.println(" CLIMB " + entry.getKey());
 			ArrayList<Double> list = entry.getValue();
+			System.out.println("Random IM :"+Random_IM);
 			System.out.println(" InitialMastery :" + list.get(0));
+			System.out.println("Random L :"+Random_L);
 			System.out.println(" Learn :" + list.get(1));
+			System.out.println("Random S :"+Random_S);
 			System.out.println(" Slip :" + list.get(2));
+			System.out.println("Random G :"+Random_G);
 			System.out.println(" Guess :" + list.get(3));
 		}
 	}
@@ -302,6 +340,20 @@ public class Calibration {
 				climb++;
 				climbMap.put(climb, list);
 				System.out.println("CLIMB -----------------------------------------> " + climb);
+				
+				
+				System.out.println();
+				System.out.println(" CLIMB " + climb);
+				System.out.println("Random IM :"+ Random_IM);
+				System.out.println(" InitialMastery :" + average_IM);
+				System.out.println("Random L :"+Random_L);
+				System.out.println(" Learn :" + average_L);
+				System.out.println("Random S :"+Random_S);
+				System.out.println(" Slip :" + average_S);
+				System.out.println("Random G :"+Random_G);
+				System.out.println(" Guess :" + average_G);
+				System.out.println();
+				System.out.println();
 			}
 		}
 

@@ -64,7 +64,7 @@ public class FillingBackward {
 						//System.out.println(" 1-x :"+newVar2);
 						
 						Double backwardfillingValue = Operations.divideDouble(newVar1,newVar2);
-						//System.out.println(" result :"+backwardfillingValue);
+						System.out.println(" 1 result :"+backwardfillingValue);
 						Utils.updateBackward(S, localK, A, backwardfillingValue);
 					}
 
@@ -94,8 +94,10 @@ public class FillingBackward {
 						if (KCs.contains(innerKc)) {
 							Double backwardNumeratorValue = Operations.addDouble(Operations.multiplyDouble(y,Utils.getBackward(S, innerKc, A)),x);
 							Double forwardfillingValue = Operations.divideDouble(backwardNumeratorValue,Operations.addDouble(y,x));
+							System.out.println(" 2 result :"+forwardfillingValue);
 							Utils.updateBackward(S, innerKc, A, forwardfillingValue);
 						} else {
+							System.out.println(" 3 result :"+Utils.getBackward(S, innerKc, A + 1));
 							Utils.updateBackward(S, innerKc, A, Utils.getBackward(S, innerKc, A + 1));
 						}
 						//double randomUB = 0.05 + r.nextDouble() * (0.95 - 0.05);
