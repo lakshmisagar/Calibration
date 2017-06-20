@@ -116,16 +116,17 @@ public class SimulateDataBase {
 				Utils.setCompetence(S, Kc, Utils.getInitialMasteryMap(Kc));
 			}
 		}
+		
+		OKCompetence();
 	}
 
 	public static void OKCompetence() {
-		
 		for (int St = 0; St < GlobalConstants.total_Students; St++) {
 			int S = Utils.getStudent(St);
 			for(int q=0;q<GlobalConstants.total_Questions;q++){
 				int Q = Utils.getQuestion(q);
 				Double OK = (double)1;
-				ArrayList<Integer> KCs = Utils.getQMatrixMap(Q);
+				ArrayList<Integer> KCs = Utils.getQuestionMatrix(Q);
 				for(int kc =0;kc<KCs.size();kc++){
 					int KC = Utils.getKc(kc);
 					OK = OK*Utils.getCompetence(S,KC);
@@ -136,7 +137,7 @@ public class SimulateDataBase {
 				if(A>=randomC){
 					ans=1;
 				}
-				System.out.println("simulateSetAnswer : "+A+" >= "+randomC+" = "+ans);
+				//System.out.println("simulateSetAnswer : "+A+" >= "+randomC+" = "+ans);
 				Utils.simulateSetAnswer(S, Q, ans);
 				for(int kc =0;kc<KCs.size();kc++){
 					int KC = Utils.getKc(kc);

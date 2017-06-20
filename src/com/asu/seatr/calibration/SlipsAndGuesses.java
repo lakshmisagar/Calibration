@@ -41,7 +41,6 @@ public class SlipsAndGuesses {
 						
 						System.out.println("final OK "+OK);
 						SlipDenominator = Operations.addDouble(SlipDenominator,OK);
-						
 						GuessDenominator = Operations.addDouble(GuessDenominator,Operations.substractDouble((double)1,OK));
 						
 						//System.out.println("Utils.getAnswer("+S+","+ A+")"+Utils.getAnswer(S, A));
@@ -51,10 +50,8 @@ public class SlipsAndGuesses {
 						System.out.println("Utils.simulategetSetAnswer("+S+","+ Utils.getQuestion(S, A)+")"+Utils.simulategetSetAnswer(S, Utils.getQuestion(S, A)));
 						if (Utils.simulategetSetAnswer(S, Utils.getQuestion(S, A)) == 1){
 							GuessNumerator =  Operations.addDouble(GuessNumerator,Operations.substractDouble((double)1,OK));
-							
 						}else{
 							SlipNumerator =  Operations.addDouble(SlipNumerator,OK);
-							
 						}
 						
 						System.out.println("SlipNumerator "+SlipNumerator);

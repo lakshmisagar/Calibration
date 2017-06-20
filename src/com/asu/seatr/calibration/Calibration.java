@@ -143,7 +143,7 @@ public class Calibration {
 			// r.nextDouble();
 			double r_initalMaster = 0.1 + r.nextDouble() * (0.7 - 0.1);
 			double r_Learn = 0.1 + r.nextDouble() * (0.7 - 0.1);
-			SimulateDataBase.setInitialCompetence();
+			
 
 			int Kc = Utils.getKc(KcIndex);
 			Utils.setInitialMasteryMap(Kc, Double.valueOf(r_initalMaster));
@@ -168,6 +168,9 @@ public class Calibration {
 		}
 		// System.out.println("STOP");
 		// printRandomParameters();
+		
+		//SIMULATION
+		SimulateDataBase.setInitialCompetence();
 	}
 
 	
@@ -267,7 +270,7 @@ public class Calibration {
 
 		// MySQLConnection.SetConnection();
 		System.out.println("CALIBRATION.....................");
-		PrintStream o = new PrintStream(new File("F:/RA/CALIB.txt"));
+		PrintStream o = new PrintStream(new File("C:/Users/lkusnoor/Downloads/RA/CALIB.txt"));
 		System.setOut(o);
 		// SetDB
 		// setDatabase();
@@ -288,7 +291,6 @@ public class Calibration {
 		// setQuestionValues();
 
 		while (climb < 10) {
-
 			fillRandomParameters();
 			if (climbOnce().compareTo(Double.valueOf(0.1)) == -1) {
 				updateNewPrameters();
