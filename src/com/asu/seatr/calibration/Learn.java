@@ -57,9 +57,14 @@ public class Learn {
 				LnByLd = Operations.divideDouble(LearnNumerator, LearnDenominator);
 			}
 			//System.out.println("LnByLd :" + LnByLd);
-			Double max = Math.max(Double.valueOf(0.05), LnByLd);
+			/*Double max = Math.max(Double.valueOf(0.05), LnByLd);
 			// System.out.println("setLearnMap :" + Math.min(Double.valueOf(0.5), max) + " " + Double.valueOf(0.5) + " " + max);
-			Utils.setLearnMap(Kc, Math.min(Double.valueOf(0.5), max));
+			Utils.setLearnMap(Kc, Math.min(Double.valueOf(0.5), max));*/
+			
+			//SIMULATION
+			Double max = Math.max(Double.valueOf(0.1), LnByLd);
+			// System.out.println("setLearnMap :" + Math.min(Double.valueOf(0.5), max) + " " + Double.valueOf(0.5) + " " + max);
+			Utils.setLearnMap(Kc, Math.min(Double.valueOf(0.7), max));
 		}
 
 	}

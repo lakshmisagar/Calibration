@@ -116,7 +116,6 @@ public class SimulateDataBase {
 				Utils.setCompetence(S, Kc, Utils.getInitialMasteryMap(Kc));
 			}
 		}
-		
 		OKCompetence();
 	}
 

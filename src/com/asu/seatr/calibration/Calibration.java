@@ -114,8 +114,7 @@ public class Calibration {
 		LChange = Operations.divideDouble(sum_Learn, Double.valueOf(total_KCs));
 		SChange = Operations.divideDouble(sum_slip, Double.valueOf(total_Q));
 		GChange = Operations.divideDouble(sum_guess, Double.valueOf(total_Q));
-		System.out.println("IMChange   " + IMChange + "   LChange:  " + LChange + "  SChange: " + SChange
-				+ "    GChange:  " + GChange);
+		System.out.println("IMChange   " + IMChange + "   LChange:  " + LChange + "  SChange: " + SChange+ "    GChange:  " + GChange);
 		maxChange = Math.max(IMChange, LChange);
 		maxChange = Math.max(maxChange, SChange);
 		maxChange = Math.max(maxChange, GChange);
@@ -153,7 +152,7 @@ public class Calibration {
 			int Kc = Utils.getKc(KcIndex);
 			Utils.setInitialMasteryMap(Kc, Double.valueOf(r_initalMaster));
 			Utils.setLearnMap(Kc, Double.valueOf(r_Learn));
-			System.out.println("Kc :"+Utils.getKc(KcIndex)+" IM: "+Utils.getInitialMasteryMap(Kc)+" L: "+Utils.getLearnMap(Kc));
+			//System.out.println("Kc :"+Utils.getKc(KcIndex)+" IM: "+Utils.getInitialMasteryMap(Kc)+" L: "+Utils.getLearnMap(Kc));
 		}
 		// System.out.println("START");
 		for (int Q = 0; Q < total_Q; Q++) {
@@ -169,10 +168,10 @@ public class Calibration {
 			int question = Utils.getQuestion(Q);
 			Utils.setSlipMap(question, Double.valueOf(r_slip));
 			Utils.setGuessMap(question, Double.valueOf(r_guess));
-			System.out.println("Q :"+question+" S: "+Utils.getSlipMap(question)+" G: "+Utils.getGuessMap(question));
+			//System.out.println("Q :"+question+" S: "+Utils.getSlipMap(question)+" G: "+Utils.getGuessMap(question));
 		}
 		// System.out.println("STOP");
-		 printRandomParameters();
+		 //printRandomParameters();
 		
 		//SIMULATION
 		SimulateDataBase.setInitialCompetence();
@@ -221,7 +220,6 @@ public class Calibration {
 	private static void setDatabase() {
 		System.out.println("setDatabase()");
 		DatabaseResponse.setAllStudentsData();
-
 	}
 
 	private static void setSimulatedData() {
@@ -263,8 +261,8 @@ public class Calibration {
 			// System.out.println("sum_IM :"+sum_IM);
 			sum_L = Operations.addDouble(sum_L, Utils.getLearnMap(Kc));
 			// System.out.println("sum_L :"+sum_L);
-			System.out.println(" SAGAR C_IM :"+K+"  "+ Utils.getInitialMasteryMap(Kc));
-			System.out.println(" SAGAR C_L :"+K+"  "+ Utils.getLearnMap(Kc));
+			//System.out.println(" SAGAR C_IM :"+K+"  "+ Utils.getInitialMasteryMap(Kc));
+			//System.out.println(" SAGAR C_L :"+K+"  "+ Utils.getLearnMap(Kc));
 		}
 		average_IM = Operations.divideDouble(sum_IM, Double.valueOf(total_KCs));
 		average_L = Operations.divideDouble(sum_L, Double.valueOf(total_KCs));
@@ -276,8 +274,8 @@ public class Calibration {
 			sum_G = Operations.addDouble(sum_G, Utils.getGuessMap(question));
 			// System.out.println("sum_S :"+sum_S);
 			// System.out.println("sum_G :"+sum_G);
-			System.out.println(" SAGAR C_S :"+Q+"  "+ Utils.getSlipMap(question));
-			System.out.println(" SAGAR C_G :"+Q+"  "+ Utils.getGuessMap(question));
+			//System.out.println(" SAGAR C_S :"+Q+"  "+ Utils.getSlipMap(question));
+			//System.out.println(" SAGAR C_G :"+Q+"  "+ Utils.getGuessMap(question));
 		}
 		average_S = Operations.divideDouble(sum_S, Double.valueOf(total_Q));
 		average_G = Operations.divideDouble(sum_G, Double.valueOf(total_Q));
@@ -293,13 +291,9 @@ public class Calibration {
 			System.out.println();
 			System.out.println(" CLIMB " + entry.getKey());
 			ArrayList<Double> list = entry.getValue();
-			System.out.println("Random IM :"+Random_IM);
 			System.out.println(" InitialMastery :" + list.get(0));
-			System.out.println("Random L :"+Random_L);
 			System.out.println(" Learn :" + list.get(1));
-			System.out.println("Random S :"+Random_S);
 			System.out.println(" Slip :" + list.get(2));
-			System.out.println("Random G :"+Random_G);
 			System.out.println(" Guess :" + list.get(3));
 		}
 	}
@@ -328,7 +322,7 @@ public class Calibration {
 		// setAnswerValues();
 		// setQuestionValues();
 
-		while (climb < 10) {
+		while (climb < 3) {
 			fillRandomParameters();
 			if (climbOnce().compareTo(Double.valueOf(0.1)) == -1) {
 				updateNewPrameters();
@@ -341,17 +335,26 @@ public class Calibration {
 				climbMap.put(climb, list);
 				System.out.println("CLIMB -----------------------------------------> " + climb);
 				
-				
-				System.out.println();
-				System.out.println(" CLIMB " + climb);
-				System.out.println("Random IM :"+ Random_IM);
-				System.out.println(" InitialMastery :" + average_IM);
-				System.out.println("Random L :"+Random_L);
-				System.out.println(" Learn :" + average_L);
-				System.out.println("Random S :"+Random_S);
-				System.out.println(" Slip :" + average_S);
-				System.out.println("Random G :"+Random_G);
-				System.out.println(" Guess :" + average_G);
+				for (int KcIndex = 0; KcIndex < total_KCs; KcIndex++) {
+					System.out.println("OLD IM: "+ old_initalMastery[KcIndex]); 
+					int Kc = Utils.getKc(KcIndex);
+					System.out.println("NEW IM: "+ Utils.getInitialMasteryMap(Kc)); 
+				}
+				for (int KcIndex = 0; KcIndex < total_KCs; KcIndex++) {
+					System.out.println("OLD L: "+ old_Learn[KcIndex]); 
+					int Kc = Utils.getKc(KcIndex);
+					System.out.println("NEW L: "+ Utils.getLearnMap(Kc)); 
+				}
+				for (int Q = 0; Q < total_Q; Q++) {
+					System.out.println("OLD S: "+ old_slip[Q]); 
+					int q = Utils.getQuestion(Q);
+					System.out.println("NEW S: "+ Utils.getSlipMap(q)); 
+				}
+				for (int Q = 0; Q < total_Q; Q++) {
+					System.out.println("OLD G: "+ old_guess[Q]); 
+					int q = Utils.getQuestion(Q);
+					System.out.println("NEW G: "+ Utils.getGuessMap(q)); 
+				}
 				System.out.println();
 				System.out.println();
 			}
