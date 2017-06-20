@@ -38,6 +38,7 @@ public class SimulateDataBase {
 			Utils.setClassIdQuestion(q, q);
 			// Q KC
 			int n_KCs = r.nextInt((GlobalConstants.total_KCs - 1) + 1) + 1;
+			//System.out.println("setQuestionMatrix  n_KCs: "+n_KCs);
 			for (int j = 0; j < n_KCs; j++) {
 				int kc = r.nextInt(((GlobalConstants.total_KCs - 1) - 0) + 1) + 0;
 				Utils.setQuestionMatrix(q, kc);
@@ -131,7 +132,12 @@ public class SimulateDataBase {
 				}
 				Double A = OK*(1-Utils.getSlipMap(Q))+(1-OK)*Utils.getGuessMap(Q);
 				int randomC = (Math.random() < 0.5) ? 0 : 1;
-				Utils.simulateSetAnswer(S, Q, A>=randomC?1:0);
+				int ans = 0;
+				if(A>=randomC){
+					ans=1;
+				}
+				System.out.println("simulateSetAnswer : "+A+" >= "+randomC+" = "+ans);
+				Utils.simulateSetAnswer(S, Q, ans);
 				for(int kc =0;kc<KCs.size();kc++){
 					int KC = Utils.getKc(kc);
 					Double value = Utils.getCompetence(S,KC)+Utils.getLearnMap(KC)*(1-Utils.getCompetence(S,KC));
