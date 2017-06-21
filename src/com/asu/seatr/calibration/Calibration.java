@@ -77,15 +77,15 @@ public class Calibration {
 			// System.out.println(K);
 			// System.out.println("sum_Learn :"+sum_Learn);
 			int Kc = Utils.getKc(K);
-			Double diff_IM = Operations.substractDouble(old_initalMastery[K], Utils.getInitialMasteryMap(Kc));
+			Double diff_IM = Operations.substractDouble( Utils.getInitialMasteryMap(Kc),old_initalMastery[K]);
 			// System.out.println("diff_IM :"+diff_IM+" =
 			// "+old_initalMastery[K]+" - "+Utils.getInitialMasteryMap(Kc));
-			Double change_IM = Operations.divideDouble(diff_IM, old_initalMastery[K]);
+			Double change_IM = Operations.divideDouble(diff_IM,old_initalMastery[K] );
 			// System.out.println("change_IM :"+change_IM);
 			sum_initalMaster = Operations.addDouble(sum_initalMaster, change_IM);
 			// System.out.println("sum_initalMaster :"+sum_initalMaster);
 
-			Double diff_L = Operations.substractDouble(old_Learn[K], Utils.getLearnMap(Kc));
+			Double diff_L = Operations.substractDouble(Utils.getLearnMap(Kc), old_Learn[K]);
 			// System.out.println("diff_L :"+diff_L+" = "+old_Learn[K]+" -
 			// "+Utils.getLearnMap(Kc));
 			Double change_L = Operations.divideDouble(diff_L, old_Learn[K]);
@@ -96,11 +96,11 @@ public class Calibration {
 		}
 		for (int Q = 0; Q < total_Q; Q++) {
 			int question = Utils.getQuestion(Q);
-			Double diff_S = Operations.substractDouble(old_slip[Q], Utils.getSlipMap(question));
+			Double diff_S = Operations.substractDouble( Utils.getSlipMap(question),old_slip[Q]);
 			Double change_S = Operations.divideDouble(diff_S, old_slip[Q]);
 			sum_slip = Operations.addDouble(sum_slip, change_S);
 
-			Double diff_G = Operations.substractDouble(old_guess[Q], Utils.getGuessMap(question));
+			Double diff_G = Operations.substractDouble(Utils.getGuessMap(question), old_guess[Q]);
 			Double change_G = Operations.divideDouble(diff_G, old_guess[Q]);
 			sum_guess = Operations.addDouble(sum_guess, change_G);
 			// System.out.println("sum_guess "+sum_guess+" = "+sum_guess+" +
@@ -114,6 +114,13 @@ public class Calibration {
 		LChange = Operations.divideDouble(sum_Learn, Double.valueOf(total_KCs));
 		SChange = Operations.divideDouble(sum_slip, Double.valueOf(total_Q));
 		GChange = Operations.divideDouble(sum_guess, Double.valueOf(total_Q));
+		
+		// Consider both +ve change and -ve change as same
+		IMChange = Math.abs(IMChange);
+		LChange = Math.abs(LChange);
+		SChange = Math.abs(SChange);
+		GChange = Math.abs(GChange);
+		
 		System.out.println("IMChange   " + IMChange + "   LChange:  " + LChange + "  SChange: " + SChange+ "    GChange:  " + GChange);
 		maxChange = Math.max(IMChange, LChange);
 		maxChange = Math.max(maxChange, SChange);
