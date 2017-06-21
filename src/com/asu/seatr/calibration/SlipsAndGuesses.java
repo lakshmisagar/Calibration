@@ -53,19 +53,18 @@ public class SlipsAndGuesses {
 						}else{
 							SlipNumerator =  Operations.addDouble(SlipNumerator,OK);
 						}
-						
-						//System.out.println("SlipNumerator "+SlipNumerator);
-						//System.out.println("SlipDenominator "+SlipDenominator);
-						Utils.setSlipMap(Q,  Operations.divideDouble(SlipNumerator,SlipDenominator));
-						//System.out.println("Utils.mSlip[Q]"+Utils.getSlipMap(Q));
-						//System.out.println("GuessNumerator "+GuessNumerator);
-						//System.out.println("GuessDenominator "+GuessDenominator);
-						Utils.setGuessMap(Q, Operations.divideDouble(GuessNumerator,GuessDenominator));
-						//System.out.println("Utils.mGuess[Q]"+Utils.getGuessMap(Q));
-						//System.out.println();
 					}
 				}
 			}
+			//System.out.println("SlipNumerator "+SlipNumerator);
+			//System.out.println("SlipDenominator "+SlipDenominator);
+			Utils.setSlipMap(Q,  Operations.divideDouble(SlipNumerator,SlipDenominator));
+			//System.out.println("Utils.mSlip[Q]"+Utils.getSlipMap(Q));
+			//System.out.println("GuessNumerator "+GuessNumerator);
+			//System.out.println("GuessDenominator "+GuessDenominator);
+			Utils.setGuessMap(Q, Operations.divideDouble(GuessNumerator,GuessDenominator));
+			//System.out.println("Utils.mGuess[Q]"+Utils.getGuessMap(Q));
+			//System.out.println();
 		}
 	}
 }

@@ -340,16 +340,19 @@ public class Calibration {
 					int Kc = Utils.getKc(KcIndex);
 					System.out.println("NEW IM: "+ Utils.getInitialMasteryMap(Kc)); 
 				}
+				System.out.println();
 				for (int KcIndex = 0; KcIndex < total_KCs; KcIndex++) {
 					System.out.println("OLD L: "+ old_Learn[KcIndex]); 
 					int Kc = Utils.getKc(KcIndex);
 					System.out.println("NEW L: "+ Utils.getLearnMap(Kc)); 
 				}
+				System.out.println();
 				for (int Q = 0; Q < total_Q; Q++) {
 					System.out.println("OLD S: "+ old_slip[Q]); 
 					int q = Utils.getQuestion(Q);
 					System.out.println("NEW S: "+ Utils.getSlipMap(q)); 
 				}
+				System.out.println();
 				for (int Q = 0; Q < total_Q; Q++) {
 					System.out.println("OLD G: "+ old_guess[Q]); 
 					int q = Utils.getQuestion(Q);

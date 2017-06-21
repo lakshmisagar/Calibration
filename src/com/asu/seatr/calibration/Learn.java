@@ -43,13 +43,12 @@ public class Learn {
 						LearnDenominator = Operations.addDouble(LearnDenominator, Operations.multiplyDouble(Operations.substractDouble((double) 1, Utils.getBest(S, Kc, A)), SE));
 						// System.out.println(St+" "+A+" "+list_K);
 						//System.out.println("LearnNumerator	 :" + LearnNumerator + " = " + LearnNumerator + "+"	+ Operations.substractDouble(Utils.getBest(S, Kc, A + 1), Utils.getBest(S, Kc, A)));
-					   // System.out.println("LearnDenominator :" + LearnDenominator + " = " + LearnDenominator + "+"	+ Operations.multiplyDouble(Operations.substractDouble((double) 1, Utils.getBest(S, Kc, A)), SE));
+					   //System.out.println("LearnDenominator :" + LearnDenominator + " = " + LearnDenominator + "+"	+ Operations.multiplyDouble(Operations.substractDouble((double) 1, Utils.getBest(S, Kc, A)), SE));
 					}
 				}
-				//System.out.println("LearnNumerator	 :" + LearnNumerator );
-			   // System.out.println("LearnDenominator :" + LearnDenominator );
-
 			}
+			//System.out.println("LearnNumerator	 :" + LearnNumerator );
+		    //System.out.println("LearnDenominator :" + LearnDenominator );
 			Double LnByLd;
 			if(LearnDenominator==0){
 				LnByLd = (double)0;
@@ -63,9 +62,8 @@ public class Learn {
 			
 			//SIMULATION
 			Double max = Math.max(Double.valueOf(0.1), LnByLd);
-			// System.out.println("setLearnMap :" + Math.min(Double.valueOf(0.5), max) + " " + Double.valueOf(0.5) + " " + max);
+			// System.out.println("setLearnMap :" + Math.min(Double.valueOf(0.7), max) + " " + Double.valueOf(0.7) + " " + max);
 			Utils.setLearnMap(Kc, Math.min(Double.valueOf(0.7), max));
 		}
-
 	}
 }
