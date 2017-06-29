@@ -123,7 +123,8 @@ public class Calibration {
 		LChange = Math.abs(LChange);
 		SChange = Math.abs(SChange);
 		GChange = Math.abs(GChange);
-		/*if(SChange<(double)0.1)*/	System.out.println("IMChange   " + IMChange + "   LChange:  " + LChange + "  SChange: " + SChange+ "    GChange:  " + GChange);
+		/*if(SChange<(double)0.1)*/	
+		//System.out.println("IMChange   " + IMChange + "   LChange:  " + LChange + "  SChange: " + SChange+ "    GChange:  " + GChange);
 		maxChange = Math.max(IMChange, LChange);
 		maxChange = Math.max(maxChange, SChange);
 		maxChange = Math.max(maxChange, GChange);
