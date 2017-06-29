@@ -300,7 +300,7 @@ public class Utils {
 	 * Best
 	 */
 	public static void updateBest(int S, int K, int A, Double bestValue) {
-		System.out.println(" S:"+S+" K:"+K+" A"+A+" bestValue"+bestValue);
+		//System.out.println(" S:"+S+" K:"+K+" A"+A+" bestValue"+bestValue);
 		best_outerStudentKcMap.get(S).get(K).put(A, bestValue);
 	}
 

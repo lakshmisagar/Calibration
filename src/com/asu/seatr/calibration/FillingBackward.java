@@ -89,7 +89,7 @@ public class FillingBackward {
 				 * Operations.substractDouble((double)1,y); x = -x;
 				 */
 				// SIMULATION
-				if (Utils.simulategetSetAnswer(S, Utils.getQuestion(S, A)) == 0) {
+				if (Utils.simulategetSetAnswer(S, question) == 0) {
 					y = Operations.substractDouble((double) 1, y);
 					x = -x;
 				}
