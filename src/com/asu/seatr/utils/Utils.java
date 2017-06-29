@@ -279,8 +279,7 @@ public class Utils {
 	}
 
 	public static Double getForward(int S, int K, int A) {
-		// System.out.println("GET Forward - S:"+S+" K:"+K+" A:"+A+"
-		// ="+forward_outerStudentKcMap.get(S).get(K).get(A));
+		 //System.out.println("GET Forward - S:"+S+" K:"+K+" A:"+A+" ="+forward_outerStudentKcMap.get(S).get(K).get(A));
 		return forward_outerStudentKcMap.get(S).get(K).get(A);
 	}
 
@@ -293,8 +292,7 @@ public class Utils {
 	}
 
 	public static Double getBackward(int S, int K, int A) {
-		// System.out.println("getBackward S:"+S+" K:"+K+" A:"+A+" - "+
-		// backward_outerStudentKcMap.get(S).get(K).get(A));
+		// System.out.println("getBackward S:"+S+" K:"+K+" A:"+A+" - "+ backward_outerStudentKcMap.get(S).get(K).get(A));
 		return backward_outerStudentKcMap.get(S).get(K).get(A);
 	}
 
@@ -302,7 +300,7 @@ public class Utils {
 	 * Best
 	 */
 	public static void updateBest(int S, int K, int A, Double bestValue) {
-		// TODO implement forward filling
+		//System.out.println(" S:"+S+" K:"+K+" A"+A+" bestValue"+bestValue);
 		best_outerStudentKcMap.get(S).get(K).put(A, bestValue);
 	}
 

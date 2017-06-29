@@ -21,7 +21,7 @@ public class FillingForward {
 	static Double initial_OK = new Double(1.0);
 
 	public static void fillingForward() throws FileNotFoundException {
-		System.out.println("FillingForward ...here.............................");
+		//System.out.println("FillingForward ...here.............................");
 		
 		int Ns = GlobalConstants.total_Students;
 		int Nk = GlobalConstants.total_KCs;

@@ -12,7 +12,7 @@ import com.asu.seatr.utils.Utils;
 public class InitalMastery {
 
 	public static void updateIntialMastery() {
-		System.out.println("updateIntialMastery ................................");
+		//System.out.println("updateIntialMastery ................................");
 		for (int K = 0; K < GlobalConstants.total_KCs; K++) {
 			Double Sum = (double)0;
 			int Count = 0;

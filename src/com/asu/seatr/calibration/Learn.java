@@ -14,7 +14,7 @@ import com.asu.seatr.utils.Utils;
 public class Learn {
 
 	public static void updateLearn() {
-		System.out.println("Learn ................................");
+		//System.out.println("Learn ................................");
 		for (int K = 0; K < GlobalConstants.total_KCs; K++) {
 			int Kc = Utils.getKc(K);
 			Double LearnNumerator = new Double(0);
@@ -61,14 +61,14 @@ public class Learn {
 				LnByLd = Operations.divideDouble(LearnNumerator, LearnDenominator);
 			}
 			//System.out.println("LnByLd :" + LnByLd);
-			/*Double max = Math.max(Double.valueOf(0.05), LnByLd);
+			Double max = Math.max(Double.valueOf(0.05), LnByLd);
 			// System.out.println("setLearnMap :" + Math.min(Double.valueOf(0.5), max) + " " + Double.valueOf(0.5) + " " + max);
-			Utils.setLearnMap(Kc, Math.min(Double.valueOf(0.5), max));*/
+			Utils.setLearnMap(Kc, Math.min(Double.valueOf(0.5), max));
 			
 			//SIMULATION
-			Double max = Math.max(Double.valueOf(0.1), LnByLd);
+			//Double max = Math.max(Double.valueOf(0.1), LnByLd);
 			// System.out.println("setLearnMap :" + Math.min(Double.valueOf(0.5), max) + " " + Double.valueOf(0.5) + " " + max);
-			Utils.setLearnMap(Kc, Math.min(Double.valueOf(0.7), max));
+			//Utils.setLearnMap(Kc, Math.min(Double.valueOf(0.7), max));
 		}
 
 	}
