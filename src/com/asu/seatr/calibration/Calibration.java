@@ -77,18 +77,20 @@ public class Calibration {
 			// System.out.println(K);
 			// System.out.println("sum_Learn :"+sum_Learn);
 			int Kc = Utils.getKc(K);
-			Double diff_IM = Operations.substractDouble( Utils.getInitialMasteryMap(Kc),old_initalMastery[K]);
+			Double diff_IM = Operations.substractDouble(old_initalMastery[K], Utils.getInitialMasteryMap(Kc));
+			Double add_IM = Operations.addDouble(old_initalMastery[K], Utils.getInitialMasteryMap(Kc));
 			// System.out.println("diff_IM :"+diff_IM+" =
 			// "+old_initalMastery[K]+" - "+Utils.getInitialMasteryMap(Kc));
-			Double change_IM = Operations.divideDouble(diff_IM,old_initalMastery[K] );
+			Double change_IM = Operations.divideDouble(diff_IM, add_IM);
 			// System.out.println("change_IM :"+change_IM);
 			sum_initalMaster = Operations.addDouble(sum_initalMaster, change_IM);
 			// System.out.println("sum_initalMaster :"+sum_initalMaster);
 
-			Double diff_L = Operations.substractDouble(Utils.getLearnMap(Kc), old_Learn[K]);
+			Double diff_L = Operations.substractDouble(old_Learn[K], Utils.getLearnMap(Kc));
+			Double add_L = Operations.addDouble(old_Learn[K], Utils.getLearnMap(Kc));
 			// System.out.println("diff_L :"+diff_L+" = "+old_Learn[K]+" -
 			// "+Utils.getLearnMap(Kc));
-			Double change_L = Operations.divideDouble(diff_L, old_Learn[K]);
+			Double change_L = Operations.divideDouble(diff_L, add_L);
 			// System.out.println("change_L :"+change_L);
 			sum_Learn = Operations.addDouble(sum_Learn, change_L);
 			// System.out.println("sum_Learn = sum_Learn+change_L "+sum_Learn);
@@ -96,12 +98,15 @@ public class Calibration {
 		}
 		for (int Q = 0; Q < total_Q; Q++) {
 			int question = Utils.getQuestion(Q);
-			Double diff_S = Operations.substractDouble( Utils.getSlipMap(question),old_slip[Q]);
-			Double change_S = Operations.divideDouble(diff_S, old_slip[Q]);
+			Double diff_S = Operations.substractDouble(old_slip[Q], Utils.getSlipMap(question));
+			Double add_S = Operations.addDouble(old_slip[Q], Utils.getSlipMap(question));
+			Double change_S = Operations.divideDouble(diff_S, add_S);
 			sum_slip = Operations.addDouble(sum_slip, change_S);
 
-			Double diff_G = Operations.substractDouble(Utils.getGuessMap(question), old_guess[Q]);
-			Double change_G = Operations.divideDouble(diff_G, old_guess[Q]);
+			Double diff_G = Operations.substractDouble(old_guess[Q], Utils.getGuessMap(question));
+			Double add_G = Operations.addDouble(old_guess[Q], Utils.getGuessMap(question));
+			
+			Double change_G = Operations.divideDouble(diff_G, add_G);
 			sum_guess = Operations.addDouble(sum_guess, change_G);
 			// System.out.println("sum_guess "+sum_guess+" = "+sum_guess+" +
 			// "+change_G);
@@ -115,13 +120,13 @@ public class Calibration {
 		SChange = Operations.divideDouble(sum_slip, Double.valueOf(total_Q));
 		GChange = Operations.divideDouble(sum_guess, Double.valueOf(total_Q));
 		
-		// Consider both +ve change and -ve change as same
 		IMChange = Math.abs(IMChange);
-		LChange = Math.abs(LChange);
+		LChange =  Math.abs(LChange);
 		SChange = Math.abs(SChange);
 		GChange = Math.abs(GChange);
 		
 		System.out.println("IMChange   " + IMChange + "   LChange:  " + LChange + "  SChange: " + SChange+ "    GChange:  " + GChange);
+		
 		maxChange = Math.max(IMChange, LChange);
 		maxChange = Math.max(maxChange, SChange);
 		maxChange = Math.max(maxChange, GChange);
@@ -144,16 +149,16 @@ public class Calibration {
 	private static void fillRandomParameters() {
 		Random r = new Random();
 		for (int KcIndex = 0; KcIndex < total_KCs; KcIndex++) {
-			/*
-			 * double r_initalMaster = 0.05 + r.nextDouble() * (0.95 - 0.05);
-			 * double r_Learn = 0.05 + r.nextDouble() * (0.5 - 0.05);
-			 */
+			
+			  double r_initalMaster = 0.05 + r.nextDouble() * (0.95 - 0.05);
+			  double r_Learn = 0.05 + r.nextDouble() * (0.5 - 0.05);
+			 
 
 			// SIMULATION
 			// double randomValue = rangeMin + (rangeMax - rangeMin) *
 			// r.nextDouble();
-			double r_initalMaster = 0.1 + r.nextDouble() * (0.7 - 0.1);
-			double r_Learn = 0.1 + r.nextDouble() * (0.7 - 0.1);
+/*			double r_initalMaster = 0.1 + r.nextDouble() * (0.7 - 0.1);
+			double r_Learn = 0.1 + r.nextDouble() * (0.7 - 0.1);*/
 			
 
 			int Kc = Utils.getKc(KcIndex);
@@ -163,15 +168,15 @@ public class Calibration {
 		}
 		// System.out.println("START");
 		for (int Q = 0; Q < total_Q; Q++) {
-			/*
-			 * double r_slip = 0.05 + r.nextDouble() * (0.45 - 0.05); double
-			 * r_guess = 0.01 + r.nextDouble() * (0.5 - 0.01);
-			 */
+			
+			 double r_slip = 0.05 + r.nextDouble() * (0.45 - 0.05); 
+			 double r_guess = 0.01 + r.nextDouble() * (0.5 - 0.01);
+			 
 
 			// SIMULATION
-			double r_slip = 0.001 + r.nextDouble() * (0.1 - 0.001);
-			double r_guess = 0.001 + r.nextDouble() * (0.1 - 0.001);
-
+			/*double r_slip = 0.01 + r.nextDouble() * (0.1 - 0.01);
+			double r_guess = 0.01 + r.nextDouble() * (0.1 - 0.01);
+*/
 			int question = Utils.getQuestion(Q);
 			Utils.setSlipMap(question, Double.valueOf(r_slip));
 			Utils.setGuessMap(question, Double.valueOf(r_guess));
@@ -309,7 +314,7 @@ public class Calibration {
 
 		// MySQLConnection.SetConnection();
 		System.out.println("CALIBRATION.....................");
-		PrintStream o = new PrintStream(new File("C:/Users/lkusnoor/Downloads/RA/CALIB.txt"));
+		PrintStream o = new PrintStream(new File("C:/Users/bandl/Downloads/CALIB.txt"));
 		System.setOut(o);
 		// SetDB
 		// setDatabase();
@@ -347,19 +352,16 @@ public class Calibration {
 					int Kc = Utils.getKc(KcIndex);
 					System.out.println("NEW IM: "+ Utils.getInitialMasteryMap(Kc)); 
 				}
-				System.out.println();
 				for (int KcIndex = 0; KcIndex < total_KCs; KcIndex++) {
 					System.out.println("OLD L: "+ old_Learn[KcIndex]); 
 					int Kc = Utils.getKc(KcIndex);
 					System.out.println("NEW L: "+ Utils.getLearnMap(Kc)); 
 				}
-				System.out.println();
 				for (int Q = 0; Q < total_Q; Q++) {
 					System.out.println("OLD S: "+ old_slip[Q]); 
 					int q = Utils.getQuestion(Q);
 					System.out.println("NEW S: "+ Utils.getSlipMap(q)); 
 				}
-				System.out.println();
 				for (int Q = 0; Q < total_Q; Q++) {
 					System.out.println("OLD G: "+ old_guess[Q]); 
 					int q = Utils.getQuestion(Q);

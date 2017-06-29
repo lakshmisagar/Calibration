@@ -53,18 +53,40 @@ public class SlipsAndGuesses {
 						}else{
 							SlipNumerator =  Operations.addDouble(SlipNumerator,OK);
 						}
+						
+						//System.out.println("SlipNumerator "+SlipNumerator);
+						//System.out.println("SlipDenominator "+SlipDenominator);
+						
+						//SIMULATION
+				//		Double max = Math.max(Double.valueOf(0.05), Operations.divideDouble(SlipNumerator,SlipDenominator));
+						// System.out.println("setLearnMap :" + Math.min(Double.valueOf(0.5), max) + " " + Double.valueOf(0.5) + " " + max);
+						//Utils.setLearnMap(Kc, Math.min(Double.valueOf(0.7), max));
+				//		Utils.setSlipMap(Q,  Math.min(Double.valueOf(0.45), max));
+						
+				//		Double max2 = Math.max(Double.valueOf(0.01), Operations.divideDouble(GuessNumerator,GuessDenominator));
+						// System.out.println("setLearnMap :" + Math.min(Double.valueOf(0.5), max) + " " + Double.valueOf(0.5) + " " + max);
+						//Utils.setLearnMap(Kc, Math.min(Double.valueOf(0.7), max));
+				//		Utils.setGuessMap(Q,  Math.min(Double.valueOf(0.5), max2));
+						
+						
+					//	Utils.setSlipMap(Q,  Operations.divideDouble(SlipNumerator,SlipDenominator));
+						//System.out.println("Utils.mSlip[Q]"+Utils.getSlipMap(Q));
+						//System.out.println("GuessNumerator "+GuessNumerator);
+						//System.out.println("GuessDenominator "+GuessDenominator);
+					//	Utils.setGuessMap(Q, Operations.divideDouble(GuessNumerator,GuessDenominator));
+						//System.out.println("Utils.mGuess[Q]"+Utils.getGuessMap(Q));
+						//System.out.println();
 					}
 				}
 			}
-			//System.out.println("SlipNumerator "+SlipNumerator);
-			//System.out.println("SlipDenominator "+SlipDenominator);
 			Utils.setSlipMap(Q,  Operations.divideDouble(SlipNumerator,SlipDenominator));
-			//System.out.println("Utils.mSlip[Q]"+Utils.getSlipMap(Q));
-			//System.out.println("GuessNumerator "+GuessNumerator);
-			//System.out.println("GuessDenominator "+GuessDenominator);
 			Utils.setGuessMap(Q, Operations.divideDouble(GuessNumerator,GuessDenominator));
-			//System.out.println("Utils.mGuess[Q]"+Utils.getGuessMap(Q));
-			//System.out.println();
+	//		Double max = Math.max(Double.valueOf(0.05), Operations.divideDouble(SlipNumerator,SlipDenominator));
+	//		Utils.setSlipMap(Q,  Math.min(Double.valueOf(0.45), max));
+			
+	//		Double max2 = Math.max(Double.valueOf(0.01), Operations.divideDouble(GuessNumerator,GuessDenominator));
+	//		Utils.setGuessMap(Q,  Math.min(Double.valueOf(0.5), max2));
+			
 		}
 	}
 }
