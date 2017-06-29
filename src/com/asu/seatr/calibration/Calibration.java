@@ -181,7 +181,7 @@ public class Calibration {
 			//System.out.println("Q :"+question+" S: "+Utils.getSlipMap(question)+" G: "+Utils.getGuessMap(question));
 		}
 		// System.out.println("STOP");
-		 //printRandomParameters();
+		 printRandomParameters();
 		
 		//SIMULATION
 		SimulateDataBase.setInitialCompetence();
@@ -197,15 +197,15 @@ public class Calibration {
 		Double sum_slip = (double) 0;
 		Double sum_guess = (double) 0;
 		
-		System.out.println("SAGAR");
+		//System.out.println("SAGAR");
 		for (int K = 0; K < total_KCs; K++) {
 			// System.out.println(K);
 			// System.out.println("sum_Learn :"+sum_Learn);
 			int Kc = Utils.getKc(K);
-			System.out.println(" SAGAR R_IM :"+K+"  "+ Utils.getInitialMasteryMap(Kc));
+			//System.out.println(" SAGAR R_IM :"+K+"  "+ Utils.getInitialMasteryMap(Kc));
 			sum_initalMaster = Operations.addDouble(sum_initalMaster, Utils.getInitialMasteryMap(Kc));
 			// System.out.println("sum_initalMaster :"+sum_initalMaster);
-			System.out.println(" SAGAR R_L :"+K+"  "+ Utils.getLearnMap(Kc));
+			//System.out.println(" SAGAR R_L :"+K+"  "+ Utils.getLearnMap(Kc));
 			sum_Learn = Operations.addDouble(sum_Learn, Utils.getLearnMap(Kc));
 			// System.out.println("sum_Learn = sum_Learn+change_L "+sum_Learn);
 
@@ -216,14 +216,14 @@ public class Calibration {
 
 			sum_guess = Operations.addDouble(sum_guess, Utils.getGuessMap(question));
 			// System.out.println("sum_guess "+sum_guess+" = "+sum_guess+" + "+change_G);
-			System.out.println(" SAGAR R_S :"+Q+"  "+ Utils.getSlipMap(question));
-			System.out.println(" SAGAR R_G :"+Q+"  "+ Utils.getGuessMap(question));
+			//System.out.println(" SAGAR R_S :"+Q+"  "+ Utils.getSlipMap(question));
+			//System.out.println(" SAGAR R_G :"+Q+"  "+ Utils.getGuessMap(question));
 		}
 		Random_IM = Operations.divideDouble(sum_initalMaster, Double.valueOf(total_KCs));
 		Random_L = Operations.divideDouble(sum_Learn, Double.valueOf(total_KCs));
 		Random_S = Operations.divideDouble(sum_slip, Double.valueOf(total_Q));
 		Random_G = Operations.divideDouble(sum_guess, Double.valueOf(total_Q));
-		//System.out.println("Random_IM   " + Random_IM + "   Random_L:  " + Random_L + "  Random_S: " + Random_S	+ "    Random_G:  " + Random_G);
+		System.out.println(/*"Random_IM   " + Random_IM + "   Random_L:  " + Random_L + */"  Random_S: " + Random_S	/*+ "    Random_G:  " + Random_G*/);
 	}
 	 
 

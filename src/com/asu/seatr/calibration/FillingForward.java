@@ -3,9 +3,7 @@
  */
 package com.asu.seatr.calibration;
 
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.PrintStream;
 import java.util.ArrayList;
 
 import com.asu.seatr.utils.GlobalConstants;
