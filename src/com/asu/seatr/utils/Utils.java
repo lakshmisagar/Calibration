@@ -161,7 +161,7 @@ public class Utils {
 	}
 
 	public static void setLearnMap(int Kc, Double value) {
-		System.out.println(" setLearnMap  : "+Kc+"  "+value);
+		//System.out.println(" setLearnMap  : "+Kc+"  "+value);
 		kc_initialMastery_Learn_map.get(Kc).put(GlobalConstants.Learn, value);
 	}
 
