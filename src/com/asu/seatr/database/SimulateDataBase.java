@@ -27,7 +27,7 @@ public class SimulateDataBase {
 		// S
 		int[] ids = new int[GlobalConstants.total_Students];
 		for (int i = 0; i < GlobalConstants.total_Students; i++) {
-			ids[i++] = i;
+			ids[i] = i;
 		}
 		Utils.setStudentsList(ids);
 
