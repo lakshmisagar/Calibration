@@ -41,8 +41,8 @@ public class SlipsAndGuesses {
 						}
 						
 						//System.out.println("final OK "+OK);
-						SlipDenominator = Operations.addDouble(SlipDenominator,OK);
-						GuessDenominator = Operations.addDouble(GuessDenominator,Operations.substractDouble((double)1,OK));
+						SlipDenominator = Operations.addDouble(SlipDenominator,(double)1);
+						GuessDenominator = Operations.addDouble(GuessDenominator,(double)1);
 						
 						//System.out.println("Utils.getAnswer("+S+","+ A+")"+Utils.getAnswer(S, A));
 						
@@ -90,18 +90,18 @@ public class SlipsAndGuesses {
 					}
 				}
 			}
-			System.out.println("Final");
+			/*System.out.println("Final");
 			System.out.println(" Final");
 			System.out.println("Final SlipNumerator "+SlipNumerator);
 			System.out.println("Final SlipDenominator "+SlipDenominator);
 			System.out.println("Final GuessNumerator "+GuessNumerator);
-			System.out.println("Final GuessDenominator "+GuessDenominator);
+			System.out.println("Final GuessDenominator "+GuessDenominator);*/
 			if(SlipDenominator==0.0) {
 				Utils.setSlipMap(Q,  0.0);
 			}else{
 				Utils.setSlipMap(Q,  Operations.divideDouble(SlipNumerator,SlipDenominator));
 			}
-			System.out.println("Final Utils.mSlip[Q]"+Utils.getSlipMap(Q));
+			//System.out.println("Final Utils.mSlip[Q]"+Utils.getSlipMap(Q));
 			/*System.out.println("GuessNumerator "+GuessNumerator);
 			System.out.println("GuessDenominator "+GuessDenominator);*/
 			if(GuessDenominator==0.0){
@@ -109,8 +109,8 @@ public class SlipsAndGuesses {
 			}else{
 				Utils.setGuessMap(Q, Operations.divideDouble(GuessNumerator,GuessDenominator));
 			}
-			System.out.println("Final Utils.mGuess[Q]"+Utils.getGuessMap(Q));
-			System.out.println();
+			/*System.out.println("Final Utils.mGuess[Q]"+Utils.getGuessMap(Q));
+			System.out.println();*/
 			
 		}
 	}
