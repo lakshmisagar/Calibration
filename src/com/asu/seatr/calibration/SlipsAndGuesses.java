@@ -14,14 +14,14 @@ import com.asu.seatr.utils.Utils;
 public class SlipsAndGuesses {
 	// looping for each question in the course
 	public static void updateSlipnGuesses() {
-		System.out.println("SlipsAndGuesses ................................");
+		//System.out.println("SlipsAndGuesses ................................");
 		for (int Qi = 0; Qi < GlobalConstants.total_Questions ; Qi++) {
 			int Q = Utils.getQuestion(Qi);
 			Double SlipNumerator = (double)0;
 			Double SlipDenominator = (double)0;
 			Double GuessNumerator = (double)0;
 			Double GuessDenominator = (double)0;
-			System.out.println("Question is: ----------------------- "+Q);
+			//System.out.println("Question is: ----------------------- "+Q);
 			// looping the number of students in the course
 			for (int St = 0; St < GlobalConstants.total_Students ; St++) {
 				int S = Utils.getStudent(St);
@@ -91,27 +91,17 @@ public class SlipsAndGuesses {
 				}
 			}
 			/*System.out.println("Final");
-			System.out.println(" Final");
 			System.out.println("Final SlipNumerator "+SlipNumerator);
 			System.out.println("Final SlipDenominator "+SlipDenominator);
 			System.out.println("Final GuessNumerator "+GuessNumerator);
 			System.out.println("Final GuessDenominator "+GuessDenominator);*/
-			if(SlipDenominator==0.0) {
-				Utils.setSlipMap(Q,  0.0);
-			}else{
-				Utils.setSlipMap(Q,  Operations.divideDouble(SlipNumerator,SlipDenominator));
-			}
+			Utils.setSlipMap(Q,  Operations.divideDouble(SlipNumerator,SlipDenominator));
 			//System.out.println("Final Utils.mSlip[Q]"+Utils.getSlipMap(Q));
 			/*System.out.println("GuessNumerator "+GuessNumerator);
 			System.out.println("GuessDenominator "+GuessDenominator);*/
-			if(GuessDenominator==0.0){
-				Utils.setGuessMap(Q,  0.0);
-			}else{
 				Utils.setGuessMap(Q, Operations.divideDouble(GuessNumerator,GuessDenominator));
-			}
 			/*System.out.println("Final Utils.mGuess[Q]"+Utils.getGuessMap(Q));
 			System.out.println();*/
-			
 		}
 	}
 }

@@ -207,7 +207,7 @@ public class Utils {
 	}
 
 	public static void setSlipMap(int question, Double value) {
-		// System.out.println("setSlipMap :" + question + " " + value);
+		//System.out.println("setSlipMap :" + question + " " + value);
 		Q_QM_Slip_Guess_map.get(question).put(GlobalConstants.Slip, value.toString());
 	}
 

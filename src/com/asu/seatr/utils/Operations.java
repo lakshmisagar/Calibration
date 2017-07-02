@@ -15,6 +15,7 @@ public class Operations {
 	}
 
 	public static Double divideDouble(Double value1, Double value2) {
+		if(value1==(double)0) return (double)0;
 		return value1/value2;
 	}
 	
