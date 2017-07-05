@@ -14,7 +14,7 @@ public class SimulateDataBase {
 
 		GlobalConstants.total_KCs = 1;
 		GlobalConstants.total_Questions = 10;
-		GlobalConstants.total_Students = 100;
+		GlobalConstants.total_Students = 3;
 		Random r = new Random();
 
 		// KC

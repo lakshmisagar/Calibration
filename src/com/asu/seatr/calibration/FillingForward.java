@@ -19,24 +19,24 @@ public class FillingForward {
 	static Double initial_OK = new Double(1.0);
 
 	public static void fillingForward() throws FileNotFoundException {
-		//System.out.println("FillingForward ...............................");
+		System.out.println("FillingForward ...............................");
 		
 		int Ns = GlobalConstants.total_Students;
 		int Nk = GlobalConstants.total_KCs;
 		//System.out.println("Ns :" + Ns + "   Nk  :" + Nk);
 		for (int St = 0; St < Ns; St++) {
 			int S = Utils.getStudent(St);
-			/// System.out.println("Student ...."+S);
+			 System.out.println("Student ...."+S);
 			for (int K = 0; K < Nk; K++) {
 				Double value = Utils.getInitialMasteryMap(Utils.getKc(K));
-				//System.out.println("updateForward  1 (" + S + ", " + Utils.getKc(K) + "," + 1 + ") :" + value);
+				System.out.println("updateForward  1 (" + S + ", " + Utils.getKc(K) + "," + 1 + ") :" + value);
 				Utils.updateForward(S, Utils.getKc(K), 1, value);
 			}
 			 //System.out.println("Attempts......"+ Utils.getLast(S));
 			for (int A = 1; A < Utils.getLast(S); A++) {
-				//System.out.println("Attempt....."+A);
+				System.out.println("Attempt....."+A);
 				int question = Utils.getQuestion(S, A);
-				//System.out.println("question....."+question);
+				System.out.println("question....."+question);
 				ArrayList<Integer> KCs = Utils.getQuestionMatrix(question);
 				for (int K = 0; K < Nk; K++) {
 					Utils.updateForward(S, Utils.getKc(K), A + 1, Utils.getForward(S, Utils.getKc(K), A));
@@ -46,18 +46,18 @@ public class FillingForward {
 					//System.out.println("KCs involved....."+KCs.get(list_K));
 					OK = Operations.multiplyDouble(OK, Utils.getForward(S, KCs.get(list_K), A));
 				}
-				// System.out.println();
+				 System.out.println();
 				Double slip = Utils.getSlipMap(question);
 				Double guess = Utils.getGuessMap(question);
-				//System.out.println("Slip: "+slip+"  Guess:"+guess);
+				System.out.println("Slip: "+slip+"  Guess:"+guess);
 				Double slipPlusGuess = Operations.addDouble(slip, guess);
 				Double oneMinusSlipPlusGuess = Operations.substractDouble((double) 1, slipPlusGuess);
 				Double x = Operations.multiplyDouble(OK, oneMinusSlipPlusGuess);
 				Double y = guess;
-				/*System.out.println("OK :"+OK);
+				System.out.println("OK :"+OK);
 				System.out.println("1-(S+G) :"+oneMinusSlipPlusGuess);
 				System.out.println("x :"+x);
-				System.out.println("y :"+y);*/
+				System.out.println("y :"+y);
 				/*if (Utils.getAnswer(S, A) == 0) {
 					y = Operations.substractDouble((double) 1, y);
 					x = -x;
@@ -66,8 +66,8 @@ public class FillingForward {
 				if (Utils.simulategetSetAnswer(S, question)== (double)0) {
 					y = Operations.substractDouble((double) 1, y);
 					x = -x;
-					//System.out.println("y :"+y);
-					//System.out.println("x :"+x);
+					System.out.println("y :"+y);
+					System.out.println("x :"+x);
 				}
 							
 				
@@ -78,10 +78,9 @@ public class FillingForward {
 								Operations.multiplyDouble(y, Utils.getForward(S, KCs.get(list_K), A)), x);
 						Double forwardfillingValue = Operations.divideDouble(forwardNumeratorValue,
 								Operations.addDouble(y, x));
-						//System.out.println("x   "+x+"  y  "+y);
-						//System.out.println("forwardNumeratorValue  "+forwardNumeratorValue+"  x+y  "+Operations.addDouble(y, x));
-						//System.out.println("updateForward 2  (" + S + ", " + Utils.getKc(list_K) + "," + (A + 1) + ") :"
-						//		+ forwardfillingValue);
+						System.out.println("x   "+x+"  y  "+y);
+						System.out.println("forwardNumeratorValue  "+forwardNumeratorValue+"  x+y  "+Operations.addDouble(y, x));
+						System.out.println("updateForward 2  (" + S + ", " + Utils.getKc(list_K) + "," + (A + 1) + ") :"+ forwardfillingValue);
 						Utils.updateForward(S, KCs.get(list_K), A + 1, forwardfillingValue);
 					} 
 				Double SE = initial_OK;
@@ -103,11 +102,11 @@ public class FillingForward {
 					// (A+1)+") :"+ forwardfillingValue);
 					Utils.updateForward(S, KCs.get(list_K), A + 1, forwardfillingValue);
 				}
-				//System.out.println("CORRECT is: "+Utils.simulategetSetAnswer(S, question));
-				//System.out.println("Forward for Attempt: "+(A+1)+" = "+Utils.getForward(S, 0, A+1));
-				//System.out.println();
+				System.out.println("CORRECT is: "+Utils.simulategetSetAnswer(S, question));
+				System.out.println("UPDATEBACKWARDD Forward for Attempt: "+(A+1)+" = "+Utils.getForward(S, 0, A+1));
+				System.out.println();
 			}
-			//System.out.println();
+			System.out.println();
 		}
 	}
 }

@@ -30,9 +30,9 @@ public class Learn {
 					if (KCs.contains(Kc)) {
 						
 						//NEW CHNAGES
+						System.out.println(" LearnNumerator: = "+LearnNumerator+" + ("+Utils.getBest(S, Kc, A + 1)+" * ( 1-"+Utils.getBest(S, Kc, A)+"))");
 						LearnNumerator = Operations.addDouble(LearnNumerator,Operations.multiplyDouble(Utils.getBest(S, Kc, A + 1), Operations.substractDouble(1.0,Utils.getBest(S, Kc, A))));
                         LearnDenominator = Operations.addDouble(LearnDenominator, Operations.substractDouble((double) 1, Utils.getBest(S, Kc, A)));
-                        
 						/*Double SE = new Double(1.0);
 						for (int list_K = 0; list_K < KCs.size(); list_K++) {
 							int j = KCs.get(list_K);
@@ -53,24 +53,38 @@ public class Learn {
 				}
 				//System.out.println("LearnNumerator	 :" + LearnNumerator );
 			   // System.out.println("LearnDenominator :" + LearnDenominator );
-
 			}
 			Double LnByLd;
 			if(LearnDenominator==0){
 				LnByLd = (double)0;
 			}else{
 				LnByLd = Operations.divideDouble(LearnNumerator, LearnDenominator);
+				
 			}
+			for (int St = 0; St < GlobalConstants.total_Students; St++) {
+				int S = Utils.getStudent(St);
+				for (int A = Utils.getLast(S); A >= 1; A--) {
+					int question = Utils.getQuestion(S, A);
+					ArrayList<Integer> KCs = Utils.getQuestionMatrix(question);
+					for (int list_K = 0; list_K < KCs.size(); list_K++) {
+						System.out.println("LnByLd:"+LnByLd+" Utils.getBackward(" + S + ", " + KCs.get(list_K) + "," + (A + 1) + ") :"
+								+ Utils.getBackward(S, KCs.get(list_K), A + 1));
+						if(LnByLd==Utils.getBackward(S, KCs.get(list_K), A + 1)){
+							System.out.println("FOUND");
+						}
+					}
+				}
+			}
+			
 			//System.out.println("LnByLd :" + LnByLd);
 			Double max = Math.max(Double.valueOf(0.05), LnByLd);
 			// System.out.println("setLearnMap :" + Math.min(Double.valueOf(0.5), max) + " " + Double.valueOf(0.5) + " " + max);
-			Utils.setLearnMap(Kc, Math.min(Double.valueOf(0.5), max));
+			Utils.setLearnMap(Kc, /*LnByLd*/ Math.min(Double.valueOf(0.5), max));
 			
 			//SIMULATION
 			//Double max = Math.max(Double.valueOf(0.1), LnByLd);
 			// System.out.println("setLearnMap :" + Math.min(Double.valueOf(0.5), max) + " " + Double.valueOf(0.5) + " " + max);
 			//Utils.setLearnMap(Kc, Math.min(Double.valueOf(0.7), max));
 		}
-
 	}
 }

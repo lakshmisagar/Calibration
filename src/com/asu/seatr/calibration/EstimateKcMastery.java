@@ -19,9 +19,9 @@ public class EstimateKcMastery {
 					//System.out.println("getForward  "+Utils.getForward(S, Utils.getKc(K), A)+"     getBackward   "+Utils.getBackward(S, Utils.getKc(K), A));
 					//System.out.println("EstimateKcMastery::::");
 					int PrevQuestion = Utils.getQuestion(S, A);
-					//System.out.println("IS CORRECT :"+Utils.simulategetSetAnswer(S, PrevQuestion));
-					//System.out.println("getForward S:"+S+" K:"+Utils.getKc(K)+" A:"+A+" - "+ Utils.getForward(S, Utils.getKc(K), A));
-					//System.out.println("getBackward S:"+S+" K:"+Utils.getKc(K)+" A:"+A+" - "+ Utils.getBackward(S, Utils.getKc(K), A));
+					System.out.println("IS CORRECT :"+Utils.simulategetSetAnswer(S, PrevQuestion));
+					System.out.println("getForward S:"+S+" K:"+Utils.getKc(K)+" A:"+A+" - "+ Utils.getForward(S, Utils.getKc(K), A));
+					System.out.println("getBackward S:"+S+" K:"+Utils.getKc(K)+" A:"+A+" - "+ Utils.getBackward(S, Utils.getKc(K), A));
 					Double bestValue = Operations.multiplyDouble(Utils.getForward(S, Utils.getKc(K), A),Utils.getBackward(S, Utils.getKc(K), A));
 					Utils.updateBest(S, Utils.getKc(K), A, bestValue);
 					//System.out.println();
