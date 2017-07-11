@@ -39,7 +39,7 @@ public class FillingForward {
 				System.out.println("question....."+question);
 				ArrayList<Integer> KCs = Utils.getQuestionMatrix(question);
 				for (int K = 0; K < Nk; K++) {
-					Utils.updateForward(S, Utils.getKc(K), A + 1, Utils.getForward(S, Utils.getKc(K), A));
+					Utils.updateForward(S, Utils.getKc(K), (A + 1), Utils.getForward(S, Utils.getKc(K), A));
 				}
 				Double OK = initial_OK;
 				for (int list_K = 0; list_K < KCs.size(); list_K++) {
@@ -81,18 +81,18 @@ public class FillingForward {
 						System.out.println("x   "+x+"  y  "+y);
 						System.out.println("forwardNumeratorValue  "+forwardNumeratorValue+"  x+y  "+Operations.addDouble(y, x));
 						System.out.println("updateForward 2  (" + S + ", " + Utils.getKc(list_K) + "," + (A + 1) + ") :"+ forwardfillingValue);
-						Utils.updateForward(S, KCs.get(list_K), A + 1, forwardfillingValue);
+						Utils.updateForward(S, KCs.get(list_K), (A + 1), forwardfillingValue);
 					} 
 				Double SE = initial_OK;
 				for (int list_K = 0; list_K < KCs.size(); list_K++) {
-					Double forward = Utils.getForward(S, KCs.get(list_K), A+1);
+					Double forward = Utils.getForward(S, KCs.get(list_K), (A+1));
 					Double var1 = Operations.substractDouble((double) 1, forward);
 					Double var2 = Operations.multiplyDouble(var1, Utils.getLearnMap(KCs.get(list_K)));
 					Double var3 = Operations.addDouble(forward, var2);
 					SE = Operations.multiplyDouble(SE, var3);
 				}
 				for (int list_K = 0; list_K < KCs.size(); list_K++) {
-					Double forward = Utils.getForward(S, KCs.get(list_K), A+1);
+					Double forward = Utils.getForward(S, KCs.get(list_K), (A+1));
 					Double Z = Operations.multiplyDouble(Operations.substractDouble((double) 1,forward), Utils.getLearnMap(KCs.get(list_K)));
 					Double nume = Operations.multiplyDouble(SE, Z);
 					Double denom = Operations.addDouble(forward, Z);
@@ -100,10 +100,10 @@ public class FillingForward {
 					Double forwardfillingValue = Operations.addDouble(forward, var2);
 					// System.out.println("updateForward("+S+", "+list_K+","+
 					// (A+1)+") :"+ forwardfillingValue);
-					Utils.updateForward(S, KCs.get(list_K), A + 1, forwardfillingValue);
+					Utils.updateForward(S, KCs.get(list_K), (A + 1), forwardfillingValue);
 				}
 				System.out.println("CORRECT is: "+Utils.simulategetSetAnswer(S, question));
-				System.out.println("UPDATEBACKWARDD Forward for Attempt: "+(A+1)+" = "+Utils.getForward(S, 0, A+1));
+				System.out.println("UPDATEBACKWARDD Forward for Attempt: "+(A+1)+" = "+Utils.getForward(S, 0, (A+1)));
 				System.out.println();
 			}
 			System.out.println();

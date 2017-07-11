@@ -287,7 +287,7 @@ public class Utils {
 	 * Backward
 	 */
 	public static void updateBackward(int S, int K, int A, Double backwardfillingValue) {
-		//System.out.println("updateBackward S:"+S+" K:"+K+" A:"+A+" : "+backwardfillingValue);
+		//if(S==0)System.out.println("updateBackward S:"+S+" K:"+K+" A:"+A+" : "+backwardfillingValue);
 		backward_outerStudentKcMap.get(S).get(K).put(A, backwardfillingValue);
 	}
 
